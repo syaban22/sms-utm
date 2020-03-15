@@ -52,7 +52,8 @@
                 <thead>
                     <tr>
                         <th scope="col">No</th>
-                        <th scope="col">Judul</th>
+                        <th scope="col">Nama</th>
+                        <th scope="col">NIM</th>
                         <th scope="col">Dosbing1</th>
                         <th scope="col">Dosbing2</th>
                         <th scope="col">Prodi</th>
@@ -73,7 +74,8 @@
                     <?php foreach ($skripsi as $u) : ?>
                         <tr>
                             <th scope="row"><?= ++$start; ?></th>
-                            <td><?= $u['judul']; ?></td>
+                            <td><?= $u['nama']; ?></td>
+                            <td><?= $u['nim']; ?></td>
                             <td><?= $u['dosbing1']; ?></td>
                             <td><?= $u['dosbing2']; ?></td>
                             <td><?= $u['prodi']; ?></td>

@@ -105,46 +105,49 @@ class dosen extends CI_Controller
         }
     }
 
-    // public function getMahasiswa()
-    // {
-    //     $data['judul'] = 'My Profile';
-    //     $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+    public function getMahasiswa()
+    {
+        $this->session->unset_userdata('keyword');
+        $data['judul'] = 'Mahasiswa';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
-    //     $this->load->model('user_model', 'userM');
-    //     $data['level'] = $this->db->get('user_level')->result_array();
-    //     //$data['user'] = $this->db->from('user');
+        $this->load->model('skripsi_model', 'skripsiM');
+        $data['level'] = $this->db->get('user_level')->result_array();
+        //$data['user'] = $this->db->from('user');
 
-    //     if ($this->input->post('submit')) {
-    //         $data['keyword'] = $this->input->post('keyword');
-    //         $this->session->set_userdata('keyword', $data['keyword']);
-    //     } else {
-    //         $data['keyword'] = $this->session->userdata('keyword');
-    //     }
+        if ($this->input->post('submit')) {
+            $data['keyword'] = $this->input->post('keyword');
+            $this->session->set_userdata('keyword', $data['keyword']);
+        } else {
+            $data['keyword'] = $this->session->userdata('keyword');
+        }
 
-    //     $this->db->like('username', $data['keyword']);
-    //     $this->db->from('user');
-    //     $config['total_rows'] = $this->db->count_all_results();
-    //     $data['total_rows'] = $config['total_rows'];
-    //     $config['base_url'] = 'http://localhost/sms-utm/dosen/getMahasiswa';
+        $this->db->like('nim', $data['keyword']);
+        $this->db->from('skripsi');
+        // $this->db->where('level_id != 1 AND level_id != 2');
+        $config['total_rows'] = $this->db->count_all_results();
+        $data['total_rows'] = $config['total_rows'];
+        $config['base_url'] = 'http://localhost/sms-utm/admin/StatusSkripsi';
 
-    //     $config['per_page'] = 5;
+        $config['per_page'] = 5;
 
-    //     $this->pagination->initialize($config);
+        $this->pagination->initialize($config);
 
-    //     if ($this->uri->segment(3) !== null) {
-    //         $data['start'] = $this->uri->segment(3);
-    //     } else {
-    //         $data['start'] = 0;
-    //     }
+        if ($this->uri->segment(3) !== null) {
+            $data['start'] = $this->uri->segment(3);
+        } else {
+            $data['start'] = 0;
+        }
 
-    //     $data['users'] = $this->userM->getUsers($config['per_page'], $data['start'], $data['keyword']);
+        $data['skripsi'] = $this->skripsiM->getSkripsi($config['per_page'], $data['start'], $data['keyword'], $data['user']['level_id']);
+        $data['penguji'] = $this->skripsiM->getPenguji();
 
-    //     $this->load->view('template/header', $data);
-    //     $this->load->view('template/sidebar', $data);
-    //     $this->load->view('template/topbar', $data);
-    //     $this->load->view('dosen/index', $data);
-    //     $this->load->view('template/footer');
-    // }
+        $this->load->view('template/header', $data);
+        $this->load->view('template/sidebar', $data);
+        $this->load->view('template/topbar', $data);
+        $this->load->view('dosen/mahasiswa', $data);
+        $this->load->view('template/footer');
+    }
 
 
     // public function perusahaan()

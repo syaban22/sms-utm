@@ -15,7 +15,7 @@ class Auth extends CI_Controller
         if ($this->session->userdata('level_id') == 1) {
             redirect('administrator');
         } elseif ($this->session->userdata('level_id') == 2) {
-            redirect('adminprodi');
+            redirect('admin');
         } elseif ($this->session->userdata('level_id') == 3) {
             redirect('dosen');
         } elseif ($this->session->userdata('level_id') == 4) {

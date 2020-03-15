@@ -112,6 +112,7 @@ class Mahasiswa extends CI_Controller
 
     public function DaftarkanSkripsi()
     {
+
         $data['judul'] = 'Daftarkan Skripsi';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
@@ -126,24 +127,30 @@ class Mahasiswa extends CI_Controller
         $this->form_validation->set_rules('dosbing2', 'Dosbing2', 'required');
 
 
-        if ($this->form_validation->run() == false) {
-            $this->load->view('template/header_Pekerjaan', $data);
-            // $this->load->view('template/sidebar', $data);
-            $this->load->view('template/topbar', $data);
-            $this->load->view('Mahasiswa/DaftarkanSkripsi', $data);
-            $this->load->view('template/footer');
+        if ($this->db->get('skripsi')->result_array() == true) {
+            $this->session->set_flashdata('pesan', 'Anda telah mendaftarkan 1 Skripsi');
+            redirect('Mahasiswa/StatusSkripsi');
         } else {
-            $data = [
-                'judul' => $this->input->post('judul'),
-                'nim' => $this->input->post('nim'),
-                'dosbing_1' => $this->input->post('dosbing1'),
-                'dosbing_2' => $this->input->post('dosbing2'),
-                'prodi' => $this->input->post('prodi'),
-            ];
 
-            $this->db->insert('skripsi', $data);
-            $this->session->set_flashdata('pesan', 'berhasil dikirim');
-            redirect('Mahasiswa/index');
+            if ($this->form_validation->run() == false) {
+                $this->load->view('template/header_Pekerjaan', $data);
+                // $this->load->view('template/sidebar', $data);
+                $this->load->view('template/topbar', $data);
+                $this->load->view('Mahasiswa/DaftarkanSkripsi', $data);
+                $this->load->view('template/footer');
+            } else {
+                $data = [
+                    'judul' => $this->input->post('judul'),
+                    'nim' => $this->input->post('nim'),
+                    'dosbing_1' => $this->input->post('dosbing1'),
+                    'dosbing_2' => $this->input->post('dosbing2'),
+                    'prodi' => $this->input->post('prodi'),
+                ];
+
+                $this->db->insert('skripsi', $data);
+                $this->session->set_flashdata('pesan', 'berhasil dikirim');
+                redirect('Mahasiswa/index');
+            }
         }
 
         // $config['upload_path']          = './asset/files/ktp/';
@@ -190,6 +197,50 @@ class Mahasiswa extends CI_Controller
         //         redirect('Mahasiswa/index');
         //     }
         // }
+    }
+
+    public function StatusSkripsi()
+    {
+        $this->session->unset_userdata('keyword');
+        $data['judul'] = 'Status Skripsi';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+
+        $this->load->model('skripsi_model', 'skripsiM');
+        $data['level'] = $this->db->get('user_level')->result_array();
+        //$data['user'] = $this->db->from('user');
+
+        if ($this->input->post('submit')) {
+            $data['keyword'] = $this->input->post('keyword');
+            $this->session->set_userdata('keyword', $data['keyword']);
+        } else {
+            $data['keyword'] = $this->session->userdata('keyword');
+        }
+
+        $this->db->like('nim', $data['keyword']);
+        $this->db->from('skripsi');
+        // $this->db->where('level_id != 1 AND level_id != 2');
+        $config['total_rows'] = $this->db->count_all_results();
+        $data['total_rows'] = $config['total_rows'];
+        $config['base_url'] = 'http://localhost/sms-utm/admin/StatusSkripsi';
+
+        $config['per_page'] = 5;
+
+        $this->pagination->initialize($config);
+
+        if ($this->uri->segment(3) !== null) {
+            $data['start'] = $this->uri->segment(3);
+        } else {
+            $data['start'] = 0;
+        }
+
+        $data['skripsi'] = $this->skripsiM->getSkripsi($config['per_page'], $data['start'], $data['keyword'], $data['user']['level_id']);
+        $data['penguji'] = $this->skripsiM->getPenguji();
+
+        $this->load->view('template/header', $data);
+        $this->load->view('template/sidebar', $data);
+        $this->load->view('template/topbar', $data);
+        $this->load->view('mahasiswa/StatusSkripsi', $data);
+        $this->load->view('template/footer');
     }
 
     public function getStatus()

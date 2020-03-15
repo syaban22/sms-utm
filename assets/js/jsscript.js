@@ -13,7 +13,17 @@ if (flashdata == 'berhasil dikirim') {
 	Swal.fire({
 		position: 'center',
 		icon: 'success',
-		title: 'Lamaran pekerjaan telah terkirim',
+		title: 'Skripsi Anda telah didaftarkan',
+		showConfirmButton: true,
+	})
+}
+
+if (flashdata == 'Anda telah mendaftarkan 1 Skripsi') {
+	Swal.fire({
+		position: 'center',
+		icon: 'warning',
+		title: 'Anda telah mendaftarkan 1 Skripsi',
+		text: 'Hubungi Admin untuk melakukan perubahan data Skripsi',
 		showConfirmButton: true,
 	})
 }
