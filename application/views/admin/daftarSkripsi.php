@@ -20,7 +20,7 @@
 	</div>
 	<div class="row">
 		<div class="col-md">
-			<a href="" class="btn btn-sm btn-primary mb-3" data-toggle="modal" data-target="#dosenBaru"><i class="fas fa-fw fa-plus-square"></i> Tambah Dosen</a>
+			<a href="" class="btn btn-sm btn-primary mb-3" data-toggle="modal" data-target="#dosenBaru"><i class="fas fa-fw fa-plus-square"></i> Tambah Skripsi</a>
 			<nav class="navbar navbar-light bg-light">
 				<?php
 				if ($keyword == null) {

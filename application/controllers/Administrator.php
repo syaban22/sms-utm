@@ -15,7 +15,9 @@ class Administrator extends CI_Controller
 		$this->session->unset_userdata('keyword');
 		$data['judul'] = 'Dashboard';
 		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-
+		$data['profil']= $data['user'];
+		$data['profil']['nama'] = 'administrator';
+		$data['profil']['gambar'] = 'default.jpg';
 		$this->load->model('user_model', 'userM');
 		$data['level'] = $this->db->get('user_level')->result_array();
 		//$data['user'] = $this->db->from('user');

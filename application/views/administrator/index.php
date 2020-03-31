@@ -58,7 +58,6 @@
 				<thead>
 					<tr>
 						<th scope="col">No</th>
-						<th scope="col">Nama</th>
 						<th scope="col">Username</th>
 						<th scope="col">Level</th>
 						<th scope="col">Action</th>
@@ -77,12 +76,11 @@
 					<?php foreach ($users as $u) : ?>
 						<tr>
 							<th scope="row"><?= ++$start; ?></th>
-							<td><?= $u['nama']; ?></td>
 							<td><?= $u['username']; ?></td>
 							<td><?= $u['level']; ?></td>
 							<td>
 								<a href="" data-toggle="modal" data-target="#pelamarEdit<?= $u['id'] ?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i>Edit</a>
-								<a href="<?= base_url() . 'administrator/deleteU/' . $u['id'] ?>" data-nama="<?= $u['nama']; ?>" class="btn btn-danger btn-sm deleteP"><i class="fa fa-fw fa-trash"></i>Delete</a>
+								<a href="<?= base_url() . 'administrator/deleteU/' . $u['id'] ?>" data-nama="<?= $u['username']; ?>" class="btn btn-danger btn-sm deleteP"><i class="fa fa-fw fa-trash"></i>Delete</a>
 							</td>
 						</tr>
 					<?php endforeach; ?>

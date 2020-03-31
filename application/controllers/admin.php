@@ -15,9 +15,11 @@ class admin extends CI_Controller
 		$this->session->unset_userdata('keyword');
 		$data['judul'] = 'User Lists';
 		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+		$userid = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+		$data['profil']= $this->db->get_where('admin', ['username' => $userid['id']])->row_array();
+		$data['level'] = $this->db->get('user_level')->result_array();
 
 		$this->load->model('user_model', 'userM');
-		$data['level'] = $this->db->get('user_level')->result_array();
 		//$data['user'] = $this->db->from('user');
 
 		if ($this->input->post('submit')) {
@@ -57,49 +59,37 @@ class admin extends CI_Controller
 	{
 		$this->session->unset_userdata('keyword');
 		$data['judul'] = 'Daftar Dosen';
-		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-
-
-		$this->load->model('dosen_model', 'dosenM');
+		$data['user'] = $this->db->get_where('admin', ['username' => $this->session->userdata('username')])->row_array();
+		$userid = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+		$data['profil']= $this->db->get_where('admin', ['username' => $userid['id']])->row_array();
 		$data['prodi'] = $this->db->get('prodi')->result_array();
 		$data['username'] = $this->db->get_where('user', ['level_id' => '3'])->result_array();
-		//$data['user'] = $this->db->from('user');
-
+		$this->load->model('dosen_model', 'dosenM');
+		
+		// searching
 		if ($this->input->post('submit')) {
 			$data['keyword'] = $this->input->post('keyword');
 			$this->session->set_userdata('keyword', $data['keyword']);
 		} else {
 			$data['keyword'] = $this->session->userdata('keyword');
 		}
-
 		$this->db->like('nama', $data['keyword']);
 		$this->db->from('dosen');
+		// page
 		$config['total_rows'] = $this->db->count_all_results();
 		$data['total_rows'] = $config['total_rows'];
 		$config['base_url'] = 'http://localhost/sms-utm/admin/daftarDosen';
-
 		$config['per_page'] = 5;
-
 		$this->pagination->initialize($config);
-
 		if ($this->uri->segment(3) !== null) {
 			$data['start'] = $this->uri->segment(3);
 		} else {
 			$data['start'] = 0;
 		}
-
 		$data['dosen'] = $this->dosenM->getDosen($config['per_page'], $data['start'], $data['keyword']);
-		// $data['userDosen'] = $this->dosenM->getUserDosen();
 
 		$this->form_validation->set_rules('nip', 'nipdosen', 'required');
 		$this->form_validation->set_rules('nama', 'namadosen', 'required');
-		$this->form_validation->set_rules('prodi', 'prodidosen', 'required');
-
-		if ($this->input->post('username') == NULL) {
-			$username = 'NULL';
-		} else {
-			$username = $this->input->post('username');
-		}
 
 		if ($this->form_validation->run() == false) {
 			$this->load->view('template/header', $data);
@@ -108,16 +98,26 @@ class admin extends CI_Controller
 			$this->load->view('admin/daftarDosen', $data);
 			$this->load->view('template/footer');
 		} else {
+			$usr = [
+				'username' => $this->input->post('nip'),
+				'password' => password_hash($this->input->post('nip'), PASSWORD_DEFAULT),
+				'gambar' => "default.jpg",
+				'nama' => $this->input->post('nama'),
+				'level_id' => 3
+			];
+			$this->db->insert('user', $usr);
+
+			$userid = $this->db->get_where('user', ['username' =>$this->input->post('nip')])->row_array();
 			$data = [
 				'nip' => $this->input->post('nip'),
 				'nama' => $this->input->post('nama'),
-				'username' => $username,
-				'prodi' => $this->input->post('prodi'),
+				'username' => $userid['id'],
+				'prodi' => $this->input->post('prodi')
 			];
-
 			$this->db->insert('dosen', $data);
 			$this->session->set_flashdata('pesan', 'ditambahkan');
 			redirect('admin/daftarDosen');
+			
 		}
 	}
 
@@ -152,7 +152,8 @@ class admin extends CI_Controller
 		$this->session->unset_userdata('keyword');
 		$data['judul'] = 'Daftar Mahasiswa';
 		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-
+		$userid = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+		$data['profil']= $this->db->get_where('admin', ['username' => $userid['id']])->row_array();
 
 		$this->load->model('mahasiswa_model', 'mahasiswaM');
 		$data['prodi'] = $this->db->get('prodi')->result_array();
@@ -246,7 +247,8 @@ class admin extends CI_Controller
 		$this->session->unset_userdata('keyword');
 		$data['judul'] = 'Daftar Skripsi';
 		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-
+		$userid = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+		$data['profil']= $this->db->get_where('admin', ['username' => $userid['id']])->row_array();
 		$this->load->model('skripsi_model', 'skripsiM');
 		$data['level'] = $this->db->get('user_level')->result_array();
 		//$data['user'] = $this->db->from('user');
@@ -381,32 +383,6 @@ class admin extends CI_Controller
 		}
 
 		$this->session->set_flashdata('pesan', 'Akses telah diganti');
-	}
-
-	public function perusahaan()
-	{
-		$data['judul'] = 'Perusahaan';
-		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-
-		$data['perusahaan'] = $this->db->get('perusahaan')->result_array();
-
-		$this->form_validation->set_rules('perusahaan', 'Perusahaan', 'required');
-
-		if ($this->form_validation->run() == false) {
-			$this->load->view('template/header', $data);
-			$this->load->view('template/sidebar', $data);
-			$this->load->view('template/topbar', $data);
-			$this->load->view('admin/perusahaan', $data);
-			$this->load->view('template/footer');
-		} else {
-			$data = [
-				'perusahaan' => $this->input->post('perusahaan'),
-			];
-
-			$this->db->insert('perusahaan', $data);
-			$this->session->set_flashdata('pesan', 'Perusahaan baru berhasil ditambahkan');
-			redirect('admin/perusahaan');
-		}
 	}
 
 	public function updateP($id)

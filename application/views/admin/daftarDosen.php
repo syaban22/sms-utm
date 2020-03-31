@@ -190,22 +190,6 @@
 					<div class="form-group">
 						<input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Dosen">
 					</div>
-					<div class="form-group">
-						<select name="prodi" id="prodi" class="form-control">
-							<option value="">- Pilih Prodi -</option>
-							<?php foreach ($prodi as $f) : ?>
-								<option value="<?= $f['kode_prodi']; ?>"><?= $f['prodi']; ?></option>
-							<?php endforeach; ?>
-						</select>
-					</div>
-					<div class="form-group">
-						<select name="username" id="username" class="form-control">
-							<option value="">- Pilih Username -</option>
-							<?php foreach ($username as $f) : ?>
-								<option value="<?= $f['id']; ?>"><?= $f['username']; ?> <?= '=> ' ?><?= $f['nama']; ?> </option>
-							<?php endforeach; ?>
-						</select>
-					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

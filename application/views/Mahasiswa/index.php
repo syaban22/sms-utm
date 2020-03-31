@@ -8,14 +8,15 @@
     <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
             <div class="col-md-4">
-                <img src="<?= base_url('assets/img/profile/') . $user['gambar']; ?>" class="card-img" alt="gambar">
+                <img src="<?= base_url('assets/img/profile/') . $profil['gambar']; ?>" class="card-img" alt="gambar">
             </div>
             <div class="col-md-8">
                 <div class="card-body">
-                    <h5 class="card-title"><?= $user['nama']; ?></h5>
+                    <h5 class="card-title"><?= $profil['nama']; ?></h5>
                     <p class="card-text"><?= $user['username']; ?></p>
-                    <p class="card-text"><small class="text-muted">Email : <?= $user['email']; ?></small></p>
-                    <p class="card-text"><small class="text-muted">Tanggal Daftar : <?= date('d F Y', $user['tgl_buat']); ?></small></p>
+                    <p class="card-text"><small class="text-muted">Email : <?= $profil['email']; ?></small></p>
+                    <!-- <p class="card-text"><small class="text-muted">Tanggal Daftar : <?= date('d F Y', $profil['tgl_buat']); ?></small></p> -->
+                    <p class="card-text"><small class="text-muted">Tanggal Daftar : <?= $profil['tgl_buat']; ?></small></p>
                     <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#FotoBaru"><i class="fa fa-fw fa-user"></i> Ubah Foto</a> <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#PassBaru"><i class="fa fa-fw fa-key"></i> Ubah Password</a>
                 </div>
             </div>
