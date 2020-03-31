@@ -8,7 +8,7 @@ class dosen_model extends CI_Model
         if ($keyword !== null) {
             $query =
                 "
-			SELECT d.nip, d.nama, u.username, p.prodi FROM dosen d, prodi p, user u WHERE d.prodi = p.kode_prodi and d.username = u.id and d.nama LIKE '%$keyword%' limit $start, $limit
+			SELECT d.nip, d.nama, u.username, p.prodi FROM dosen d, prodi p, user u WHERE d.prodi = p.kode_prodi and d.username = u.id and (d.nama LIKE '%$keyword%'OR p.prodi LIKE '%$keyword%' OR d.nip LIKE '%$keyword%') limit $start, $limit
 		";
         } else {
             $query =

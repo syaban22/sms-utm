@@ -4,6 +4,11 @@
 		<div class="card card-6">
 			<div class="card-heading">
 				<h2 class='title'>Daftarkan Skripsi</h2>
+				<!-- 
+					nampilkan kode fak dan kode prodi dari nim
+				<?= "kode fakultas : ",$kodefakultas; ?>
+				<?= "kode prodi : ",$kodeprodi; ?> 
+				-->
 			</div>
 			<div class="card-body">
 				<form method="POST" action="<?= base_url('Mahasiswa/DaftarkanSkripsi'); ?>" enctype="multipart/form-data">
@@ -15,37 +20,10 @@
 						</div>
 					</div>
 					<div class="form-row">
-						<div class="name">NIM Mahasiswa</div>
+						<div class="name">Abstract</div>
 						<div class="value">
-							<input class="input--style-6" type="text" name="nim" value="<?= $user['username'] ?>">
-						</div>
-					</div>
-					<div class="form-row">
-						<div class="name">Fakultas</div>
-						<div class="value">
-							<div class="input-group">
-								<select class="input--style-6" name="fakultas" id="fakultas">
-									<option value="">- Pilih Fakultas -</option>
-									<?php foreach ($fakultas as $p) : ?>
-										<option value="<?= $p['kode_fak']; ?>"><?= $p['fakultas']; ?></option>
-									<?php endforeach; ?>
-								</select>
-								<?= form_error('fakultas', '<div class="alert-danger mt-2" role="alert">', '</div>'); ?>
-							</div>
-						</div>
-					</div>
-					<div class="form-row">
-						<div class="name">Prodi</div>
-						<div class="value">
-							<div class="input-group">
-								<select name="prodi" id="prodi" class="input--style-6">
-									<option value="">- Pilih Prodi -</option>
-									<?php foreach ($prodi as $pr) : ?>
-										<option value="<?= $pr['kode_prodi']; ?>"><?= $pr['prodi']; ?></option>
-									<?php endforeach; ?>
-								</select>
-								<?= form_error('prodi', '<div class="alert-danger mt-2" role="alert">', '</div>'); ?>
-							</div>
+							<input class="input--style-6" type="text" name="abstract">
+							<?= form_error('abstract', '<div class="alert-danger mt-2" role="alert">', '</div>'); ?>
 						</div>
 					</div>
 					<div class="form-row">

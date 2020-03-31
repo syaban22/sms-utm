@@ -112,17 +112,23 @@ class Mahasiswa extends CI_Controller
 
     public function DaftarkanSkripsi()
     {
-
-        $data['judul'] = 'Daftarkan Skripsi';
+        //nim mahasiswa
+        $nim = $this->session->userdata('username');
+        //nim untuk kode fakultas dan prodi
+        $data['fakultas']= substr($nim,2,2);
+        $data['prodi'] = substr($nim,3,4);
+        //data untuk tampilan
+        $data['judul'] = "Daftarkan Judul";
+        
+        //$data['judul'] = 'Daftarkan Skripsi';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
-        $data['fakultas'] = $this->db->get('fakultas')->result_array();
-        $data['prodi'] = $this->db->get('prodi')->result_array();
+        //$data['fakultas'] = $this->db->get('fakultas')->result_array();
+        //$data['prodi'] = $this->db->get('prodi')->result_array();
         $data['dosen'] = $this->db->get('dosen')->result_array();
 
         $this->form_validation->set_rules('judul', 'Judul', 'required');
-        $this->form_validation->set_rules('fakultas', 'Fakultas', 'required');
-        $this->form_validation->set_rules('prodi', 'Prodi', 'required');
+        $this->form_validation->set_rules('abstract', 'Abstract', 'required');
         $this->form_validation->set_rules('dosbing1', 'Dosbing1', 'required');
         $this->form_validation->set_rules('dosbing2', 'Dosbing2', 'required');
 
@@ -141,12 +147,14 @@ class Mahasiswa extends CI_Controller
             } else {
                 $data = [
                     'judul' => $this->input->post('judul'),
-                    'nim' => $this->input->post('nim'),
-                    'dosbing_1' => $this->input->post('dosbing1'),
-                    'dosbing_2' => $this->input->post('dosbing2'),
-                    'prodi' => $this->input->post('prodi'),
+                    'abstract' => $this->input->post('abstract'), 
+                    'prodi' => substr($nim,3,4),
+                    'nim' => $nim,
+                    'dosbing_1' =>$this->input->post('dosbing1'),
+                    'dosbing_2' =>$this->input->post('dosbing2')
                 ];
-
+                var_dump($data);
+                //echo $this->input->post('dosbing1');
                 $this->db->insert('skripsi', $data);
                 $this->session->set_flashdata('pesan', 'berhasil dikirim');
                 redirect('Mahasiswa/index');

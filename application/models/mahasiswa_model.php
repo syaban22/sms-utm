@@ -8,8 +8,8 @@ class mahasiswa_model extends CI_Model
         if ($keyword !== null) {
             $query =
                 "
-			SELECT m.nim, m.nama, u.username, p.prodi FROM mahasiswa m, prodi p, user u WHERE m.prodi = p.kode_prodi and m.username = u.id and m.nama LIKE '%$keyword%' limit $start, $limit
-		";
+			SELECT m.nim, m.nama, u.username, p.prodi FROM mahasiswa m, prodi p, user u WHERE m.prodi = p.kode_prodi and m.username = u.id and (m.nama LIKE '%$keyword%' OR p.prodi LIKE '%$keyword%' OR u.username LIKE '%$keyword%') limit $start, $limit
+        ";
         } else {
             $query =
                 "
