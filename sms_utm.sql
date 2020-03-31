@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 20, 2020 at 07:40 AM
--- Server version: 10.4.6-MariaDB
--- PHP Version: 7.3.9
+-- Generation Time: Mar 31, 2020 at 07:24 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,24 +25,49 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `admin`
+--
+
+CREATE TABLE `admin` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(256) NOT NULL,
+  `gambar` varchar(256) NOT NULL,
+  `username` int(11) NOT NULL,
+  `prodi` varchar(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`id`, `nama`, `gambar`, `username`, `prodi`) VALUES
+(5, 'Admin TIF', 'default.jpg', 5, '4111');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `dosen`
 --
 
 CREATE TABLE `dosen` (
   `nip` varchar(18) NOT NULL,
   `nama` varchar(50) NOT NULL,
+  `gambar` varchar(256) NOT NULL,
   `username` int(11) DEFAULT NULL,
-  `prodi` varchar(4) NOT NULL
+  `prodi` varchar(4) NOT NULL,
+  `email` varchar(256) NOT NULL,
+  `tgl_buat` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `dosen`
 --
 
-INSERT INTO `dosen` (`nip`, `nama`, `username`, `prodi`) VALUES
-('197101092006021012', 'Muhammad Kautsar Sophan, S.T., M.T.	', 10, '0401'),
-('197406102008121002', 'Dr. Arif Muntasa, S.SI., M.T.', 13, '0401'),
-('198101092006041003', 'Achmad Jauhari, S.T., M.Kom.', 14, '0401');
+INSERT INTO `dosen` (`nip`, `nama`, `gambar`, `username`, `prodi`, `email`, `tgl_buat`) VALUES
+('197101092006021012', 'Muhammad Kautsar Sophan, S.T., M.T.	', '', 10, '4111', '', ''),
+('19740102017021002', 'Ir. Soekarno, Alm.', '', 22, '1112', '', ''),
+('197406102008121002', 'Dr. Arif Muntasa, S.SI., M.T.', '', 13, '4111', '', ''),
+('198101092006041003', 'Achmad Jauhari, S.T., M.Kom.', '', 14, '4111', '', '');
 
 -- --------------------------------------------------------
 
@@ -95,7 +120,10 @@ INSERT INTO `jenkel` (`id`, `jenis`) VALUES
 CREATE TABLE `mahasiswa` (
   `nim` char(12) NOT NULL,
   `nama` varchar(128) NOT NULL,
+  `gambar` varchar(256) NOT NULL,
   `prodi` varchar(4) NOT NULL,
+  `email` varchar(256) NOT NULL,
+  `tgl_buat` varchar(256) NOT NULL,
   `username` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -103,8 +131,8 @@ CREATE TABLE `mahasiswa` (
 -- Dumping data for table `mahasiswa`
 --
 
-INSERT INTO `mahasiswa` (`nim`, `nama`, `prodi`, `username`) VALUES
-('170411100119', 'Sya\'ban', '0401', 8);
+INSERT INTO `mahasiswa` (`nim`, `nama`, `gambar`, `prodi`, `email`, `tgl_buat`, `username`) VALUES
+('170411100119', 'Sya\'ban', '', '4111', '', '0000-00-00', 8);
 
 -- --------------------------------------------------------
 
@@ -123,15 +151,15 @@ CREATE TABLE `prodi` (
 --
 
 INSERT INTO `prodi` (`kode_fak`, `kode_prodi`, `prodi`) VALUES
-('01', '0101', 'Ilmu Kelautan'),
-('01', '0102', 'Agribisnis'),
-('01', '0103', 'TIP'),
-('02', '0201', 'Ilmu Hukum'),
-('03', '0301', 'Akuntansi'),
-('03', '0302', 'Manajemen'),
-('03', '0303', 'Ekonomi Pembangunan'),
-('04', '0401', 'Teknik Informatika'),
-('04', '0402', 'Teknik Industri');
+('01', '1111', 'Ilmu Kelautan'),
+('01', '1112', 'Agribisnis'),
+('02', '2111', 'Ilmu Hukum'),
+('03', '3111', 'Akuntansi'),
+('03', '3112', 'Manajemen'),
+('03', '3113', 'Ekonomi Pembangunan'),
+('01', '3311', 'TIP'),
+('04', '4111', 'Teknik Informatika'),
+('04', '4112', 'Teknik Industri');
 
 -- --------------------------------------------------------
 
@@ -142,6 +170,7 @@ INSERT INTO `prodi` (`kode_fak`, `kode_prodi`, `prodi`) VALUES
 CREATE TABLE `skripsi` (
   `id` int(11) NOT NULL,
   `judul` varchar(128) NOT NULL,
+  `abstract` varchar(256) NOT NULL,
   `nim` char(12) NOT NULL,
   `dosbing_1` varchar(18) DEFAULT NULL,
   `dosbing_2` varchar(18) DEFAULT NULL,
@@ -152,13 +181,24 @@ CREATE TABLE `skripsi` (
   `nilai` float DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `skripsi`
+-- Table structure for table `status`
 --
 
-INSERT INTO `skripsi` (`id`, `judul`, `nim`, `dosbing_1`, `dosbing_2`, `dosen_uji1`, `dosen_uji2`, `dosen_uji3`, `prodi`, `nilai`) VALUES
-(5, 'Deteksi buah dengan metode Haar Cascade', '170411100119', '197101092006021012', '197406102008121002', NULL, NULL, NULL, '0401', 0),
-(6, 'skripsi kedua tentang apa aja', '170411100119', '198101092006041003', '197406102008121002', NULL, NULL, NULL, '0401', 0);
+CREATE TABLE `status` (
+  `id` int(11) NOT NULL,
+  `ket` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `status`
+--
+
+INSERT INTO `status` (`id`, `ket`) VALUES
+(1, 'lulus'),
+(2, 'gagal');
 
 -- --------------------------------------------------------
 
@@ -168,28 +208,24 @@ INSERT INTO `skripsi` (`id`, `judul`, `nim`, `dosbing_1`, `dosbing_2`, `dosen_uj
 
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
-  `nama` varchar(128) NOT NULL,
-  `email` varchar(128) NOT NULL,
-  `gambar` varchar(128) NOT NULL,
   `username` varchar(128) NOT NULL,
   `password` varchar(256) NOT NULL,
-  `level_id` int(11) NOT NULL,
-  `aktif` int(1) NOT NULL,
-  `tgl_buat` int(11) NOT NULL
+  `level_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `nama`, `email`, `gambar`, `username`, `password`, `level_id`, `aktif`, `tgl_buat`) VALUES
-(4, 'administrator', 'syabansim@ymail.com', '', 'administrator', '$2y$10$lOjQD3YKnG1TAqyF1k9JeOIkTRzk8inf8n/CosseJRukE/CaKD.5m', 1, 1, 0),
-(5, 'Admin Teknik Informatika', 'syaban_22._-@ymail.com', '', 'AdminTI', '$2y$10$2uPPC9EUKzhVWtHHH1efHeV.aCNKWfYYLNwsRmLE6UNjGXawcSAt6', 2, 1, 0),
-(6, 'Dosen', 'syaban_22-@ymail.com', '', 'dosen', '$2y$10$G7HSSHiHISvvHv14jcISSu00/5fXvn2/vMgcFMVEP5r4jWI9NEKEW', 3, 1, 0),
-(8, 'syaban', '170411100119@student.trunojoyo.ac.id', 'sbn_sma.jpg', '170411100119', '$2y$10$rx93xysDjs4GOjSvuCspMeyrwtUr4XYbndGvntTyuvvJJHPAunZta', 4, 1, 1583670224),
-(10, 'Muhammad Kautsar Sophan, S.T., M.T.', 'dummy@gmail.com', 'default.jpg', '197101092006021012', '$2y$10$U2xaaVKXgX.zmrzG/mg33.cJi0M3cmKY3ynyJ9P3gTZ1ZUuNwL90S', 3, 1, 1583732627),
-(13, 'Dr. Arif Muntasa, S.SI., M.T.', 'NULL', 'default.jpg', '197406102008121002', '$2y$10$PXXoHHU1VXw93gFMv2FL4OoCG2cfiTqbyCeU9LwJPGyZwUIcsomMO', 3, 0, 1583749796),
-(14, 'Achmad Jauhari, S.T., M.Kom.', 'NULL', 'default.jpg', '198101092006041003', '$2y$10$WrSKILFnm4JuDBv8HYh1vuGPtfmRNMSuZHTsw92LupsQhhxvTPj5G', 3, 0, 1584191662);
+INSERT INTO `user` (`id`, `username`, `password`, `level_id`) VALUES
+(4, 'administrator', '$2y$10$lOjQD3YKnG1TAqyF1k9JeOIkTRzk8inf8n/CosseJRukE/CaKD.5m', 1),
+(5, 'AdminTI', '$2y$10$2uPPC9EUKzhVWtHHH1efHeV.aCNKWfYYLNwsRmLE6UNjGXawcSAt6', 2),
+(6, 'dosen', '$2y$10$G7HSSHiHISvvHv14jcISSu00/5fXvn2/vMgcFMVEP5r4jWI9NEKEW', 3),
+(8, '170411100119', '$2y$10$rx93xysDjs4GOjSvuCspMeyrwtUr4XYbndGvntTyuvvJJHPAunZta', 4),
+(10, '197101092006021012', '$2y$10$U2xaaVKXgX.zmrzG/mg33.cJi0M3cmKY3ynyJ9P3gTZ1ZUuNwL90S', 3),
+(13, '197406102008121002', '$2y$10$PXXoHHU1VXw93gFMv2FL4OoCG2cfiTqbyCeU9LwJPGyZwUIcsomMO', 3),
+(14, '198101092006041003', '$2y$10$WrSKILFnm4JuDBv8HYh1vuGPtfmRNMSuZHTsw92LupsQhhxvTPj5G', 3),
+(22, '19740102017021002', '$2y$10$kc7dim4u.xC8kqxecg3iAuJReYtufzshyrXFgs2qIee/toBuNhBBK', 3);
 
 -- --------------------------------------------------------
 
@@ -308,6 +344,14 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active
 --
 
 --
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `usr_admin` (`username`),
+  ADD KEY `usr_prodi` (`prodi`);
+
+--
 -- Indexes for table `dosen`
 --
 ALTER TABLE `dosen`
@@ -356,6 +400,12 @@ ALTER TABLE `skripsi`
   ADD KEY `nim` (`nim`);
 
 --
+-- Indexes for table `status`
+--
+ALTER TABLE `status`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -394,6 +444,12 @@ ALTER TABLE `user_sub_menu`
 --
 
 --
+-- AUTO_INCREMENT for table `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `jenkel`
 --
 ALTER TABLE `jenkel`
@@ -403,13 +459,19 @@ ALTER TABLE `jenkel`
 -- AUTO_INCREMENT for table `skripsi`
 --
 ALTER TABLE `skripsi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT for table `status`
+--
+ALTER TABLE `status`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `user_access_menu`
@@ -438,6 +500,13 @@ ALTER TABLE `user_sub_menu`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `admin`
+--
+ALTER TABLE `admin`
+  ADD CONSTRAINT `usr_admin` FOREIGN KEY (`username`) REFERENCES `user` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `usr_prodi` FOREIGN KEY (`prodi`) REFERENCES `prodi` (`kode_prodi`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `dosen`
