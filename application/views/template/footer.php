@@ -52,6 +52,7 @@
 <script type="text/javascript" src="<?= base_url('assets/'); ?>js/public_js/main.js"></script>
 
 <script type="text/javascript" src="<?= base_url('assets/'); ?>js/global.js"></script>
+<script type="text/javascript" src="<?= base_url('assets/'); ?>js/bootstrap-validate.js"></script>
 
 <!-- Custom scripts for all pages-->
 <script src="<?= base_url('assets/'); ?>js/sb-admin-2.min.js"></script>
@@ -84,6 +85,7 @@
   })
 </script>
 
+<script type="text/javascript" src="<?= base_url('assets/'); ?>js/validasi.js"></script>
 </body>
 
 </html>

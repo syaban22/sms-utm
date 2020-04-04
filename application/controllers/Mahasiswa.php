@@ -16,37 +16,41 @@ class Mahasiswa extends CI_Controller
         $data['judul'] = 'My Profile';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $userid = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-		$data['profil']= $this->db->get_where('mahasiswa', ['username' => $userid['id']])->row_array();
+        $data['profil'] = $this->db->get_where('mahasiswa', ['username' => $userid['id']])->row_array();
         // $em = $this->session->userdata('email');
         // $this->db->select_sum('cek');
         // $this->db->from('lamar_pekerjaan');
         // $this->db->where('email', $em);
         // $query = $this->db->get();
         // $data['stat'] = $query->row()->cek;
-        
+
         // $this->session->set_userdata('stat', $data['stat']);
-        
+
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar', $data);
         $this->load->view('template/topbar_user', $data);
         $this->load->view('Mahasiswa/index', $data);
         $this->load->view('template/footer');
     }
-    
+
     public function Profile()
     {
         $data['judul'] = 'My Profile';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-            // $em = $this->session->userdata('email');
+        $userid = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['profil'] = $this->db->get_where('mahasiswa', ['username' => $userid['id']])->row_array();
+        // var_dump($data['profil']);
+        // die;
+        // $em = $this->session->userdata('email');
         // $em = $this->session->userdata('email');
         // $this->db->select_sum('cek');
         // $this->db->from('lamar_pekerjaan');
         // $this->db->where('email', $em);
         // $query = $this->db->get();
         // $data['stat'] = $query->row()->cek;
-        
+
         // $this->session->set_userdata('stat', $data['stat']);
-        
+
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar', $data);
         $this->load->view('template/topbar_user', $data);
@@ -93,16 +97,16 @@ class Mahasiswa extends CI_Controller
         //nim mahasiswa
         $nim = $this->session->userdata('username');
         //nim untuk kode fakultas dan prodi
-        $data['fakultas']= substr($nim,2,2);
-        $data['prodi'] = substr($nim,3,4);
+        $data['fakultas'] = substr($nim, 2, 2);
+        $data['prodi'] = substr($nim, 3, 4);
         //data untuk tampilan
         $data['judul'] = "Daftarkan Judul";
-        
+
         //$data['judul'] = 'Daftarkan Skripsi';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $userid = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['profil']= $this->db->get_where('mahasiswa', ['username' => $userid['id']])->row_array();
-    
+        $data['profil'] = $this->db->get_where('mahasiswa', ['username' => $userid['id']])->row_array();
+
         //$data['fakultas'] = $this->db->get('fakultas')->result_array();
         //$data['prodi'] = $this->db->get('prodi')->result_array();
         $data['dosen'] = $this->db->get('dosen')->result_array();
@@ -127,11 +131,11 @@ class Mahasiswa extends CI_Controller
             } else {
                 $data = [
                     'judul' => $this->input->post('judul'),
-                    'abstract' => $this->input->post('abstract'), 
-                    'prodi' => substr($nim,3,4),
+                    'abstract' => $this->input->post('abstract'),
+                    'prodi' => substr($nim, 3, 4),
                     'nim' => $nim,
-                    'dosbing_1' =>$this->input->post('dosbing1'),
-                    'dosbing_2' =>$this->input->post('dosbing2')
+                    'dosbing_1' => $this->input->post('dosbing1'),
+                    'dosbing_2' => $this->input->post('dosbing2')
                 ];
                 var_dump($data);
                 //echo $this->input->post('dosbing1');
@@ -193,8 +197,8 @@ class Mahasiswa extends CI_Controller
         $data['judul'] = 'Status Skripsi';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $userid = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['profil']= $this->db->get_where('mahasiswa', ['username' => $userid['id']])->row_array();
-    
+        $data['profil'] = $this->db->get_where('mahasiswa', ['username' => $userid['id']])->row_array();
+
         $this->load->model('skripsi_model', 'skripsiM');
         $data['level'] = $this->db->get('user_level')->result_array();
         //$data['user'] = $this->db->from('user');

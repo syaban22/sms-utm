@@ -15,7 +15,7 @@ class Administrator extends CI_Controller
 		$this->session->unset_userdata('keyword');
 		$data['judul'] = 'Dashboard';
 		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-		$data['profil']= $data['user'];
+		$data['profil'] = $data['user'];
 		$data['profil']['nama'] = 'administrator';
 		$data['profil']['gambar'] = 'default.jpg';
 		$this->load->model('user_model', 'userM');
@@ -103,8 +103,10 @@ class Administrator extends CI_Controller
 
 		$data['judul'] = 'Daftar Fakultas';
 		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-
-		// $data['fakultas'] = $this->db->get('fakultas')->result_array();
+		$data['profil'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+		$data['profil'] = $data['user'];
+		$data['profil']['nama'] = 'administrator';
+		$data['profil']['gambar'] = 'default.jpg';
 
 		$this->load->model('fakultas_model', 'fakultasM');
 
@@ -179,6 +181,9 @@ class Administrator extends CI_Controller
 
 		$data['judul'] = 'Daftar Program Studi';
 		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+		$data['profil'] = $data['user'];
+		$data['profil']['nama'] = 'administrator';
+		$data['profil']['gambar'] = 'default.jpg';
 
 		// $data['prodi'] = $this->db->get('prodi')->result_array();
 		$data['fakultas'] = $this->db->get('fakultas')->result_array();
@@ -254,8 +259,11 @@ class Administrator extends CI_Controller
 
 	public function level()
 	{
-		$data['judul'] = 'Level';
+		$data['judul'] = 'Level Akses';
 		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+		$data['profil'] = $data['user'];
+		$data['profil']['nama'] = 'administrator';
+		$data['profil']['gambar'] = 'default.jpg';
 
 		$data['level'] = $this->db->get('user_level')->result_array();
 
@@ -337,7 +345,9 @@ class Administrator extends CI_Controller
 
 		$data['judul'] = 'Daftar Dosen';
 		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-
+		$data['profil'] = $data['user'];
+		$data['profil']['nama'] = 'administrator';
+		$data['profil']['gambar'] = 'default.jpg';
 
 		$this->load->model('dosen_model', 'dosenM');
 		$data['prodi'] = $this->db->get('prodi')->result_array();
@@ -431,7 +441,9 @@ class Administrator extends CI_Controller
 		$this->session->unset_userdata('keyword');
 		$data['judul'] = 'Daftar Mahasiswa';
 		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-
+		$data['profil'] = $data['user'];
+		$data['profil']['nama'] = 'administrator';
+		$data['profil']['gambar'] = 'default.jpg';
 
 		$this->load->model('mahasiswa_model', 'mahasiswaM');
 		$data['prodi'] = $this->db->get('prodi')->result_array();
@@ -539,6 +551,9 @@ class Administrator extends CI_Controller
 
 		$data['judul'] = 'Manajemen User';
 		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+		$data['profil'] = $data['user'];
+		$data['profil']['nama'] = 'administrator';
+		$data['profil']['gambar'] = 'default.jpg';
 
 		$this->load->model('user_model', 'userM');
 		$data['level'] = $this->db->get('user_level')->result_array();

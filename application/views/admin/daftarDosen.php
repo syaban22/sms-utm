@@ -31,7 +31,7 @@
 				?>
 
 				<form class="form-inline" action="<?= base_url('admin/daftarDosen'); ?>" method="post">
-					<input class="form-control mr-sm-2" type="search" placeholder="Search Name" name="keyword" autocomplete="off" autofocus>
+					<input id="val" class="form-control mr-sm-2" type="search" placeholder="Search Name" name="keyword" autocomplete="off" autofocus>
 					<input type="submit" class="btn btn-primary" name="submit" value="Search">
 
 				</form>
@@ -92,7 +92,9 @@
 			</div> -->
 			<?= $this->pagination->create_links(); ?>
 
+
 		</div>
+
 
 	</div>
 
@@ -188,13 +190,18 @@
 						<input type="text" class="form-control" name="nip" id="nip" placeholder="NIP Dosen">
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Dosen">
+						<input type="text" class="form-control validate" name="nama" id="nama" placeholder="Nama Dosen" />
+					</div>
+					<div class="form-group">
+						<input id="mymin" type="text" class="form-control" name="judul" placeholder="sss" />
 					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 					<button type="submit" class="btn btn-primary">Tambah</button>
 				</div>
+
+
 			</form>
 
 		</div>

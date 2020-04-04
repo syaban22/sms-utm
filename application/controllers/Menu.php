@@ -13,6 +13,9 @@ class Menu extends CI_Controller
 	{
 		$data['judul'] = 'Manajemen Menu';
 		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+		$data['profil'] = $data['user'];
+		$data['profil']['nama'] = 'administrator';
+		$data['profil']['gambar'] = 'default.jpg';
 
 		$data['menu'] = $this->db->get('user_menu')->result_array();
 
@@ -67,6 +70,9 @@ class Menu extends CI_Controller
 	{
 		$data['judul'] = 'Manajemen Submenu';
 		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+		$data['profil'] = $data['user'];
+		$data['profil']['nama'] = 'administrator';
+		$data['profil']['gambar'] = 'default.jpg';
 
 		$this->load->model('Menu_model', 'menu');
 

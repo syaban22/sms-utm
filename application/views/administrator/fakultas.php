@@ -107,7 +107,7 @@
 			<form action="<?= base_url('administrator/fakultas'); ?>" method="POST">
 				<div class="modal-body">
 					<div class="form-group">
-						<input type="text" class="form-control" name="kodefak" id="kodefak" placeholder="Kode Fakultas">
+						<input type="text" class="form-control" name="kodefak" id="kodefak nama" placeholder="Kode Fakultas">
 					</div>
 					<div class="form-group">
 						<input type="text" class="form-control" name="fakultas" id="fakultas" placeholder="Nama fakultas">

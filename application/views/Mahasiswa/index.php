@@ -14,9 +14,6 @@
                 <div class="card-body">
                     <h5 class="card-title"><?= $profil['nama']; ?></h5>
                     <p class="card-text"><?= $user['username']; ?></p>
-                    <p class="card-text"><small class="text-muted">Email : <?= $profil['email']; ?></small></p>
-                    <!-- <p class="card-text"><small class="text-muted">Tanggal Daftar : <?= date('d F Y', $profil['tgl_buat']); ?></small></p> -->
-                    <p class="card-text"><small class="text-muted">Tanggal Daftar : <?= $profil['tgl_buat']; ?></small></p>
                     <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#FotoBaru"><i class="fa fa-fw fa-user"></i> Ubah Foto</a> <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#PassBaru"><i class="fa fa-fw fa-key"></i> Ubah Password</a>
                 </div>
             </div>
