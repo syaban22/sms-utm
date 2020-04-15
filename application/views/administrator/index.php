@@ -1,4 +1,4 @@
-<!-- Begin Page Content -->
+<!-- Anjing Begin Page Content -->
 <div class="container-fluid">
 	<div class="flash-data" data-flashdata="<?= $this->session->flashdata('pesan'); ?>"></div>
 	<!-- Page Heading -->
