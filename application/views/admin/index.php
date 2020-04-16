@@ -74,7 +74,7 @@
                             <td><?= $u['level']; ?></td>
                             <td>
                                 <a href="" data-toggle="modal" data-target="#pelamarEdit<?= $u['id'] ?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i>Edit</a>
-                                <a href="<?= base_url() . 'administrator/deleteU/' . $u['id'] ?>" data-nama="<?= $u['username']; ?>" class="btn btn-danger btn-sm deleteP"><i class="fa fa-fw fa-trash"></i>Delete</a>
+                                <a href="<?= base_url() . 'admin/deleteU/' . $u['id'] ?>" data-nama="<?= $u['username']; ?>" class="btn btn-danger btn-sm deleteP"><i class="fa fa-fw fa-trash"></i>Delete</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -98,8 +98,7 @@
 </div>
 <!-- End of Main Content -->
 
-<?php foreach ($users as $u) :
-?>
+<?php foreach ($users as $u) :?>
 
     <!-- Modal Edit -->
     <div class="modal fade" id="pelamarEdit<?= $u['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="pelamarEditLabel" aria-hidden="true">
@@ -111,13 +110,8 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="<?= base_url('administrator/updateU/' . $u['id']); ?>" method="POST">
+                <form action="<?= base_url('admin/updateU/' . $u['id']); ?>" method="POST">
                     <div class="modal-body">
-                        <div class="form-group">
-                            <label for="nama">Nama</label>
-                            <input type="text" class="form-control" id="nama" name="nama" value="<?= $u['nama']; ?>">
-                            <?= form_error('nama', '<div class="alert-danger" role="alert">', '</div>'); ?>
-                        </div>
                         <div class="form-group">
                             <label for="username">Username</label>
                             <input type="text" class="form-control" id="username" name="username" value="<?= $u['username']; ?>">
@@ -126,16 +120,17 @@
                         <div class="form-group">
                             <label for="level">Level</label>
                             <select name="level" id="level" class="form-control">
-
                                 <?php foreach ($level as $l) {
-                                    if ($p['level_id'] == $l['id']) {
-                                        echo "<option value='$l[id]' selected>$l[level]</option>";
-                                    } else {
-                                        echo "<option value='$l[id]'>$l[level]</option>";
+                                    if($l['id']>2){
+                                        if ($u['level_id'] == $l['id']) {
+                                            echo "<option value='$l[id]' selected>$l[level]</option>";
+                                        }
+                                        else {
+                                            echo "<option value='$l[id]'>$l[level]</option>";
+                                        }
                                     }
                                 }
                                 ?>
-
                             </select>
                         </div>
                     </div>

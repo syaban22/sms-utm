@@ -87,17 +87,17 @@
 							<?php if ($u['dosen_uji1'] != NULL) : ?>
 								<td><?= $u['dosen_uji1']; ?></td>
 							<?php else : ?>
-								<td>Belum ditentukan</td>
+								<td><a href="" data-toggle="modal" data-target="#penguji1<?= $u['id'] ?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i>Tentukan Penguji</a></td>
 							<?php endif; ?>
 							<?php if ($u['dosen_uji2'] != NULL) : ?>
 								<td><?= $u['dosen_uji2']; ?></td>
 							<?php else : ?>
-								<td>Belum ditentukan</td>
+								<td><a href="" data-toggle="modal" data-target="#penguji2<?= $u['id'] ?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i>Tentukan Penguji</a></td>
 							<?php endif; ?>
 							<?php if ($u['dosen_uji3'] != NULL) : ?>
 								<td><?= $u['dosen_uji3']; ?></td>
 							<?php else : ?>
-								<td><a href="" data-toggle="modal" data-target="#penguji<?= $u['id'] ?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i>Tentukan Penguji</a></td>
+								<td><a href="" data-toggle="modal" data-target="#penguji3<?= $u['id'] ?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i>Tentukan Penguji</a></td>
 							<?php endif; ?>
 							<td><?= $u['prodi']; ?></td>
 							<?php if ($u['nilai'] != 0) : ?>
@@ -123,16 +123,12 @@
 		</div>
 
 	</div>
-
-
 </div>
 <!-- /.container-fluid -->
-
 </div>
 <!-- End of Main Content -->
 
 <?php foreach ($skripsi as $u) : ?>
-
 	<!-- Modal Edit -->
 	<div class="modal fade" id="pelamarEdit<?= $u['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="pelamarEditLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
@@ -143,11 +139,16 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form action="<?= base_url('administrator/updateDosen/' . $u['nip']); ?>" method="POST">
+				<form action="<?= base_url('admin/daftarSkripsi/' . $u['nim']); ?>" method="POST">
 					<div class="modal-body">
 						<div class="form-group">
-							<label for="nip">NIP</label>
-							<input type="text" class="form-control" id="nip" name="nip" value="<?= $u['nip']; ?>">
+							<label for="nip">Judul Skripsi</label>
+							<input type="text" class="form-control" id="judul" name="judul" value="<?= $u['judul']; ?>">
+							<?= form_error('nip', '<div class="alert-danger" role="alert">', '</div>'); ?>
+						</div>
+						<div class="form-group">
+							<label for="nip">NIM</label>
+							<input type="text" class="form-control" id="nim" name="nim" value="<?= $u['nim']; ?>">
 							<?= form_error('nip', '<div class="alert-danger" role="alert">', '</div>'); ?>
 						</div>
 						<div class="form-group">
@@ -155,39 +156,10 @@
 							<input type="text" class="form-control" id="nama" name="nama" value="<?= $u['nama']; ?>">
 							<?= form_error('nama', '<div class="alert-danger" role="alert">', '</div>'); ?>
 						</div>
-						<div class="form-group">
-							<label for="username">Username</label>
-							<select name="username" id="username" class="form-control">
-								<option>- Pilih Username -</option>
-								<?php foreach ($username as $us) {
-									if ($u['username'] == $us['username']) {
-										echo "<option value='$us[id]' selected>$u[username]</option>";
-									} else {
-										echo "<option value='$us[id]'>$us[username]</option>";
-									}
-								}
-								?>
-							</select>
-							<?= form_error('username', '<div class="alert-danger" role="alert">', '</div>'); ?>
-						</div>
-
-						<div class="form-group">
-							<label for="prodi">Program Studi</label>
-							<select name="prodi" id="prodi" class="form-control">
-								<option>- Pilih Program Studi -</option>
-								<?php foreach ($prodi as $p) {
-									if ($p['prodi'] == $u['prodi']) {
-										echo "<option value='$p[kode_prodi]' selected>$u[prodi]</option>";
-									} else {
-										echo "<option value='$p[kode_prodi]'>$p[prodi]</option>";
-									}
-								}
-								?>
-
-							</select>
-							<?= form_error('prodi', '<div class="alert-danger" role="alert">', '</div>'); ?>
-						</div>
 					</div>
+					<!-- Dosbing 1-2 -->
+					<!-- penguji 1-3 -->
+
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 						<button type="submit" class="btn btn-primary">Edit</button>
@@ -244,9 +216,72 @@
 		</div>
 	</div>
 </div>
+<!-- Modal tambah penguji -->
 <?php foreach ($skripsi as $u) : ?>
-	<!-- Modal Tambah Penguji -->
-	<div class="modal fade" id="penguji<?= $u['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="pengujiLabel" aria-hidden="true">
+	<!-- Modal Tambah Penguji1 -->
+	<div class="modal fade" id="penguji1<?= $u['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="pengujiLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="pengujiLabel">Tentukan Penguji</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<form action="<?= base_url('admin/updatePenguji/') . $u['id']; ?>" method="POST">
+					<div class="modal-body">
+						<div class="form-group">
+							<select name="penguji1" id="penguji1" class="form-control">
+								<option value="">- Pilih Penguji 1 -</option>
+								<?php foreach ($penguji as $p) : ?>
+									<option value="<?= $p['nip']; ?>"><?= $p['nama']; ?> </option>
+								<?php endforeach; ?>
+							</select>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary">Tambah</button>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+	<!-- Modal Tambah Penguji2 -->
+	<div class="modal fade" id="penguji2<?= $u['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="pengujiLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="pengujiLabel">Tentukan Penguji</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<form action="<?= base_url('admin/updatePenguji/') . $u['id']; ?>" method="POST">
+					<div class="modal-body">
+						<div class="form-group">
+							<select name="penguji2" id="penguji2" class="form-control">
+								<option value="">- Pilih Penguji 2 -</option>
+								<?php foreach ($penguji as $p) : ?>
+									<option value="<?= $p['nip']; ?>"><?= $p['nama']; ?> </option>
+								<?php endforeach; ?>
+							</select>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary">Tambah</button>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+	<!-- Modal Tambah Penguji3 -->
+	<div class="modal fade" id="penguji3<?= $u['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="pengujiLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -272,7 +307,6 @@
 						<button type="submit" class="btn btn-primary">Tambah</button>
 					</div>
 				</form>
-
 			</div>
 		</div>
 	</div>

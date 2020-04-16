@@ -30,7 +30,7 @@
 						<div class="name">Dosen Pembimbing 1</div>
 						<div class="value">
 							<div class="input-group">
-								<select class="input--style-6" name="dosbing1" id="dosbing1">
+								<select class="input--style-6" name="dosbing1" id="dosbing1" onchange="dosbinga()">
 									<option value="">- Pilih Dosen Pembimbing 1 -</option>
 									<?php foreach ($dosen as $d) : ?>
 										<option value="<?= $d['nip']; ?>"><?= $d['nama']; ?></option>
@@ -44,16 +44,26 @@
 						<div class="name">Dosen Pembimbing 2</div>
 						<div class="value">
 							<div class="input-group">
-								<select class="input--style-6" name="dosbing2" id="dosbing2">
+								<select class="input--style-6" name="dosbing2" id="dosbing2" onchange="dosbingb()">
 									<option value="">- Pilih Dosen Pembimbing 2 -</option>
-									<?php foreach ($dosen as $d) : ?>
-										<option value="<?= $d['nip']; ?>"><?= $d['nama']; ?></option>
-									<?php endforeach; ?>
+									<?php $i=0; foreach ($dosen as $d) : ?>
+										<option class="<?=$i;?>" value="<?= $d['nip']; ?>"><?= $d['nama']; ?></option>
+									<?php $i+=1; endforeach; ?>
 								</select>
 								<?= form_error('dosbing2', '<div class="alert-danger mt-2" role="alert">', '</div>'); ?>
 							</div>
 						</div>
 					</div>
+					<!-- patokan untuk js -->
+					<span style="display : none">
+						<select type="hidden" class="input--style-6" name="dosbing" id="dosbing" onchange="dosbinga()">
+							<option value="">- Pilih Dosen Pembimbing 1 -</option>
+							<?php foreach ($dosen as $d) : ?>
+								<option  value="<?= $d['nip']; ?>"><?= $d['nama']; ?></option>
+							<?php endforeach; ?>
+						</select>
+					</span>
+					<!-- end of patokan -->
 					<!-- <div class="form-row">
 						<div class="name">Upload Berkas</div>
 						<div class="value">

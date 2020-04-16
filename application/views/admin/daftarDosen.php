@@ -79,7 +79,7 @@
 							<td><?= $u['username']; ?></td>
 							<td>
 								<a href="" data-toggle="modal" data-target="#pelamarEdit<?= $u['nip'] ?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i>Edit</a>
-								<a href="<?= base_url() . 'administrator/deleteDosen/' . $u['nip'] ?>" data-nama="<?= $u['nama']; ?>" class="btn btn-danger btn-sm deleteP"><i class="fa fa-fw fa-trash"></i>Delete</a>
+								<a href="<?= base_url() . 'admin/deleteDosen/' . $u['nip'] ?>" data-nama="<?= $u['nama']; ?>" class="btn btn-danger btn-sm deleteP"><i class="fa fa-fw fa-trash"></i>Delete</a>
 							</td>
 						</tr>
 					<?php endforeach; ?>
@@ -117,7 +117,7 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form action="<?= base_url('admini/updateDosen/' . $u['nip']); ?>" method="POST">
+				<form action="<?= base_url('admin/updateDosen/' . $u['nip']); ?>" method="POST">
 					<div class="modal-body">
 						<div class="form-group">
 							<label for="nip">NIP</label>
@@ -128,38 +128,6 @@
 							<label for="nama">Nama</label>
 							<input type="text" class="form-control" id="nama" name="nama" value="<?= $u['nama']; ?>">
 							<?= form_error('nama', '<div class="alert-danger" role="alert">', '</div>'); ?>
-						</div>
-						<div class="form-group">
-							<label for="username">Username</label>
-							<select name="username" id="username" class="form-control">
-								<option>- Pilih Username -</option>
-								<?php foreach ($username as $us) {
-									if ($u['username'] == $us['username']) {
-										echo "<option value='$us[id]' selected>$u[username]</option>";
-									} else {
-										echo "<option value='$us[id]'>$us[username]</option>";
-									}
-								}
-								?>
-							</select>
-							<?= form_error('username', '<div class="alert-danger" role="alert">', '</div>'); ?>
-						</div>
-
-						<div class="form-group">
-							<label for="prodi">Program Studi</label>
-							<select name="prodi" id="prodi" class="form-control">
-								<option>- Pilih Program Studi -</option>
-								<?php foreach ($prodi as $p) {
-									if ($p['prodi'] == $u['prodi']) {
-										echo "<option value='$p[kode_prodi]' selected>$u[prodi]</option>";
-									} else {
-										echo "<option value='$p[kode_prodi]'>$p[prodi]</option>";
-									}
-								}
-								?>
-
-							</select>
-							<?= form_error('prodi', '<div class="alert-danger" role="alert">', '</div>'); ?>
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -173,7 +141,7 @@
 
 
 <?php endforeach; ?>
-<!-- Modal Tambah Prodi -->
+<!-- Modal Tambah dosen -->
 <div class="modal fade" id="dosenBaru" tabindex="-1" role="dialog" aria-labelledby="dosenBaruLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -193,7 +161,7 @@
 						<input type="text" class="form-control validate" name="nama" id="nama" placeholder="Nama Dosen" />
 					</div>
 					<div class="form-group">
-						<input id="mymin" type="text" class="form-control" name="judul" placeholder="sss" />
+						<input type="text" class="form-control validate" name="email" id="email" placeholder="Email Dosen" />
 					</div>
 				</div>
 				<div class="modal-footer">

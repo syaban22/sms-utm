@@ -78,7 +78,7 @@
 							<td><?= $u['prodi']; ?></td>
 							<td><?= $u['username']; ?></td>
 							<td>
-								<a href="" data-toggle="modal" data-target="#pelamarEdit<?= $u['nim'] ?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i>Edit</a>
+								<a href="" data-toggle="modal" data-target="#mahasiswaEdit<?= $u['nim'] ?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i>Edit</a>
 								<a href="<?= base_url() . 'admin/deleteMahasiswa/' . $u['nim'] ?>" data-nama="<?= $u['nama']; ?>" class="btn btn-danger btn-sm deleteP"><i class="fa fa-fw fa-trash"></i>Delete</a>
 							</td>
 						</tr>
@@ -127,38 +127,6 @@
 							<input type="text" class="form-control" id="nama" name="nama" value="<?= $u['nama']; ?>">
 							<?= form_error('nama', '<div class="alert-danger" role="alert">', '</div>'); ?>
 						</div>
-						<div class="form-group">
-							<label for="username">Username</label>
-							<select name="username" id="username" class="form-control">
-								<option>- Pilih Username -</option>
-								<?php foreach ($username as $us) {
-									if ($u['username'] == $us['username']) {
-										echo "<option value='$us[id]' selected>$u[username]</option>";
-									} else {
-										echo "<option value='$us[id]'>$us[username]</option>";
-									}
-								}
-								?>
-							</select>
-							<?= form_error('username', '<div class="alert-danger" role="alert">', '</div>'); ?>
-						</div>
-
-						<div class="form-group">
-							<label for="prodi">Program Studi</label>
-							<select name="prodi" id="prodi" class="form-control">
-								<option>- Pilih Program Studi -</option>
-								<?php foreach ($prodi as $p) {
-									if ($p['prodi'] == $u['prodi']) {
-										echo "<option value='$p[kode_prodi]' selected>$u[prodi]</option>";
-									} else {
-										echo "<option value='$p[kode_prodi]'>$p[prodi]</option>";
-									}
-								}
-								?>
-
-							</select>
-							<?= form_error('prodi', '<div class="alert-danger" role="alert">', '</div>'); ?>
-						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -191,20 +159,7 @@
 						<input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Mahasiswa">
 					</div>
 					<div class="form-group">
-						<select name="prodi" id="prodi" class="form-control">
-							<option value="">- Pilih Prodi -</option>
-							<?php foreach ($prodi as $f) : ?>
-								<option value="<?= $f['kode_prodi']; ?>"><?= $f['prodi']; ?></option>
-							<?php endforeach; ?>
-						</select>
-					</div>
-					<div class="form-group">
-						<select name="username" id="username" class="form-control">
-							<option value="">- Pilih Username -</option>
-							<?php foreach ($username as $f) : ?>
-								<option value="<?= $f['id']; ?>"><?= $f['username']; ?> <?= '=> ' ?><?= $f['nama']; ?> </option>
-							<?php endforeach; ?>
-						</select>
+						<input type="text" class="form-control" name="email" id="email" placeholder="Email Mahasiswa">
 					</div>
 				</div>
 				<div class="modal-footer">
