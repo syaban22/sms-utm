@@ -152,16 +152,25 @@
 				</button>
 			</div>
 
-			<form action="<?= base_url('admin/daftarDosen'); ?>" method="POST">
+			<form action="<?= base_url('admin/daftarDosen'); ?>" method="POST" class="needs-validation" novalidate>
 				<div class="modal-body">
 					<div class="form-group">
-						<input type="text" class="form-control" name="nip" id="nip" placeholder="NIP Dosen">
+						<input type="text" class="form-control" name="nip" id="nip" placeholder="NIP Dosen" required>
+						<div class="invalid-feedback">
+							Masukan NIP Dosen
+						</div>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control validate" name="nama" id="nama" placeholder="Nama Dosen" />
+						<input type="text" class="form-control validate" name="nama" id="nama" placeholder="Nama Dosen" required>
+						<div class="invalid-feedback">
+							Masukan Nama Dosen
+						</div>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control validate" name="email" id="email" placeholder="Email Dosen" />
+						<input type="email" class="form-control validate" name="email" id="email" placeholder="Email Dosen">
+						<div class="invalid-feedback">
+							Masukan Nama Dosen
+						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
