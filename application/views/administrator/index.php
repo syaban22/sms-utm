@@ -165,13 +165,13 @@
 			<form action="<?= base_url('administrator/index'); ?>" method="POST">
 				<div class="modal-body">
 					<div class="form-group">
-						<input type="text" class="form-control cekhuruf req" name="nama" id="nama" placeholder="Nama">
+						<input type="text" class="form-control cekkarakter req" name="nama" id="nama" placeholder="Nama">
 					</div>
 					<!-- <div class="form-group">
 						<input type="text" class="form-control" name="email" id="email" placeholder="Email User">
 					</div> -->
 					<div class="form-group">
-						<input type="text" class="form-control cekhuruf1 req1" name="username" id="username" placeholder="Username Akun">
+						<input type="text" class="form-control cekkarakter1 req1" name="username" id="username" placeholder="Username Akun">
 					</div>
 					<div class="form-group">
 						<select name="level" id="level" class="form-control">

@@ -117,34 +117,36 @@ if (flashdata == 'User belum terdaftar!') {
 	})
 }
 
-// alert untuk CRUD Data pelamar
-if (flashdata == 'ditambahkan') {
+// alert untuk tambah dosen (dari ADMIN PRODI)
+if (flashdata == '1 User Dosen berhasil ditambahkan') {
 	Swal.fire({
 		position: 'center',
 		icon: 'success',
-		title: 'Data Fakultas berhasil ' + flashdata,
+		title: flashdata,
 		showConfirmButton: false,
 		timer: 2000
 	})
 }
 
-if (flashdata == 'diubah') {
+//Tambah Dosen penguji dalam Daftar Skripsi (ADMIN Prodi)
+if (flashdata == 'Dosen penguji berhasil ditambahkan') {
 	Swal.fire({
 		position: 'center',
 		icon: 'success',
-		title: 'Data Fakultas berhasil ' + flashdata,
+		title: flashdata,
 		showConfirmButton: false,
 		timer: 2000
 	})
 }
 
-$('.deleteP').on('click', function (e) {
+//Modal Pop-up Delete Confirmation (ADMIN Prodi)
+$('.deleteDosen').on('click', function (e) {
 	e.preventDefault();
 	const nama = $(this).data('nama');
 	const href = $(this).attr('href');
 	Swal.fire({
-		title: 'Hapus Data',
-		html: "Apakah anda yakin untuk menghapus data " + '<b>' + nama + '</b>' + " ?",
+		title: 'Hapus Dosen',
+		html: "Apakah anda yakin untuk menghapus user Dosen  " + '<b>' + nama + '</b>' + " ?",
 		icon: 'warning',
 		showCancelButton: true,
 		focusConfirm: false,
@@ -253,7 +255,8 @@ $('.deletePe').on('click', function (e) {
 	})
 });
 
-if (flashdata == 'Program Studi berhasil dihapus') {
+//Delete User Dosen (ADMIN Prodi)
+if (flashdata == '1 User Dosen berhasil dihapus') {
 	Swal.fire({
 		position: 'center',
 		icon: 'success',
@@ -263,7 +266,8 @@ if (flashdata == 'Program Studi berhasil dihapus') {
 	})
 }
 
-if (flashdata == 'Edit data Program Studi berhasil') {
+//Edit User Dosen (ADMIN Prodi)
+if (flashdata == 'Edit data user Dosen berhasil') {
 	Swal.fire({
 		position: 'center',
 		icon: 'success',
@@ -273,8 +277,8 @@ if (flashdata == 'Edit data Program Studi berhasil') {
 	})
 }
 
-// CRUD perusahaan (perusahaan)
-if (flashdata == 'Posisi baru berhasil ditambahkan') {
+//Tambah User Mahasiswa (ADMIN Prodi)
+if (flashdata == '1 User Mahasiswa berhasil ditambahkan') {
 	Swal.fire({
 		position: 'center',
 		icon: 'success',
@@ -284,13 +288,13 @@ if (flashdata == 'Posisi baru berhasil ditambahkan') {
 	})
 }
 
-$('.deletePo').on('click', function (e) {
+$('.deleteMhs').on('click', function (e) {
 	e.preventDefault();
 	const nama = $(this).data('nama');
 	const href = $(this).attr('href');
 	Swal.fire({
-		title: 'Hapus Data',
-		html: "Apakah anda yakin untuk menghapus Posisi " + '<b>' + nama + '</b>' + " ?",
+		title: 'Hapus Mahasiswa',
+		html: "Apakah anda yakin untuk menghapus user Mahasiswa " + '<b>' + nama + '</b>' + " ?",
 		icon: 'warning',
 		showCancelButton: true,
 		focusConfirm: false,
@@ -305,7 +309,8 @@ $('.deletePo').on('click', function (e) {
 	})
 });
 
-if (flashdata == 'Posisi berhasil dihapus') {
+//Delete User Mahasiswa (ADMIN Prodi)
+if (flashdata == '1 user Mahasiswa berhasil dihapus') {
 	Swal.fire({
 		position: 'center',
 		icon: 'success',
@@ -315,7 +320,8 @@ if (flashdata == 'Posisi berhasil dihapus') {
 	})
 }
 
-if (flashdata == 'Edit Data posisi berhasil') {
+//Edit Data Mahasiswa (ADMIN Prodi)
+if (flashdata == 'Edit data Mahasiswa berhasil') {
 	Swal.fire({
 		position: 'center',
 		icon: 'success',
@@ -583,8 +589,30 @@ if (flashdata == 'Detail Profil Perusahaan Berhasil Ditambahkan') {
 	})
 }
 
-// CRUD user (admin)
-if (flashdata == 'User berhasil dihapus') {
+//Konfirmasi delete User (ADMIN Prodi)
+$('.deleteU').on('click', function (e) {
+	e.preventDefault();
+	const nama = $(this).data('nama');
+	const href = $(this).attr('href');
+	Swal.fire({
+		title: 'Hapus User',
+		html: "Apakah anda yakin untuk menghapus user " + '<b>' + nama + '</b>' + " ?",
+		icon: 'warning',
+		showCancelButton: true,
+		focusConfirm: false,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Ya',
+		cancelmButtonText: 'Tidak'
+	}).then((result) => {
+		if (result.value) {
+			document.location.href = href;
+		}
+	})
+});
+
+//Delete User (ADMIN Prodi)
+if (flashdata == '1 User berhasil dihapus') {
 	Swal.fire({
 		position: 'center',
 		icon: 'success',
@@ -594,6 +622,7 @@ if (flashdata == 'User berhasil dihapus') {
 	})
 }
 
+//Edit Data User (ADMIN Prodi)
 if (flashdata == 'Edit Data User berhasil') {
 	Swal.fire({
 		position: 'center',
@@ -601,5 +630,16 @@ if (flashdata == 'Edit Data User berhasil') {
 		title: flashdata,
 		showConfirmButton: false,
 		timer: 2000
+	})
+}
+
+//Delete User gagal (ADMIN Prodi)
+if (flashdata == 'Hapus User gagal') {
+	Swal.fire({
+		position: 'center',
+		icon: 'error',
+		title: 'Hapus User tidak berhasil',
+		text: 'Harap menghapus Mahasiswa/Dosen dan coba lagi',
+		showConfirmButton: true,
 	})
 }
