@@ -62,16 +62,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if (empty($skripsi)) : ?>
-                        <tr>
-                            <td colspan="12">
-                                <div class="alert alert-danger" role="alert">
-                                    Data not found!
-                                </div>
-                            </td>
-                        </tr>
-                    <?php endif; ?>
-                    <?php foreach ($skripsi as $u) : ?>
+                    <?php $count=0; foreach ($skripsi as $u) : 
+                        if ($u['nim'] == $this->session->userdata('username')){?>
                         <tr>
                             <th scope="row"><?= ++$start; ?></th>
                             <td><?= $u['judul']; ?></td>
@@ -91,7 +83,16 @@
                                 <!-- <a href="" relid="<?= $u['nim'] ?>" class="btn btn-warning btn-sm detail"><i class="fa fa-fw fa-eye"></i> Detail</a> -->
                             </td>
                         </tr>
-                    <?php endforeach; ?>
+                    <?php $count+=1;} endforeach;?>
+                    <?php if (empty($skripsi) || $count == 0) : ?>
+                        <tr>
+                            <td colspan="12">
+                                <div class="alert alert-danger" role="alert">
+                                    Data not found!
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
                 </tbody>
 
 

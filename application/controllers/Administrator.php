@@ -9,17 +9,17 @@ class Administrator extends CI_Controller
 		parent::__construct();
 		cek_login();
 	}
-
 	public function index()
 	{
 		$this->session->unset_userdata('keyword');
-		$data['judul'] = 'Dashboard';
 		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 		$data['profil'] = $data['user'];
 		$data['profil']['nama'] = 'administrator';
 		$data['profil']['gambar'] = 'default.jpg';
-		$this->load->model('user_model', 'userM');
 		$data['level'] = $this->db->get('user_level')->result_array();
+		$data['judul'] = 'Dashboard';
+		
+		$this->load->model('user_model', 'userM');
 		//$data['user'] = $this->db->from('user');
 
 		if ($this->input->post('submit')) {
@@ -47,9 +47,6 @@ class Administrator extends CI_Controller
 
 		$data['users'] = $this->userM->getUsers($config['per_page'], $data['start'], $data['keyword'], $data['user']['level_id']);
 
-
-
-		$this->form_validation->set_rules('nama', 'nama', 'required');
 		$this->form_validation->set_rules('username', 'username', 'required');
 		$this->form_validation->set_rules('level', 'level', 'required');
 
@@ -60,18 +57,18 @@ class Administrator extends CI_Controller
 			$this->load->view('administrator/index', $data);
 			$this->load->view('template/footer');
 		} else {
-			$data = [
-				'nama' => htmlspecialchars($this->input->post('nama')),
-				'email' => htmlspecialchars("NULL"),
-				'gambar' => "default.jpg",
-				'username' => htmlspecialchars($this->input->post('username')),
-				'password' => password_hash($this->input->post('username'), PASSWORD_DEFAULT),
-				'level_id' => $this->input->post('level'),
-				'tgl_buat' => time()
-			];
-
-			$this->db->insert('user', $data);
-			$this->session->set_flashdata('pesan', 'ditambahkan');
+			if ($this->db->get_where('user',['username' => $this->input->post('username')])->row_array()==null){
+				$data = [
+					'username' => htmlspecialchars($this->input->post('username')),
+					'password' => password_hash($this->input->post('username'), PASSWORD_DEFAULT),
+					'level_id' => $this->input->post('level'),
+				];
+				$this->db->insert('user', $data);
+				$this->session->set_flashdata('pesan', 'ditambahkan');
+			}
+			else {
+				// gagal menambahkan, username sudah terpakai
+			}
 			redirect('administrator/index');
 		}
 	}
@@ -85,15 +82,20 @@ class Administrator extends CI_Controller
 
 	public function updateU($id)
 	{
-		$data = array(
-			'nama' => $this->input->post('nama'),
-			'username' => $this->input->post('username'),
-			'level_id' => $this->input->post('level'),
-		);
-
-		$this->db->where('id', $id);
-		$this->db->update('user', $data);
-		$this->session->set_flashdata('pesan', 'Edit Data User berhasil');
+		try {
+			$data = array(
+				'username' => $this->input->post('username'),
+				'password' => password_hash($this->input->post('username'), PASSWORD_DEFAULT),
+				'level_id' => $this->input->post('level')
+			);
+			$this->db->where('id', $id);
+			$this->db->update('user', $data);
+			$this->session->set_flashdata('pesan', 'Edit Data User berhasil');
+		}
+		catch (Exception $e){
+			// edit gagal username sudah ada
+			// $e->getMessage();
+		}
 		redirect('administrator/index');
 	}
 

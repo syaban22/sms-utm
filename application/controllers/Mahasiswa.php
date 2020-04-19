@@ -118,7 +118,8 @@ class Mahasiswa extends CI_Controller
         $this->form_validation->set_rules('dosbing2', 'Dosbing2', 'required');
 
 
-        if ($this->db->get('skripsi')->result_array() == true) {
+        if ($this->db->get_where('skripsi', ['nim' => $nim])->row_array() == true) {
+            //nanti diubah ketika masih ada skripsi yang belum lulus baru dialihkan #pake looping
             $this->session->set_flashdata('pesan', 'Anda telah mendaftarkan 1 Skripsi');
             redirect('Mahasiswa/StatusSkripsi');
         } else {
@@ -130,6 +131,7 @@ class Mahasiswa extends CI_Controller
                 $this->load->view('Mahasiswa/DaftarkanSkripsi', $data);
                 $this->load->view('template/footer');
             } else {
+                //belum ada handlenya
                 $data = [
                     'judul' => $this->input->post('judul'),
                     'abstract' => $this->input->post('abstract'),
@@ -137,8 +139,8 @@ class Mahasiswa extends CI_Controller
                     'nim' => $nim,
                     'dosbing_1' => $this->input->post('dosbing1'),
                     'dosbing_2' => $this->input->post('dosbing2')
+                    // status
                 ];
-                var_dump($data);
                 //echo $this->input->post('dosbing1');
                 $this->db->insert('skripsi', $data);
                 $this->session->set_flashdata('pesan', 'berhasil dikirim');

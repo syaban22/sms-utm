@@ -106,10 +106,10 @@ class admin extends CI_Controller
 				'nip' => $this->input->post('nip'),
 				'nama' => $this->input->post('nama'),
 				'gambar' => "default.jpg",
-				'username' => $this->db->get_where('user', ['username' => $this->input->post('nip')])->row_array()['id'],
-				'prodi' =>  $this->db->get_where('admin', ['username' => $userid['id']])->row_array()['prodi'],
-				'email' => $this->input->post('email')
-				// tanggal buat
+				'username' => $this->db->get_where('user', ['username' =>$this->input->post('nip')])->row_array()['id'],
+				'prodi' =>  $this->db->get_where('admin',['username' => $userid['id']])->row_array()['prodi'],
+				'email' => $this->input->post('email'),
+				'tgl_buat' => time()
 			];
 			$this->db->insert('dosen', $data);
 			$this->session->set_flashdata('pesan', '1 User Dosen berhasil ditambahkan');
