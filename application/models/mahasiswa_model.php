@@ -18,4 +18,16 @@ class mahasiswa_model extends CI_Model
         }
         return $this->db->query($query, $limit, $start, $keyword)->result_array();
     }
+
+    public function HitungSearch($keyword)
+    {
+        return $this->db
+            ->like('nama', $keyword)
+            ->or_like('nim', $keyword)
+            // ->like('prodi.prodi', $keyword)
+            // ->from('dosen, prodi')
+            ->from('mahasiswa')
+            // ->where('dosen.prodi = prodi.kode_prodi')
+            ->count_all_results();
+    }
 }

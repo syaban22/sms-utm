@@ -9,6 +9,7 @@ class Mahasiswa extends CI_Controller
         cek_login();
         $this->load->library('upload');
         $this->load->model('fakultas_model');
+        $this->load->model('skripsi_model');
     }
 
     public function index()
@@ -230,6 +231,8 @@ class Mahasiswa extends CI_Controller
         $data['skripsi'] = $this->skripsiM->getSkripsi($config['per_page'], $data['start'], $data['keyword'], $data['user']['level_id']);
         $data['penguji'] = $this->skripsiM->getPenguji();
 
+
+
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar', $data);
         $this->load->view('template/topbar', $data);
@@ -237,85 +240,13 @@ class Mahasiswa extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    public function getStatus()
+    public function getDataSkripsi()
     {
-        $data['judul'] = 'Status';
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $usr = $this->session->userdata('email');
-
-        $this->load->model('user_model', 'UsM');
-
-        //$data['perusahaan'] = $this->pelamarM->getPerusahaan();
-        $data['posisi'] = $this->db->get('posisi')->result_array();
-        $data['perusahaan'] = $this->db->get('perusahaan')->result_array();
-
-        $cek = array(
-            'cek' => $this->input->get('st'),
-        );
-
-        // $this->db->where('id', $id);
-        $this->db->update('lamar_pekerjaan', $cek);
-
-
-        //filter
-        $nomor = $this->input->post('data');
-        //echo $perusahaan;
-        //$per = $this->db->get_where('lamar_pekerjaan', ['perusahaan_id' => $perusahaan])->result();
-
-        //print_r($per);
-
-        if ($this->input->post('submit')) {
-            $data['keyword'] = $this->input->post('keyword');
-            $this->session->set_userdata('keyword', $data['keyword']);
-        } else {
-            $data['keyword'] = $this->session->userdata('keyword');
-        }
-
-        if ($data['keyword'] == NULL) {
-            $this->db->like('email', $usr);
-            $this->db->from('lamar_pekerjaan l, perusahaan p');
-            $this->db->where('l.perusahaan_id = p.id');
-        } else {
-            $this->db->like('perusahaan', $data['keyword']);
-            $this->db->from('lamar_pekerjaan, perusahaan');
-            $this->db->where('lamar_pekerjaan.perusahaan_id = perusahaan.id');
-            $this->db->where('lamar_pekerjaan.email', $usr);
-        }
-        $config['total_rows'] = $this->db->count_all_results();
-        $config['base_url'] = 'http://localhost/uas/user/getStat';
-
-        $data['total_rows'] = $config['total_rows'];
-        // if ($perusahaan == 0) {
-        // 	$perusahaan = 5;
-        // }
-        $config['per_page'] = 5;
-        //$data['start'] = $this->uri->segment(3);
-        //var_dump($this->input->post('num_rows'));
-
-
-        // $data['jumlah_page'] = ceil($config['total_rows'] / $config['per_page']);
-        // $data['page'] = ceil(($this->uri->segment(3) / $data['jumlah_page']));
-        // if ($data['page'] == 0) {
-        // 	$data['page'] = 1;
-        // }
-
-        $this->pagination->initialize($config);
-
-
-        if ($this->uri->segment(3) !== null) {
-            $data['start'] = $this->uri->segment(3);
-        } else {
-            $data['start'] = 0;
-        }
-
-        $data['pelamar'] = $this->UsM->getStat($config['per_page'], $data['start'], $data['keyword'], $usr);
-
-        $this->load->view('template/header', $data);
-        $this->load->view('template/sidebar', $data);
-        $this->load->view('template/topbar', $data);
-        $this->load->view('user/getStatus', $data);
-        $this->load->view('template/footer');
+        $nim_mhs = $_POST['nim_mhs'];
+        $data['detail']  = $this->skripsi_model->get_detail($nim_mhs);
+        $this->load->view("mahasiswa/modal", $data);
     }
+
 
     public function changePassword()
     {

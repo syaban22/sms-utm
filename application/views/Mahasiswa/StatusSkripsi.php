@@ -55,8 +55,9 @@
                         <th scope="col">Judul</th>
                         <th scope="col">Dosbing1</th>
                         <th scope="col">Dosbing2</th>
-                        <th scope="col">Prodi</th>
-                        <th scope="col">Nilai</th>
+                        <th scope="col">Detail</th>
+                        <!-- <th scope="col">Prodi</th>
+                        <th scope="col">Nilai</th> -->
                         <!-- <th scope="col">Action</th> -->
                     </tr>
                 </thead>
@@ -76,16 +77,19 @@
                             <td><?= $u['judul']; ?></td>
                             <td><?= $u['dosbing1']; ?></td>
                             <td><?= $u['dosbing2']; ?></td>
-                            <td><?= $u['prodi']; ?></td>
-                            <?php if ($u['nilai'] != 0) : ?>
+                            <!-- <td><?= $u['prodi']; ?></td> -->
+                            <!-- <?php if ($u['nilai'] != 0) : ?>
                                 <td><?= $u['nilai']; ?></td>
                             <?php else : ?>
                                 <td>N/A</td>
-                            <?php endif; ?>
-                            <!-- <td>
-                                <a href="" data-toggle="modal" data-target="#pelamarEdit<?= $u['id'] ?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i>Edit</a>
-                                <a href="<?= base_url() . 'administrator/deleteU/' . $u['id'] ?>" data-nama="<?= $u['nama']; ?>" class="btn btn-danger btn-sm deleteP"><i class="fa fa-fw fa-trash"></i>Delete</a>
-                            </td> -->
+                            <?php endif; ?> -->
+                            <td>
+                                <a data-toggle="modal" data-target="#myModal" onclick="javascript:load_modal(<?php echo $u['nim']; ?>)" class="btn btn-warning btn-sm detail"><i class="fa fa-fw fa-eye"></i>Lihat Detail</a>
+                                <!-- <a href="" data-toggle="modal" data-target="#pelamarEdit<?= $u['id'] ?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i>Edit</a>
+                                <a href="<?= base_url() . 'administrator/deleteU/' . $u['id'] ?>" data-nama="<?= $u['nama']; ?>" class="btn btn-danger btn-sm deleteP"><i class="fa fa-fw fa-trash"></i>Delete</a> -->
+                                <!-- <button class="btn btn-primary detail" relid="<?= $u['nim']; ?>">View</button> -->
+                                <!-- <a href="" relid="<?= $u['nim'] ?>" class="btn btn-warning btn-sm detail"><i class="fa fa-fw fa-eye"></i> Detail</a> -->
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -108,54 +112,19 @@
 </div>
 <!-- End of Main Content -->
 
-<!-- <?php foreach ($users as $u) :
-        ?>
+<script type="text/javascript">
+    //$(".modal-dialog").hide();
+    function load_modal(nim_mhs) {
+        $.ajax({
+            type: "POST",
+            url: "<?php echo site_url('Mahasiswa/getDataSkripsi'); ?>",
+            data: "nim_mhs=" + nim_mhs,
+            success: function(response) {
+                $(".displaycontent").html(response);
 
-    <!-- Modal Edit -->
-<div class="modal fade" id="pelamarEdit<?= $u['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="pelamarEditLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="pelamarEditLabel">Edit Data Pelamar</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form action="<?= base_url('administrator/updateU/' . $u['id']); ?>" method="POST">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="nama">Nama</label>
-                        <input type="text" class="form-control" id="nama" name="nama" value="<?= $u['nama']; ?>">
-                        <?= form_error('nama', '<div class="alert-danger" role="alert">', '</div>'); ?>
-                    </div>
-                    <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" class="form-control" id="username" name="username" value="<?= $u['username']; ?>">
-                        <?= form_error('alamat', '<div class="alert-danger" role="alert">', '</div>'); ?>
-                    </div>
-                    <div class="form-group">
-                        <label for="level">Level</label>
-                        <select name="level" id="level" class="form-control">
-
-                            <?php foreach ($level as $l) {
-                                if ($p['level_id'] == $l['id']) {
-                                    echo "<option value='$l[id]' selected>$l[level]</option>";
-                                } else {
-                                    echo "<option value='$l[id]'>$l[level]</option>";
-                                }
-                            }
-                            ?>
-
-                        </select>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Edit</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<?php endforeach; ?> -->
+            }
+        });
+    }
+</script>
+<div class="modal fade displaycontent" id="myModal">
+    <?php include('modal.php'); ?>

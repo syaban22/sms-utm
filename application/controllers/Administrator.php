@@ -361,9 +361,7 @@ class Administrator extends CI_Controller
 			$data['keyword'] = $this->session->userdata('keyword');
 		}
 
-		$this->db->like('nama', $data['keyword']);
-		$this->db->from('dosen');
-		$config['total_rows'] = $this->db->count_all_results();
+		$config['total_rows'] = $this->dosenM->HitungSearch($data['keyword']);
 		$data['total_rows'] = $config['total_rows'];
 		$config['base_url'] = 'http://localhost/sms-utm/administrator/daftarDosen';
 
@@ -457,9 +455,9 @@ class Administrator extends CI_Controller
 			$data['keyword'] = $this->session->userdata('keyword');
 		}
 
-		$this->db->like('nama', $data['keyword']);
-		$this->db->from('mahasiswa');
-		$config['total_rows'] = $this->db->count_all_results();
+		// $this->db->like('nama', $data['keyword']);
+		// $this->db->from('mahasiswa');
+		$config['total_rows'] = $this->mahasiswaM->HitungSearch($data['keyword']);
 		$data['total_rows'] = $config['total_rows'];
 		$config['base_url'] = 'http://localhost/sms-utm/administrator/daftarMahasiswa';
 

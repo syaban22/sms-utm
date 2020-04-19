@@ -19,12 +19,15 @@ class dosen_model extends CI_Model
         return $this->db->query($query, $limit, $start, $keyword)->result_array();
     }
 
-    // public function getUserDosen()
-    // {
-    //     $query =
-    //         "
-    //         SELECT u.username FROM dosen d, user u WHERE d.username = u.id";
-
-    //     return $this->db->query($query)->result_array();
-    // }
+    public function HitungSearch($keyword)
+    {
+        return $this->db
+            ->like('nama', $keyword)
+            ->or_like('nip', $keyword)
+            // ->like('prodi.prodi', $keyword)
+            // ->from('dosen, prodi')
+            ->from('dosen')
+            // ->where('dosen.prodi = prodi.kode_prodi')
+            ->count_all_results();
+    }
 }

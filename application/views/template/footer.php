@@ -40,6 +40,8 @@
 </div> -->
 
 <!-- Bootstrap core JavaScript-->
+
+
 <script src="<?= base_url('assets/'); ?>vendor/jquery/jquery.min.js"></script>
 <script src="<?= base_url('assets/'); ?>vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -86,6 +88,41 @@
 </script>
 
 <script type="text/javascript" src="<?= base_url('assets/'); ?>js/validasi.js"></script>
+
+<script src="<?= base_url('assets/'); ?>js/pop/js3.js"></script>
+<script src="<?= base_url('assets/'); ?>js/pop/minjs3.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    $('.detail').click(function() {
+
+      var id = $(this).attr('relid'); //get the attribute value
+
+      $.ajax({
+        url: "<?php echo base_url(); ?>Mahasiswa/getData",
+        data: {
+          id: id
+        },
+        method: 'GET',
+        dataType: 'json',
+        success: function(response) {
+          $('#student_name').html(response.name); //hold the response in id and show on popup
+          $('#student_email').html(response.email);
+          $('#student_phone').html(response.phone);
+          $('#show_modal').modal({
+            backdrop: 'static',
+            keyboard: true,
+            show: true
+          });
+        }
+      });
+    });
+  });
+</script>
+
+
+
 </body>
 
 </html>
