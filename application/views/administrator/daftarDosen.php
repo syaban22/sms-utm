@@ -119,7 +119,7 @@
 					<div class="modal-body">
 						<div class="form-group">
 							<label for="nip">NIP</label>
-							<input type="text" class="form-control" id="nip" name="nip" value="<?= $u['nip']; ?>">
+							<input type="number" class="form-control" id="nip" name="nip" value="<?= $u['nip']; ?>">
 							<?= form_error('nip', '<div class="alert-danger" role="alert">', '</div>'); ?>
 						</div>
 						<div class="form-group">
@@ -128,32 +128,16 @@
 							<?= form_error('nama', '<div class="alert-danger" role="alert">', '</div>'); ?>
 						</div>
 						<div class="form-group">
-							<label for="username">Username</label>
-							<select name="username" id="username" class="form-control">
-								<option>- Pilih Username -</option>
-								<?php foreach ($username as $us) {
-																														if ($u['username'] == $us['username']) {
-																															echo "<option value='$us[id]' selected>$u[username]</option>";
-																														} else {
-																															echo "<option value='$us[id]'>$us[username]</option>";
-																														}
-																													}
-								?>
-							</select>
-							<?= form_error('username', '<div class="alert-danger" role="alert">', '</div>'); ?>
-						</div>
-
-						<div class="form-group">
 							<label for="prodi">Program Studi</label>
 							<select name="prodi" id="prodi" class="form-control">
 								<option>- Pilih Program Studi -</option>
 								<?php foreach ($prodi as $p) {
-																														if ($p['prodi'] == $u['prodi']) {
-																															echo "<option value='$p[kode_prodi]' selected>$u[prodi]</option>";
-																														} else {
-																															echo "<option value='$p[kode_prodi]'>$p[prodi]</option>";
-																														}
-																													}
+									if ($p['prodi'] == $u['prodi']) {
+										echo "<option value='$p[kode_prodi]' selected>$u[prodi]</option>";
+									} else {
+										echo "<option value='$p[kode_prodi]'>$p[prodi]</option>";
+									}
+								}
 								?>
 
 							</select>
@@ -185,24 +169,19 @@
 			<form action="<?= base_url('administrator/daftarDosen'); ?>" method="POST">
 				<div class="modal-body">
 					<div class="form-group">
-						<input type="text" class="form-control" name="nip" id="nip" placeholder="NIP Dosen">
+						<input type="number" class="form-control" name="nip" id="nip" placeholder="NIP Dosen">
 					</div>
 					<div class="form-group">
 						<input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Dosen">
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" name="email" id="email" placeholder="Email Dosen">
 					</div>
 					<div class="form-group">
 						<select name="prodi" id="prodi" class="form-control">
 							<option value="">- Pilih Prodi -</option>
 							<?php foreach ($prodi as $f) : ?>
 								<option value="<?= $f['kode_prodi']; ?>"><?= $f['prodi']; ?></option>
-							<?php endforeach; ?>
-						</select>
-					</div>
-					<div class="form-group">
-						<select name="username" id="username" class="form-control">
-							<option value="">- Pilih Username -</option>
-							<?php foreach ($username as $f) : ?>
-								<option value="<?= $f['id']; ?>"><?= $f['username']; ?> <?= '=> ' ?><?= $f['nama']; ?> </option>
 							<?php endforeach; ?>
 						</select>
 					</div>

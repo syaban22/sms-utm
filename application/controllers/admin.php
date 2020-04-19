@@ -102,17 +102,21 @@ class admin extends CI_Controller
 				];
 				$this->db->insert('user', $usr);
 			}
-			$data = [
-				'nip' => $this->input->post('nip'),
-				'nama' => $this->input->post('nama'),
-				'gambar' => "default.jpg",
-				'username' => $this->db->get_where('user', ['username' =>$this->input->post('nip')])->row_array()['id'],
-				'prodi' =>  $this->db->get_where('admin',['username' => $userid['id']])->row_array()['prodi'],
-				'email' => $this->input->post('email'),
-				'tgl_buat' => time()
-			];
-			$this->db->insert('dosen', $data);
-			$this->session->set_flashdata('pesan', '1 User Dosen berhasil ditambahkan');
+			if ($this->db->get_where('dosen', ['nip' => $this->input->post('nip')])->row_array() == null) {
+				$data = [
+					'nip' => $this->input->post('nip'),
+					'nama' => $this->input->post('nama'),
+					'gambar' => "default.jpg",
+					'username' => $this->db->get_where('user', ['username' =>$this->input->post('nip')])->row_array()['id'],
+					'prodi' =>  $this->db->get_where('admin',['username' => $userid['id']])->row_array()['prodi'],
+					'email' => $this->input->post('email'),
+					'tgl_buat' => time()
+				];
+				$this->db->insert('dosen', $data);
+				$this->session->set_flashdata('pesan', '1 User Dosen berhasil ditambahkan');
+			}else{
+				// gagal karena nip sudah digunakan
+			}
 			redirect('admin/daftarDosen');
 		}
 	}
@@ -205,17 +209,21 @@ class admin extends CI_Controller
 					];
 					$this->db->insert('user', $data);
 				}
-				$data2 = [
-					'nim' => $this->input->post('nim'),
-					'nama' => $this->input->post('nama'),
-					'gambar' => 'default.jpg',
-					'prodi' => substr($this->input->post('nim'), 3, 4),
-					'email' => $this->input->post('email'),
-					//tanggal buat menggunakan tanggal sekarang
-					'username' => $this->db->get_where('user', ['username' => $this->input->post('nim')])->row_array()['id']
-				];
-				$this->db->insert('mahasiswa', $data2);
-				$this->session->set_flashdata('pesan', '1 User Mahasiswa berhasil ditambahkan');
+				if ($this->db->get_where('mahasiswa', ['nim' => $this->input->post('nim')])->row_array() == null) {
+					$data2 = [
+						'nim' => $this->input->post('nim'),
+						'nama' => $this->input->post('nama'),
+						'gambar' => 'default.jpg',
+						'prodi' => substr($this->input->post('nim'), 3, 4),
+						'email' => $this->input->post('email'),
+						'username' => $this->db->get_where('user', ['username' => $this->input->post('nim')])->row_array()['id'],
+						'tgl_buat' => time()
+					];
+					$this->db->insert('mahasiswa', $data2);
+					$this->session->set_flashdata('pesan', '1 User Mahasiswa berhasil ditambahkan');
+				}else{
+					// gagal karena nim digunakan
+				}
 			} else {
 				// ditambahkan flashdata untuk data gagal diinputkan karena prodi tidak sesuai
 			}
@@ -236,14 +244,23 @@ class admin extends CI_Controller
 				);
 				$this->db->insert('user', $data);
 			}
-			$data = array(
-				'nim' => $this->input->post('nim'),
-				'nama' => $this->input->post('nama'),
-				'username' => $this->db->get_where('user', ['username' => $this->input->post('nim')])->row_array()['id'],
-			);
-			$this->db->where('nim', $id);
-			$this->db->update('mahasiswa', $data);
-			$this->session->set_flashdata('pesan', 'Edit data Mahasiswa berhasil');
+			if ($this->db->get_where('mahasiswa', ['nim' => $this->input->post('nim')])->row_array() == null || $this->input->post('nim')==$id) {
+				$data = array(
+					'nim' => $this->input->post('nim'),
+					'nama' => $this->input->post('nama'),
+					'username' => $this->db->get_where('user', ['username' => $this->input->post('nim')])->row_array()['id']
+				);
+				$this->db->where('nim', $id);
+				$this->db->update('mahasiswa', $data);
+				$this->session->set_flashdata('pesan', 'Edit data Mahasiswa berhasil');
+				if ($this->input->post('nim')!=$id){
+					$this->db->delete('user', array('username' => $id));
+				}
+			}else{
+				// gagal nim telah digunakan
+			}
+		}else{
+			// gagal prodi tidak sesuai
 		}
 		redirect('admin/daftarMahasiswa');
 	}

@@ -93,7 +93,7 @@
 <!-- End of Main Content -->
 
 
-<!-- Modal -->
+<!-- Modal tambah -->
 <div class="modal fade" id="fakultasBaru" tabindex="-1" role="dialog" aria-labelledby="fakultasBaruLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
