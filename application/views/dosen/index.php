@@ -42,7 +42,7 @@
                     </div>
                     <div class="txtprof">
                         <p>*Ekstensi yang diperbolehkan .jpeg / .jpg / .png</p>
-                        <p>*Maksimal ukuran gambar 500 x 500</p>
+                        <!-- <p>*Maksimal ukuran gambar 500 x 500</p> -->
                         <p>*Maksimal 2 MB</p>
                     </div>
                 </div>

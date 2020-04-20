@@ -14,30 +14,30 @@ class dosen extends CI_Controller
         $data['judul'] = 'My Profile';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $userid = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['profil']= $this->db->get_where('dosen', ['username' => $userid['id']])->row_array();
-        
+        $data['profil'] = $this->db->get_where('dosen', ['username' => $userid['id']])->row_array();
+
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar', $data);
         $this->load->view('template/topbar_user', $data);
         $this->load->view('dosen/index', $data);
         $this->load->view('template/footer');
     }
-    
+
     public function UbahFoto($id)
     {
         $config['upload_path']          = './assets/img/profile/';
         $config['allowed_types']        = 'jpg|jpeg|png';
         $config['max_size']             = 2000;
-        $config['max_width']            = 500;
-        $config['max_height']           = 500;
+        // $config['max_width']            = 500;
+        // $config['max_height']           = 500;
         $config['overwrite']             = TRUE;
-        
+
         $this->upload->initialize($config);
-        
+
         $this->upload->do_upload('UbahFoto');
         $gbr = $this->upload->data();
         $file = $gbr['file_name'];
-        
+
         $data = [
             'gambar' => $file,
         ];
@@ -45,25 +45,25 @@ class dosen extends CI_Controller
             $this->session->set_flashdata('pesan', 'Format Foto Salah');
             redirect('dosen');
         } else {
-            $old_img = $data['user']['gambar'];
+            $old_img = $data['dosen']['gambar'];
             if ($old_img != 'default.jpg') {
                 unlink(FCPATH . '/assets/img/profile/' . $old_img);
             }
-            
-            $this->db->where('id', $id);
-            $this->db->update('user', $data);
+
+            $this->db->where('username', $id);
+            $this->db->update('dosen', $data);
             $this->session->set_flashdata('pesan', 'Update Foto Berhasil');
             redirect('dosen');
         }
     }
-    
-    
+
+
     public function changePassword()
     {
         $data['judul'] = 'My Profile';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         // $em = $this->session->userdata('email');
-        
+
         // $this->db->select_sum('cek');
         // $this->db->from('lamar_pekerjaan');
         // $this->db->where('email', $em);
@@ -97,7 +97,7 @@ class dosen extends CI_Controller
                     $pass_hash = password_hash($newpass, PASSWORD_DEFAULT);
 
                     $this->db->set('password', $pass_hash);
-                    $this->db->where('email', $this->session->userdata('email'));
+                    $this->db->where('username', $this->session->userdata('username'));
                     $this->db->update('user');
 
                     $this->session->set_flashdata('pesan', 'Ubah Password Berhasil');
@@ -113,7 +113,7 @@ class dosen extends CI_Controller
         $data['judul'] = 'Mahasiswa';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $userid = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['profil']= $this->db->get_where('dosen', ['username' => $userid['id']])->row_array();
+        $data['profil'] = $this->db->get_where('dosen', ['username' => $userid['id']])->row_array();
         $this->load->model('skripsi_model', 'skripsiM');
         $data['level'] = $this->db->get('user_level')->result_array();
         //$data['user'] = $this->db->from('user');

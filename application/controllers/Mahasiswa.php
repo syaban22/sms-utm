@@ -64,8 +64,8 @@ class Mahasiswa extends CI_Controller
         $config['upload_path']          = './assets/img/profile/';
         $config['allowed_types']        = 'jpg|jpeg|png';
         $config['max_size']             = 2000;
-        $config['max_width']            = 500;
-        $config['max_height']           = 500;
+        // $config['max_width']            = 500;
+        // $config['max_height']           = 500;
         $config['overwrite']             = TRUE;
 
         $this->upload->initialize($config);
