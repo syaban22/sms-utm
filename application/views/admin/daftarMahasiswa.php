@@ -150,13 +150,19 @@
 				</button>
 			</div>
 
-			<form action="<?= base_url('admin/daftarMahasiswa'); ?>" method="POST">
+			<form action="<?= base_url('admin/daftarMahasiswa'); ?>" method="POST" class="needs-validation" novalidate>
 				<div class="modal-body">
 					<div class="form-group">
-						<input type="text" class="form-control" name="nim" id="nim" placeholder="NIM Mahasiswa">
+						<input type="text" class="form-control" name="nim" id="nim" placeholder="NIM Mahasiswa" required>
+						<div class="invalid-feedback">
+							Masukan NIM Mahasiswa
+						</div>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Mahasiswa">
+						<input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Mahasiswa" required>
+						<div class="invalid-feedback">
+							Masukan Nama Mahasiswa
+						</div>
 					</div>
 					<div class="form-group">
 						<input type="text" class="form-control" name="email" id="email" placeholder="Email Mahasiswa">
