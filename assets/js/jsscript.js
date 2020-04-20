@@ -117,7 +117,18 @@ if (flashdata == 'User belum terdaftar!') {
 	})
 }
 
-// alert untuk tambah dosen (dari ADMIN PRODI)
+//Alert untuk penambahan User (ADMINISTRATOR INDEX)
+if (flashdata == '1 User baru berhasil ditambahkan') {
+	Swal.fire({
+		position: 'center',
+		icon: 'success',
+		title: flashdata,
+		showConfirmButton: false,
+		timer: 2000
+	})
+}
+
+// alert untuk tambah dosen (dari ADMIN PRODI + ADMINISTRATOR)
 if (flashdata == '1 User Dosen berhasil ditambahkan') {
 	Swal.fire({
 		position: 'center',
@@ -139,7 +150,7 @@ if (flashdata == 'Dosen penguji berhasil ditambahkan') {
 	})
 }
 
-//Modal Pop-up Delete Confirmation (ADMIN Prodi)
+//Modal Pop-up Delete Confirmation (ADMIN Prodi + ADMINISTRATOR)
 $('.deleteDosen').on('click', function (e) {
 	e.preventDefault();
 	const nama = $(this).data('nama');
@@ -161,11 +172,23 @@ $('.deleteDosen').on('click', function (e) {
 	})
 });
 
-if (flashdata == 'dihapus') {
+//Alert TambahFakultas (ADMINISTRATOR)
+if (flashdata == '1 Fakultas baru berhasil ditambahkan') {
 	Swal.fire({
 		position: 'center',
 		icon: 'success',
-		title: 'Data Fakultas berhasil ' + flashdata,
+		title: flashdata,
+		showConfirmButton: false,
+		timer: 2000
+	})
+}
+
+//Alert Hapusfakultas (ADMINISTRATOR)
+if (flashdata == '1 Fakultas berhasil dihapus') {
+	Swal.fire({
+		position: 'center',
+		icon: 'success',
+		title: flashdata,
 		showConfirmButton: false,
 		timer: 2000
 	})
@@ -177,7 +200,7 @@ $('.deleteL').on('click', function (e) {
 	const nama = $(this).data('nama');
 	const href = $(this).attr('href');
 	Swal.fire({
-		title: 'Hapus Data',
+		title: 'Hapus Level',
 		html: "Apakah anda yakin untuk menghapus Level " + '<b>' + nama + '</b>' + " ?",
 		icon: 'warning',
 		showCancelButton: true,
@@ -223,8 +246,8 @@ if (flashdata == 'Level baru berhasil ditambahkan') {
 	})
 }
 
-// CRUD perusahaan (admin)
-if (flashdata == 'Program Studi baru berhasil ditambahkan') {
+//Alert Tambah Prodi Baru (ADMINISTRATOR)
+if (flashdata == '1 Program Studi baru berhasil ditambahkan') {
 	Swal.fire({
 		position: 'center',
 		icon: 'success',
@@ -234,13 +257,58 @@ if (flashdata == 'Program Studi baru berhasil ditambahkan') {
 	})
 }
 
-$('.deletePe').on('click', function (e) {
+//Konfirmasi Delete Prodi (ADMINISTRATOR)
+$('.deletePro').on('click', function (e) {
 	e.preventDefault();
 	const nama = $(this).data('nama');
 	const href = $(this).attr('href');
 	Swal.fire({
-		title: 'Hapus Data',
-		html: "Apakah anda yakin untuk menghapus Perusahaan " + '<b>' + nama + '</b>' + " ?",
+		title: 'Hapus Prodi',
+		html: "Apakah anda yakin untuk menghapus " + '<b>' + nama + '</b>' + " ?",
+		icon: 'warning',
+		showCancelButton: true,
+		focusConfirm: false,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Ya',
+		cancelmButtonText: 'Tidak'
+	}).then((result) => {
+		if (result.value) {
+			document.location.href = href;
+		}
+	})
+});
+
+//Delete Prodi (ADMINISTRATOR)
+if (flashdata == '1 Program Studi berhasil dihapus') {
+	Swal.fire({
+		position: 'center',
+		icon: 'success',
+		title: flashdata,
+		showConfirmButton: false,
+		timer: 2000
+	})
+}
+
+//EDIT Prodi (ADMINISTRATOR)
+if (flashdata == 'Edit data Program Studi berhasil') {
+	Swal.fire({
+		position: 'center',
+		icon: 'success',
+		title: flashdata,
+		showConfirmButton: false,
+		timer: 2000
+	})
+}
+
+//Konfirmasi Delete Fakultas (ADMINISTRATOR)
+$('.deleteFak').on('click', function (e) {
+	e.preventDefault();
+	const nama = $(this).data('nama');
+	const href = $(this).attr('href');
+	Swal.fire({
+		title: 'Hapus Fakultas',
+		html: "Apakah anda yakin untuk menghapus " + '<b>' + nama + '</b>' + " ?",
 		icon: 'warning',
 		showCancelButton: true,
 		focusConfirm: false,
@@ -266,7 +334,7 @@ if (flashdata == '1 User Dosen berhasil dihapus') {
 	})
 }
 
-//Edit User Dosen (ADMIN Prodi)
+//Edit User Dosen (ADMIN Prodi + ADMINISTRATOR)
 if (flashdata == 'Edit data user Dosen berhasil') {
 	Swal.fire({
 		position: 'center',
@@ -277,7 +345,7 @@ if (flashdata == 'Edit data user Dosen berhasil') {
 	})
 }
 
-//Tambah User Mahasiswa (ADMIN Prodi)
+//Tambah User Mahasiswa (ADMIN Prodi + ADMINISTRATOR)
 if (flashdata == '1 User Mahasiswa berhasil ditambahkan') {
 	Swal.fire({
 		position: 'center',
@@ -320,7 +388,7 @@ if (flashdata == '1 user Mahasiswa berhasil dihapus') {
 	})
 }
 
-//Edit Data Mahasiswa (ADMIN Prodi)
+//Edit Data Mahasiswa (ADMIN Prodi + ADMINISTRATOR)
 if (flashdata == 'Edit data Mahasiswa berhasil') {
 	Swal.fire({
 		position: 'center',
@@ -337,7 +405,7 @@ $('.deleteM').on('click', function (e) {
 	const nama = $(this).data('nama');
 	const href = $(this).attr('href');
 	Swal.fire({
-		title: 'Hapus Data',
+		title: 'Hapus Menu',
 		html: "Apakah anda yakin untuk menghapus Menu " + '<b>' + nama + '</b>' + " ?",
 		icon: 'warning',
 		showCancelButton: true,
@@ -409,7 +477,7 @@ $('.deleteSM').on('click', function (e) {
 	const nama = $(this).data('nama');
 	const href = $(this).attr('href');
 	Swal.fire({
-		title: 'Hapus Data',
+		title: 'Hapus Sub-Menu',
 		html: "Apakah anda yakin untuk menghapus Sub-Menu " + '<b>' + nama + '</b>' + " ?",
 		icon: 'warning',
 		showCancelButton: true,
@@ -589,7 +657,7 @@ if (flashdata == 'Detail Profil Perusahaan Berhasil Ditambahkan') {
 	})
 }
 
-//Konfirmasi delete User (ADMIN Prodi)
+//Konfirmasi delete User (ADMIN Prodi + ADMINISTRATOR)
 $('.deleteU').on('click', function (e) {
 	e.preventDefault();
 	const nama = $(this).data('nama');
@@ -611,7 +679,7 @@ $('.deleteU').on('click', function (e) {
 	})
 });
 
-//Delete User (ADMIN Prodi)
+//Delete User (ADMIN Prodi + ADMINISTRATOR)
 if (flashdata == '1 User berhasil dihapus') {
 	Swal.fire({
 		position: 'center',
@@ -641,5 +709,27 @@ if (flashdata == 'Hapus User gagal') {
 		title: 'Hapus User tidak berhasil',
 		text: 'Harap menghapus Mahasiswa/Dosen dan coba lagi',
 		showConfirmButton: true,
+	})
+}
+
+//Delete Fakultas gagal (ADMINISTRATOR)
+if (flashdata == 'Gagal menghapus Fakultas') {
+	Swal.fire({
+		position: 'center',
+		icon: 'error',
+		title: 'Hapus Fakultas tidak berhasil',
+		text: 'Harap menghapus seluruh Prodi yang bersangkutan dengan Fakultas dan coba lagi',
+		showConfirmButton: true,
+	})
+}
+
+//Edit Data Fakultas (ADMINISTRATOR)
+if (flashdata == 'Edit Data Fakultas berhasil') {
+	Swal.fire({
+		position: 'center',
+		icon: 'success',
+		title: flashdata,
+		showConfirmButton: false,
+		timer: 2000
 	})
 }

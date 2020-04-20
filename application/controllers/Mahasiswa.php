@@ -81,13 +81,13 @@ class Mahasiswa extends CI_Controller
             $this->session->set_flashdata('pesan', 'Format Foto Salah');
             redirect('Mahasiswa/Profile');
         } else {
-            $old_img = $data['user']['gambar'];
+            $old_img = $data['profil']['gambar'];
             if ($old_img != 'default.jpg') {
                 unlink(FCPATH . '/assets/img/profile/' . $old_img);
             }
 
-            $this->db->where('id', $id);
-            $this->db->update('user', $data);
+            $this->db->where('username', $id);
+            $this->db->update('mahasiswa', $data);
             $this->session->set_flashdata('pesan', 'Update Foto Berhasil');
             redirect('Mahasiswa/Profile');
         }
@@ -289,7 +289,7 @@ class Mahasiswa extends CI_Controller
                     $pass_hash = password_hash($newpass, PASSWORD_DEFAULT);
 
                     $this->db->set('password', $pass_hash);
-                    $this->db->where('email', $this->session->userdata('email'));
+                    $this->db->where('username', $this->session->userdata('username'));
                     $this->db->update('user');
 
                     $this->session->set_flashdata('pesan', 'Ubah Password Berhasil');

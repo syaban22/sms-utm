@@ -23,7 +23,6 @@
 			</div>
 		</div>
 	</div>
-	<a href="" class="btn btn-sm btn-primary mb-3" data-toggle="modal" data-target="#userBaru"><i class="fas fa-fw fa-plus-square"></i> Tambah User</a>
 	<div class="row">
 		<div class="col-md">
 			<nav class="navbar navbar-light bg-light">
@@ -43,6 +42,7 @@
 			</nav>
 		</div>
 	</div>
+	<a href="" class="btn btn-sm btn-primary mb-3" data-toggle="modal" data-target="#userBaru"><i class="fas fa-fw fa-plus-square"></i> Tambah User</a>
 	<!-- <div class="col-md-2">
 		<select class="form-control" name="" id="perusahaan">
 			<option value="5">5</option>
@@ -80,7 +80,7 @@
 							<td><?= $u['level']; ?></td>
 							<td>
 								<a href="" data-toggle="modal" data-target="#pelamarEdit<?= $u['id'] ?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i>Edit</a>
-								<a href="<?= base_url() . 'administrator/deleteU/' . $u['id'] ?>" data-nama="<?= $u['username']; ?>" class="btn btn-danger btn-sm deleteP"><i class="fa fa-fw fa-trash"></i>Delete</a>
+								<a href="<?= base_url() . 'administrator/deleteU/' . $u['id'] ?>" data-nama="<?= $u['username']; ?>" class="btn btn-danger btn-sm deleteU"><i class="fa fa-fw fa-trash"></i>Delete</a>
 							</td>
 						</tr>
 					<?php endforeach; ?>
@@ -180,7 +180,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<select name="level" id="level" class="form-control">
+						<select name="level" id="level" class="form-control" required>
 							<option>- Pilih Level -</option>
 							<?php foreach ($level as $l) : ?>
 								<option value="<?= $l['id']; ?>"><?= $l['level']; ?></option>

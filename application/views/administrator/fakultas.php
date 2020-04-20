@@ -75,7 +75,7 @@
 							<td><?= $p['fakultas']; ?></td>
 							<td>
 								<a href="" class="btn btn-success btn-sm" data-toggle="modal" data-target="#fakultasEdit<?= $p['kode_fak'] ?>"><i class="fa fa-fw fa-edit"></i>Edit</a>
-								<a href="<?= base_url('administrator/deleteFakultas/' . $p['kode_fak']) ?>" data-nama="<?= $p['fakultas']; ?>" class="btn btn-danger btn-sm deletePe"><i class="fa fa-fw fa-trash"></i>Delete</a>
+								<a href="<?= base_url('administrator/deleteFakultas/' . $p['kode_fak']) ?>" data-nama="<?= $p['fakultas']; ?>" class="btn btn-danger btn-sm deleteFak"><i class="fa fa-fw fa-trash"></i>Delete</a>
 							</td>
 						</tr>
 					<?php endforeach; ?>
@@ -104,13 +104,19 @@
 				</button>
 			</div>
 
-			<form action="<?= base_url('administrator/fakultas'); ?>" method="POST">
+			<form action="<?= base_url('administrator/fakultas'); ?>" method="POST" class="needs-validation" novalidate>
 				<div class="modal-body">
 					<div class="form-group">
-						<input type="text" class="form-control" name="kodefak" id="kodefak nama" placeholder="Kode Fakultas">
+						<input type="text" class="form-control ceknum" name="kodefak" id="kodefak nama" placeholder="Kode Fakultas" required>
+						<div class="invalid-feedback">
+							Masukan Kode Fakultas
+						</div>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" name="fakultas" id="fakultas" placeholder="Nama fakultas">
+						<input type="text" class="form-control" name="fakultas" id="fakultas" placeholder="Nama fakultas" required>
+						<div class="invalid-feedback">
+							Masukan Nama Fakultas
+						</div>
 					</div>
 				</div>
 				<div class="modal-footer">

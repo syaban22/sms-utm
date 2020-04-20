@@ -71,10 +71,13 @@
 				</button>
 			</div>
 
-			<form action="<?= base_url('menu'); ?>" method="POST">
+			<form action="<?= base_url('menu'); ?>" method="POST" class="needs-validation" novalidate>
 				<div class="modal-body">
 					<div class="form-group">
-						<input type="text" class="form-control" name="menu" id="menu" placeholder="Nama Menu">
+						<input type="text" class="form-control" name="menu" id="menu" placeholder="Nama Menu" required>
+						<div class="invalid-feedback">
+							Masukan Nama Menu
+						</div>
 					</div>
 				</div>
 				<div class="modal-footer">

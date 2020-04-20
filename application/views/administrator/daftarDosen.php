@@ -20,14 +20,13 @@
 	</div>
 	<div class="row">
 		<div class="col-md">
-			<a href="" class="btn btn-sm btn-primary mb-3" data-toggle="modal" data-target="#dosenBaru"><i class="fas fa-fw fa-plus-square"></i> Tambah Dosen</a>
 			<nav class="navbar navbar-light bg-light">
 				<?php
-													if ($keyword == null) {
-														echo '<a class="navbar-brand">Total : ' . $total_rows . '</a>';
-													} else {
-														echo '<a class="navbar-brand">Hasil Pencarian : ' . $total_rows . '</a>';
-													}
+				if ($keyword == null) {
+					echo '<a class="navbar-brand">Total : ' . $total_rows . '</a>';
+				} else {
+					echo '<a class="navbar-brand">Hasil Pencarian : ' . $total_rows . '</a>';
+				}
 				?>
 
 				<form class="form-inline" action="<?= base_url('administrator/daftarDosen'); ?>" method="post">
@@ -38,6 +37,7 @@
 			</nav>
 		</div>
 	</div>
+	<a href="" class="btn btn-sm btn-primary mb-3" data-toggle="modal" data-target="#dosenBaru"><i class="fas fa-fw fa-plus-square"></i> Tambah Dosen</a>
 	<!-- <div class="col-md-2">
 		<select class="form-control" name="" id="perusahaan">
 			<option value="5">5</option>
@@ -79,7 +79,7 @@
 							<td><?= $u['username']; ?></td>
 							<td>
 								<a href="" data-toggle="modal" data-target="#pelamarEdit<?= $u['nip'] ?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i>Edit</a>
-								<a href="<?= base_url() . 'administrator/deleteDosen/' . $u['nip'] ?>" data-nama="<?= $u['nama']; ?>" class="btn btn-danger btn-sm deleteP"><i class="fa fa-fw fa-trash"></i>Delete</a>
+								<a href="<?= base_url() . 'administrator/deleteDosen/' . $u['nip'] ?>" data-nama="<?= $u['nama']; ?>" class="btn btn-danger btn-sm deleteDosen"><i class="fa fa-fw fa-trash"></i>Delete</a>
 							</td>
 						</tr>
 					<?php endforeach; ?>
@@ -166,19 +166,25 @@
 				</button>
 			</div>
 
-			<form action="<?= base_url('administrator/daftarDosen'); ?>" method="POST">
+			<form action="<?= base_url('administrator/daftarDosen'); ?>" method="POST" class="needs-validation" novalidate>
 				<div class="modal-body">
 					<div class="form-group">
-						<input type="number" class="form-control" name="nip" id="nip" placeholder="NIP Dosen">
+						<input type="text" class="form-control" name="nip" id="nip" placeholder="NIP Dosen" required>
+						<div class="invalid-feedback">
+							Masukan NIP Dosen
+						</div>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Dosen">
+						<input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Dosen" required>
+						<div class="invalid-feedback">
+							Masukan Nama Dosen
+						</div>
 					</div>
 					<div class="form-group">
 						<input type="text" class="form-control" name="email" id="email" placeholder="Email Dosen">
 					</div>
 					<div class="form-group">
-						<select name="prodi" id="prodi" class="form-control">
+						<select name="prodi" id="prodi" class="form-control" required>
 							<option value="">- Pilih Prodi -</option>
 							<?php foreach ($prodi as $f) : ?>
 								<option value="<?= $f['kode_prodi']; ?>"><?= $f['prodi']; ?></option>

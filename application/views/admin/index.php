@@ -110,11 +110,11 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="<?= base_url('admin/updateU/' . $u['id']); ?>" method="POST">
+                <form action="<?= base_url('admin/updateU/' . $u['id']); ?>" method="POST" class="needs-validation" novalidate>
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="username">Username</label>
-                            <input type="text" class="form-control" id="username" name="username" value="<?= $u['username']; ?>">
+                            <input type="text" class="form-control" id="username" name="username" value="<?= $u['username']; ?>" required>
                             <?= form_error('alamat', '<div class="alert-danger" role="alert">', '</div>'); ?>
                         </div>
                         <div class="form-group">

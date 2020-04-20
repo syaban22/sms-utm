@@ -83,13 +83,16 @@
 				</button>
 			</div>
 
-			<form action="<?= base_url('menu/submenu'); ?>" method="POST">
+			<form action="<?= base_url('menu/submenu'); ?>" method="POST" class="needs-validation" novalidate>
 				<div class="modal-body">
 					<div class="form-group">
-						<input type="text" class="form-control" name="title" id="title" placeholder="Nama Sub Menu">
+						<input type="text" class="form-control" name="title" id="title" placeholder="Nama Sub Menu" required>
+						<div class="invalid-feedback">
+							Masukan Nama Submenu
+						</div>
 					</div>
 					<div class="form-group">
-						<select name="menu_id" id="menu_id" class="form-control">
+						<select name="menu_id" id="menu_id" class="form-control" required>
 							<option value="">- Select Menu -</option>
 							<?php foreach ($menu as $m) : ?>
 								<option value="<?= $m['id']; ?>"><?= $m['menu']; ?></option>
@@ -97,10 +100,16 @@
 						</select>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" name="url" id="url" placeholder="Submenu URL">
+						<input type="text" class="form-control" name="url" id="url" placeholder="Submenu URL" required>
+						<div class="invalid-feedback">
+							Masukan URL Submenu
+						</div>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" name="icon" id="icon" placeholder="Submenu icon">
+						<input type="text" class="form-control" name="icon" id="icon" placeholder="Submenu icon" required>
+						<div class="invalid-feedback">
+							Masukan Icon Submenu
+						</div>
 					</div>
 					<div class="form-group">
 						<div class="form-check">
@@ -140,12 +149,12 @@
 						<div class="form-group">
 							<select name="menu_idU" id="menu_idU" class="form-control">
 								<?php foreach ($menu as $m) {
-																																		if ($sm['menu_id'] == $m['id']) {
-																																			echo "<option value='$m[id]' selected>$m[menu]</option>";
-																																		} else {
-																																			echo "<option value='$m[id]'>$m[menu]</option>";
-																																		}
-																																	}
+									if ($sm['menu_id'] == $m['id']) {
+										echo "<option value='$m[id]' selected>$m[menu]</option>";
+									} else {
+										echo "<option value='$m[id]'>$m[menu]</option>";
+									}
+								}
 								?>
 							</select>
 						</div>

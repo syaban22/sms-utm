@@ -18,7 +18,7 @@ class Administrator extends CI_Controller
 		$data['profil']['gambar'] = 'default.jpg';
 		$data['level'] = $this->db->get('user_level')->result_array();
 		$data['judul'] = 'Dashboard';
-		
+
 		$this->load->model('user_model', 'userM');
 		//$data['user'] = $this->db->from('user');
 
@@ -33,7 +33,7 @@ class Administrator extends CI_Controller
 		$this->db->from('user');
 		$config['total_rows'] = $this->db->count_all_results();
 		$data['total_rows'] = $config['total_rows'];
-		$config['base_url'] = 'http://localhost/sms-utm/administrator/getUserlist';
+		$config['base_url'] = 'http://localhost/sms-utm/administrator/index';
 
 		$config['per_page'] = 5;
 
@@ -57,16 +57,15 @@ class Administrator extends CI_Controller
 			$this->load->view('administrator/index', $data);
 			$this->load->view('template/footer');
 		} else {
-			if ($this->db->get_where('user',['username' => $this->input->post('username')])->row_array()==null){
+			if ($this->db->get_where('user', ['username' => $this->input->post('username')])->row_array() == null) {
 				$data = [
 					'username' => htmlspecialchars($this->input->post('username')),
 					'password' => password_hash($this->input->post('username'), PASSWORD_DEFAULT),
 					'level_id' => $this->input->post('level'),
 				];
 				$this->db->insert('user', $data);
-				$this->session->set_flashdata('pesan', 'ditambahkan');
-			}
-			else {
+				$this->session->set_flashdata('pesan', '1 User baru berhasil ditambahkan');
+			} else {
 				// gagal menambahkan, username sudah terpakai
 			}
 			redirect('administrator/index');
@@ -76,7 +75,7 @@ class Administrator extends CI_Controller
 	public function deleteU($id)
 	{
 		$this->db->delete('user', array('id' => $id));
-		$this->session->set_flashdata('pesan', 'User berhasil dihapus');
+		$this->session->set_flashdata('pesan', '1 User berhasil dihapus');
 		redirect('administrator/index');
 	}
 
@@ -91,8 +90,7 @@ class Administrator extends CI_Controller
 			$this->db->where('id', $id);
 			$this->db->update('user', $data);
 			$this->session->set_flashdata('pesan', 'Edit Data User berhasil');
-		}
-		catch (Exception $e){
+		} catch (Exception $e) {
 			// edit gagal username sudah ada
 			// $e->getMessage();
 		}
@@ -147,15 +145,15 @@ class Administrator extends CI_Controller
 			$this->load->view('administrator/fakultas', $data);
 			$this->load->view('template/footer');
 		} else {
-			if ($this->db->get_where('fakultas',['kode_fak' => $this->input->post('kodefak')])->row_array()==null){
+			if ($this->db->get_where('fakultas', ['kode_fak' => $this->input->post('kodefak')])->row_array() == null) {
 				$data = [
 					'kode_fak' => $this->input->post('kodefak'),
 					'fakultas' => $this->input->post('fakultas'),
 				];
 
 				$this->db->insert('fakultas', $data);
-				$this->session->set_flashdata('pesan', 'ditambahkan');
-			}else{
+				$this->session->set_flashdata('pesan', '1 Fakultas baru berhasil ditambahkan');
+			} else {
 				// gagal
 			}
 			redirect('administrator/fakultas');
@@ -170,15 +168,17 @@ class Administrator extends CI_Controller
 
 		$this->db->where('kode_fak', $id);
 		$this->db->update('fakultas', $data);
-		$this->session->set_flashdata('pesan', 'diubah');
+		$this->session->set_flashdata('pesan', 'Edit Data Fakultas berhasil');
 		redirect('administrator/fakultas');
 	}
 
 	public function deleteFakultas($id)
 	{
 		$this->db->delete('fakultas', array('kode_fak' => $id));
-		$this->session->set_flashdata('pesan', 'dihapus');
+		$this->session->set_flashdata('pesan', '1 Fakultas berhasil dihapus');
 		redirect('administrator/fakultas');
+		//sintak : bgst
+		//$this->session->set_flashdata('pesan', 'Gagal menghapus Fakultas');
 	}
 
 	public function ProgramStudi()
@@ -232,7 +232,7 @@ class Administrator extends CI_Controller
 			$this->load->view('administrator/ProgramStudi', $data);
 			$this->load->view('template/footer');
 		} else {
-			if ($this->db->get_where('prodi',['kode_prodi' => $this->input->post('kodeprodi')])->row_array()==null){
+			if ($this->db->get_where('prodi', ['kode_prodi' => $this->input->post('kodeprodi')])->row_array() == null) {
 				$data = [
 					'kode_fak' => $this->input->post('kodefak'),
 					'kode_prodi' => $this->input->post('kodeprodi'),
@@ -240,8 +240,8 @@ class Administrator extends CI_Controller
 				];
 
 				$this->db->insert('prodi', $data);
-				$this->session->set_flashdata('pesan', 'Program Studi baru berhasil ditambahkan');
-			}else{
+				$this->session->set_flashdata('pesan', '1 Program Studi baru berhasil ditambahkan');
+			} else {
 				// gagal
 			}
 			redirect('administrator/ProgramStudi');
@@ -263,7 +263,7 @@ class Administrator extends CI_Controller
 	public function deleteProdi($id)
 	{
 		$this->db->delete('prodi', array('kode_prodi' => $id));
-		$this->session->set_flashdata('pesan', 'Program Studi berhasil dihapus');
+		$this->session->set_flashdata('pesan', '1 Program Studi berhasil dihapus');
 		redirect('administrator/ProgramStudi');
 	}
 
@@ -315,6 +315,9 @@ class Administrator extends CI_Controller
 	{
 		$data['judul'] = 'Level Akses';
 		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+		$data['profil'] = $data['user'];
+		$data['profil']['nama'] = 'administrator';
+		$data['profil']['gambar'] = 'default.jpg';
 
 		$data['level'] = $this->db->get_where('user_level', ['id' => $id])->row_array();
 
@@ -418,14 +421,14 @@ class Administrator extends CI_Controller
 					'nip' => $this->input->post('nip'),
 					'nama' => $this->input->post('nama'),
 					'gambar' => "default.jpg",
-					'username' => $this->db->get_where('user', ['username' =>$this->input->post('nip')])->row_array()['id'],
+					'username' => $this->db->get_where('user', ['username' => $this->input->post('nip')])->row_array()['id'],
 					'prodi' =>  $this->input->post('prodi'),
 					'email' => $this->input->post('email'),
 					'tgl_buat' => time()
 				];
 				$this->db->insert('dosen', $data);
 				$this->session->set_flashdata('pesan', '1 User Dosen berhasil ditambahkan');
-			}else{
+			} else {
 				// gagal karena nip sudah digunakan
 			}
 			redirect('administrator/daftarDosen');
@@ -445,17 +448,17 @@ class Administrator extends CI_Controller
 			];
 			$this->db->insert('user', $usr);
 		}
-		if ($this->db->get_where('dosen', ['nip' => $this->input->post('nip')])->row_array() == null || $this->input->post('nip')==$id) {
+		if ($this->db->get_where('dosen', ['nip' => $this->input->post('nip')])->row_array() == null || $this->input->post('nip') == $id) {
 			$data = array(
 				'nip' => $this->input->post('nip'),
 				'nama' => $this->input->post('nama'),
-				'username' => $this->db->get_where('user', ['username' =>$this->input->post('nip')])->row_array()['id'],
+				'username' => $this->db->get_where('user', ['username' => $this->input->post('nip')])->row_array()['id'],
 				'prodi' => $this->input->post('prodi')
 			);
 			$this->db->where('nip', $id);
 			$this->db->update('dosen', $data);
 			$this->session->set_flashdata('pesan', 'Edit data user Dosen berhasil');
-			if ($this->input->post('nip')!=$id){
+			if ($this->input->post('nip') != $id) {
 				$this->db->delete('user', array('username' => $id));
 			}
 		}
@@ -545,7 +548,7 @@ class Administrator extends CI_Controller
 				];
 				$this->db->insert('mahasiswa', $data2);
 				$this->session->set_flashdata('pesan', '1 User Mahasiswa berhasil ditambahkan');
-			}else{
+			} else {
 				// gagal karena nim digunakan
 			}
 			redirect('administrator/daftarMahasiswa');
@@ -564,7 +567,7 @@ class Administrator extends CI_Controller
 			);
 			$this->db->insert('user', $data);
 		}
-		if ($this->db->get_where('mahasiswa', ['nim' => $this->input->post('nim')])->row_array() == null || $this->input->post('nim')==$id) {
+		if ($this->db->get_where('mahasiswa', ['nim' => $this->input->post('nim')])->row_array() == null || $this->input->post('nim') == $id) {
 			$data = array(
 				'nim' => $this->input->post('nim'),
 				'nama' => $this->input->post('nama'),
@@ -574,10 +577,10 @@ class Administrator extends CI_Controller
 			$this->db->where('nim', $id);
 			$this->db->update('mahasiswa', $data);
 			$this->session->set_flashdata('pesan', 'Edit data Mahasiswa berhasil');
-			if ($this->input->post('nim')!=$id){
+			if ($this->input->post('nim') != $id) {
 				$this->db->delete('user', array('username' => $id));
 			}
-		}else{
+		} else {
 			// gagal nim telah digunakan
 		}
 		redirect('administrator/daftarMahasiswa');

@@ -20,7 +20,6 @@
 	</div>
 	<div class="row">
 		<div class="col-md">
-			<a href="" class="btn btn-sm btn-primary mb-3" data-toggle="modal" data-target="#mahasiswaBaru"><i class="fas fa-fw fa-plus-square"></i> Tambah Mahasiswa</a>
 			<nav class="navbar navbar-light bg-light">
 				<?php
 				if ($keyword == null) {
@@ -38,6 +37,7 @@
 			</nav>
 		</div>
 	</div>
+	<a href="" class="btn btn-sm btn-primary mb-3" data-toggle="modal" data-target="#mahasiswaBaru"><i class="fas fa-fw fa-plus-square"></i> Tambah Mahasiswa</a>
 	<!-- <div class="col-md-2">
 		<select class="form-control" name="" id="perusahaan">
 			<option value="5">5</option>
@@ -79,7 +79,7 @@
 							<td><?= $u['username']; ?></td>
 							<td>
 								<a href="" data-toggle="modal" data-target="#mahasiswaEdit<?= $u['nim'] ?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i>Edit</a>
-								<a href="<?= base_url() . 'administrator/deleteMahasiswa/' . $u['nim'] ?>" data-nama="<?= $u['nama']; ?>" class="btn btn-danger btn-sm deleteP"><i class="fa fa-fw fa-trash"></i>Delete</a>
+								<a href="<?= base_url() . 'administrator/deleteMahasiswa/' . $u['nim'] ?>" data-nama="<?= $u['nama']; ?>" class="btn btn-danger btn-sm deleteMhs"><i class="fa fa-fw fa-trash"></i>Delete</a>
 							</td>
 						</tr>
 					<?php endforeach; ?>
@@ -150,13 +150,19 @@
 				</button>
 			</div>
 
-			<form action="<?= base_url('administrator/daftarMahasiswa'); ?>" method="POST">
+			<form action="<?= base_url('administrator/daftarMahasiswa'); ?>" method="POST" class="needs-validation" novalidate>
 				<div class="modal-body">
 					<div class="form-group">
-						<input type="number" class="form-control" name="nim" id="nim" placeholder="NIM Mahasiswa">
+						<input type="text" class="form-control" name="nim" id="nim" placeholder="NIM Mahasiswa" required>
+						<div class="invalid-feedback>">
+							Masukan Nim Mahasiswa
+						</div>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Mahasiswa">
+						<input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Mahasiswa" required>
+						<div class="invalid-feedback>">
+							Masukan Nama Mahasiswa
+						</div>
 					</div>
 					<div class="form-group">
 						<input type="text" class="form-control" name="email" id="email" placeholder="Email Mahasiswa">

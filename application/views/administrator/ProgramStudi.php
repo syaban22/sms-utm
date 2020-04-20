@@ -58,7 +58,7 @@
 							<td><?= $p['prodi']; ?></td>
 							<td>
 								<a href="" class="btn btn-success btn-sm" data-toggle="modal" data-target="#prodiEdit<?= $p['kode_prodi'] ?>"><i class="fa fa-fw fa-edit"></i>Edit</a>
-								<a href="<?= base_url('administrator/deleteProdi/' . $p['kode_prodi']) ?>" data-nama="<?= $p['prodi']; ?>" class="btn btn-danger btn-sm deletePe"><i class="fa fa-fw fa-trash"></i>Delete</a>
+								<a href="<?= base_url('administrator/deleteProdi/' . $p['kode_prodi']) ?>" data-nama="<?= $p['prodi']; ?>" class="btn btn-danger btn-sm deletePro"><i class="fa fa-fw fa-trash"></i>Delete</a>
 							</td>
 						</tr>
 						<?php $no++; ?>
@@ -89,10 +89,10 @@
 				</button>
 			</div>
 
-			<form action="<?= base_url('administrator/ProgramStudi'); ?>" method="POST">
+			<form action="<?= base_url('administrator/ProgramStudi'); ?>" method="POST" class="needs-validation" novalidate>
 				<div class="modal-body">
 					<div class="form-group">
-						<select name="kodefak" id="kodefak" class="form-control">
+						<select name="kodefak" id="kodefak" class="form-control" required>
 							<option value="">- Pilih Fakultas -</option>
 							<?php foreach ($fakultas as $f) : ?>
 								<option value="<?= $f['kode_fak']; ?>"><?= $f['fakultas']; ?></option>
@@ -100,10 +100,16 @@
 						</select>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" name="kodeprodi" id="kodeprodi" placeholder="Kode Program Studi">
+						<input type="text" class="form-control" name="kodeprodi" id="kodeprodi" placeholder="Kode Program Studi" required>
+						<div class="invalid-feedback">
+							Masukan Kode Prodi
+						</div>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" name="prodi" id="prodi" placeholder="Nama Program Studi">
+						<input type="text" class="form-control" name="prodi" id="prodi" placeholder="Nama Program Studi" required>
+						<div class="invalid-feedback">
+							Masukan Nama Prodi
+						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
