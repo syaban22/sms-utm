@@ -14,24 +14,7 @@ class Mahasiswa extends CI_Controller
 
     public function index()
     {
-        $data['judul'] = 'My Profile';
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $userid = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['profil'] = $this->db->get_where('mahasiswa', ['username' => $userid['id']])->row_array();
-        // $em = $this->session->userdata('email');
-        // $this->db->select_sum('cek');
-        // $this->db->from('lamar_pekerjaan');
-        // $this->db->where('email', $em);
-        // $query = $this->db->get();
-        // $data['stat'] = $query->row()->cek;
-
-        // $this->session->set_userdata('stat', $data['stat']);
-
-        $this->load->view('template/header', $data);
-        $this->load->view('template/sidebar', $data);
-        $this->load->view('template/topbar_user', $data);
-        $this->load->view('Mahasiswa/index', $data);
-        $this->load->view('template/footer');
+        redirect('Mahasiswa/Profile');
     }
 
     public function Profile()
@@ -268,11 +251,7 @@ class Mahasiswa extends CI_Controller
 
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('mt', '<div class="alert alert-danger" role="alert">Update Password Gagal, harap periksa kembali.</div>');
-            $this->load->view('template/header', $data);
-            $this->load->view('template/sidebar', $data);
-            $this->load->view('template/topbar_user', $data);
-            $this->load->view('Mahasiswa/index', $data);
-            $this->load->view('template/footer');
+            redirect('Mahasiswa/Profile');
         } else {
             $curpass = $this->input->post('curpass');
             $newpass = $this->input->post('newpass');
@@ -282,6 +261,7 @@ class Mahasiswa extends CI_Controller
                 redirect('Mahasiswa/Profile');
             } else {
                 if ($curpass == $newpass) {
+                    echo "test";
                     $this->session->set_flashdata('msg', '<div class="alert-danger" role="alert">Password Baru tidak boleh sama dengan Password Lama!</div>');
                     $this->session->set_flashdata('pesan', 'Gagal pass');
                     redirect('Mahasiswa/Profile');

@@ -23,10 +23,7 @@ class skripsi_model extends CI_Model
                 $query =
                     "
                     SELECT s.id, s.judul, m.nama, s.nim, d.nama as dosbing1,
-(SELECT d.nama FROM dosen d, skripsi s WHERE d.nip = s.dosbing_2 GROUP BY d.nip) as dosbing2,
-(SELECT d.nama FROM dosen d, skripsi s WHERE s.dosen_uji1 = d.nip) as dosen_uji1,
-(SELECT d.nama FROM dosen d, skripsi s WHERE s.dosen_uji2 = d.nip) as dosen_uji2,
-(SELECT d.nama FROM dosen d, skripsi s WHERE s.dosen_uji3 = d.nip) as dosen_uji3,
+(SELECT d.nama FROM dosen d, skripsi sk WHERE d.nip = sk.dosbing_2 AND sk.id=s.id GROUP BY d.nip) as dosbing2,
 p.prodi, s.nilai
 FROM mahasiswa m, dosen d, skripsi s, prodi p
 WHERE s.nim = m.nim AND s.dosbing_1 = d.nip AND p.kode_prodi = s.prodi AND s.nim LIKE '%$keyword%' limit $start, $limit
@@ -35,10 +32,7 @@ WHERE s.nim = m.nim AND s.dosbing_1 = d.nip AND p.kode_prodi = s.prodi AND s.nim
                 $query =
                     "
                     SELECT s.id, s.judul, m.nama, s.nim, d.nama as dosbing1,
-(SELECT d.nama FROM dosen d, skripsi s WHERE d.nip = s.dosbing_2 GROUP BY d.nip) as dosbing2,
-(SELECT d.nama FROM dosen d, skripsi s WHERE s.dosen_uji1 = d.nip) as dosen_uji1,
-(SELECT d.nama FROM dosen d, skripsi s WHERE s.dosen_uji2 = d.nip) as dosen_uji2,
-(SELECT d.nama FROM dosen d, skripsi s WHERE s.dosen_uji3 = d.nip) as dosen_uji3,
+(SELECT d.nama FROM dosen d, skripsi sk WHERE d.nip = sk.dosbing_2 AND sk.id=s.id GROUP BY d.nip) as dosbing2,
 p.prodi, s.nilai
 FROM mahasiswa m, dosen d, skripsi s, prodi p
 WHERE s.nim = m.nim AND s.dosbing_1 = d.nip AND p.kode_prodi = s.prodi limit $start, $limit
@@ -50,22 +44,16 @@ WHERE s.nim = m.nim AND s.dosbing_1 = d.nip AND p.kode_prodi = s.prodi limit $st
                 $query =
                     "
                     SELECT s.id, s.judul, m.nama, s.nim, d.nama as dosbing1,
-(SELECT d.nama FROM dosen d, skripsi s WHERE d.nip = s.dosbing_2 GROUP BY d.nip) as dosbing2,
-(SELECT d.nama FROM dosen d, skripsi s WHERE s.dosen_uji1 = d.nip) as dosen_uji1,
-(SELECT d.nama FROM dosen d, skripsi s WHERE s.dosen_uji2 = d.nip) as dosen_uji2,
-(SELECT d.nama FROM dosen d, skripsi s WHERE s.dosen_uji3 = d.nip) as dosen_uji3,
+(SELECT d.nama FROM dosen d, skripsi sk WHERE d.nip = sk.dosbing_2 AND sk.id=s.id GROUP BY d.nip) as dosbing2,
 p.prodi, s.nilai
 FROM mahasiswa m, dosen d, skripsi s, prodi p
-WHERE s.nim = m.nim AND s.dosbing_1 = d.nip AND p.kode_prodi = s.prodi AND s.nim LIKE '%$keyword%' limit $start, $limit
+WHERE s.nim = m.nim AND s.dosbing_1 = d.nip AND p.kode_prodi = s.prodi = s.prodi AND s.nim LIKE '%$keyword%' limit $start, $limit
 		";
             } else {
                 $query =
                     "
                     SELECT s.id, s.judul, m.nama, s.nim, d.nama as dosbing1,
-(SELECT d.nama FROM dosen d, skripsi s WHERE d.nip = s.dosbing_2 GROUP BY d.nip) as dosbing2,
-(SELECT d.nama FROM dosen d, skripsi s WHERE s.dosen_uji1 = d.nip) as dosen_uji1,
-(SELECT d.nama FROM dosen d, skripsi s WHERE s.dosen_uji2 = d.nip) as dosen_uji2,
-(SELECT d.nama FROM dosen d, skripsi s WHERE s.dosen_uji3 = d.nip) as dosen_uji3,
+(SELECT d.nama FROM dosen d, skripsi sk WHERE d.nip = sk.dosbing_2 AND sk.id=s.id GROUP BY d.nip) as dosbing2,
 p.prodi, s.nilai
 FROM mahasiswa m, dosen d, skripsi s, prodi p
 WHERE s.nim = m.nim AND s.dosbing_1 = d.nip AND p.kode_prodi = s.prodi limit $start, $limit
@@ -80,17 +68,9 @@ WHERE s.nim = m.nim AND s.dosbing_1 = d.nip AND p.kode_prodi = s.prodi limit $st
                     "
                 SELECT s.id, s.judul, m.nama, s.nim, d.nama as dosbing1,
                 (SELECT d.nama
-                FROM dosen d, skripsi s
-                WHERE d.nip = s.dosbing_2 AND s.nim = $nim) as dosbing2,
-                (SELECT d.nama
-                FROM dosen d, skripsi s
-                WHERE s.dosen_uji1 = d.nip AND s.nim = $nim) as dosen_uji1,
-                (SELECT d.nama
-                FROM dosen d, skripsi s
-                WHERE s.dosen_uji2 = d.nip AND s.nim = $nim) as dosen_uji2,
-                (SELECT d.nama
-                FROM dosen d, skripsi s
-                WHERE s.dosen_uji3 = d.nip) as dosen_uji3,p.prodi, s.nilai
+                FROM dosen d, skripsi sk
+                WHERE d.nip = sk.dosbing_2 AND sk.id=s.id AND sk.nim = $nim) as dosbing2,
+                p.prodi, s.nilai
 FROM mahasiswa m, dosen d, skripsi s, prodi p
 WHERE s.nim = m.nim AND s.nim = $nim AND s.dosbing_1 = d.nip AND p.kode_prodi = s.prodi AND s.nim LIKE '%$keyword%' limit $start, $limit
     ";
@@ -99,17 +79,8 @@ WHERE s.nim = m.nim AND s.nim = $nim AND s.dosbing_1 = d.nip AND p.kode_prodi = 
                     "
                     SELECT s.id, s.judul, m.nama, s.nim, d.nama as dosbing1,
                     (SELECT d.nama
-                    FROM dosen d, skripsi s
-                    WHERE d.nip = s.dosbing_2 AND s.nim = $nim) as dosbing2,
-                    (SELECT d.nama
-                    FROM dosen d, skripsi s
-                    WHERE s.dosen_uji1 = d.nip AND s.nim = $nim) as dosen_uji1,
-                    (SELECT d.nama
-                    FROM dosen d, skripsi s
-                    WHERE s.dosen_uji2 = d.nip AND s.nim = $nim) as dosen_uji2,
-                    (SELECT d.nama
-                    FROM dosen d, skripsi s
-                    WHERE s.dosen_uji3 = d.nip AND s.nim = $nim) as dosen_uji3,
+                    FROM dosen d, skripsi sk
+                    WHERE d.nip = sk.dosbing_2 AND sk.id=s.id AND sk.nim = $nim) as dosbing2,
                     p.prodi, s.nilai
 FROM mahasiswa m, dosen d, skripsi s, prodi p
 WHERE s.nim = m.nim AND s.nim = $nim AND s.dosbing_1 = d.nip AND p.kode_prodi = s.prodi limit $start, $limit
@@ -142,17 +113,15 @@ WHERE s.nim = m.nim AND s.nim = $nim AND s.dosbing_1 = d.nip AND p.kode_prodi = 
     {
 
         $query = $this->db->query("
-        SELECT s.id, s.judul, m.nama, s.abstract, s.nim, d.nama as dosbing1, (SELECT d.nama
-                                FROM dosen d, skripsi s
-                                WHERE d.nip = s.dosbing_2) as dosbing2, (SELECT d.nama
-                                                                        FROM dosen d, skripsi s
-                                                                        WHERE s.dosen_uji1 = d.nip) as dosen_uji1, (SELECT d.nama
-                                                                        FROM dosen d, skripsi s
-                                                                        WHERE s.dosen_uji2 = d.nip) as dosen_uji2, (SELECT d.nama
-                                                                        FROM dosen d, skripsi s
-                                                                        WHERE s.dosen_uji3 = d.nip) as dosen_uji3,p.prodi, s.nilai
-FROM mahasiswa m, dosen d, skripsi s, prodi p
-WHERE s.nim = m.nim AND s.nim = $nim_mhs AND s.dosbing_1 = d.nip AND p.kode_prodi = s.prodi limit 0, 5
+        SELECT s.id, s.judul, m.nama, s.abstract, s.nim, d.nama as dosbing1,
+        (SELECT d.nama
+        FROM dosen d, skripsi sk
+        WHERE d.nip = sk.dosbing_2 AND sk.id=s.id AND sk.nim = $nim) as dosbing2,
+        p.prodi, s.nilai, (SELECT s.ket
+        FROM skripsi sk, status s
+        WHERE sk.status = s.id) as status
+FROM mahasiswa m, dosen d, skripsi s, prodi p, status st
+WHERE s.nim = m.nim AND s.nim = $nim_mhs AND s.dosbing_1 = d.nip AND p.kode_prodi = s.prodi AND s.status = st.id limit 0, 5
 ");
         return $query->result_array();
     }

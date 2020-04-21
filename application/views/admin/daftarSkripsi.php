@@ -58,9 +58,6 @@
 						<th scope="col">NIM</th>
 						<th scope="col">Dosbing 1</th>
 						<th scope="col">Dosbing 2</th>
-						<th scope="col">Penguji 1</th>
-						<th scope="col">Penguji 2</th>
-						<th scope="col">Penguji 3</th>
 						<th scope="col">Program Studi</th>
 						<th scope="col">Nilai</th>
 						<th scope="col">Action</th>
@@ -84,21 +81,6 @@
 							<td><?= $u['nim']; ?></td>
 							<td><?= $u['dosbing1']; ?></td>
 							<td><?= $u['dosbing2']; ?></td>
-							<?php if ($u['dosen_uji1'] != NULL) : ?>
-								<td><?= $u['dosen_uji1']; ?></td>
-							<?php else : ?>
-								<td><a href="" data-toggle="modal" data-target="#penguji1<?= $u['id'] ?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i>Tentukan Penguji</a></td>
-							<?php endif; ?>
-							<?php if ($u['dosen_uji2'] != NULL) : ?>
-								<td><?= $u['dosen_uji2']; ?></td>
-							<?php else : ?>
-								<td><a href="" data-toggle="modal" data-target="#penguji2<?= $u['id'] ?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i>Tentukan Penguji</a></td>
-							<?php endif; ?>
-							<?php if ($u['dosen_uji3'] != NULL) : ?>
-								<td><?= $u['dosen_uji3']; ?></td>
-							<?php else : ?>
-								<td><a href="" data-toggle="modal" data-target="#penguji3<?= $u['id'] ?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i>Tentukan Penguji</a></td>
-							<?php endif; ?>
 							<td><?= $u['prodi']; ?></td>
 							<?php if ($u['nilai'] != 0) : ?>
 								<td><?= $u['nilai']; ?></td>
