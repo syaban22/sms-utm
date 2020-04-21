@@ -66,22 +66,28 @@ WHERE s.nim = m.nim AND s.dosbing_1 = d.nip AND p.kode_prodi = s.prodi limit $st
             if ($keyword !== null) {
                 $query =
                     "
-                SELECT s.id, s.judul, m.nama, s.nim, d.nama as dosbing1,
+                SELECT s.id, s.judul,s.abstract, m.nama, s.nim, d.nama as dosbing1,
                 (SELECT d.nama
                 FROM dosen d, skripsi sk
                 WHERE d.nip = sk.dosbing_2 AND sk.id=s.id AND sk.nim = $nim) as dosbing2,
-                p.prodi, s.nilai
+                p.prodi, s.nilai,
+                (SELECT st.ket
+                FROM skripsi sk, status st
+                WHERE sk.status = st.id AND sk.id=s.id AND sk.nim = $nim) as status
 FROM mahasiswa m, dosen d, skripsi s, prodi p
 WHERE s.nim = m.nim AND s.nim = $nim AND s.dosbing_1 = d.nip AND p.kode_prodi = s.prodi AND s.nim LIKE '%$keyword%' limit $start, $limit
     ";
             } else {
                 $query =
                     "
-                    SELECT s.id, s.judul, m.nama, s.nim, d.nama as dosbing1,
+                    SELECT s.id, s.judul,s.abstract, m.nama, s.nim, d.nama as dosbing1,
                     (SELECT d.nama
                     FROM dosen d, skripsi sk
                     WHERE d.nip = sk.dosbing_2 AND sk.id=s.id AND sk.nim = $nim) as dosbing2,
-                    p.prodi, s.nilai
+                    p.prodi, s.nilai,
+                    (SELECT st.ket
+                    FROM skripsi sk, status st
+                    WHERE sk.status = st.id AND sk.id=s.id AND sk.nim = $nim) as status
 FROM mahasiswa m, dosen d, skripsi s, prodi p
 WHERE s.nim = m.nim AND s.nim = $nim AND s.dosbing_1 = d.nip AND p.kode_prodi = s.prodi limit $start, $limit
 		";

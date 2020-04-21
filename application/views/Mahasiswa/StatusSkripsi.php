@@ -62,7 +62,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $count=0; foreach ($skripsi as $u) : 
+                    <?php $count=0;; foreach ($skripsi as $u) : 
                         if ($u['nim'] == $this->session->userdata('username')){?>
                         <tr>
                             <th scope="row"><?= ++$start; ?></th>
@@ -76,13 +76,14 @@
                                 <td>N/A</td>
                             <?php endif; ?> -->
                             <td>
-                                <a data-toggle="modal" data-target="#myModal" onclick="javascript:load_modal(<?php echo $u['nim']; ?>)" class="btn btn-warning btn-sm detail"><i class="fa fa-fw fa-eye"></i>Lihat Detail</a>
+                                <a data-toggle="modal" data-target="#detail<?= $u['id'] ?>" onclick="javascript:load_modal(<?php echo $u['nim']; ?>)" class="btn btn-warning btn-sm detail"><i class="fa fa-fw fa-eye"></i>Lihat Detail</a>
                                 <!-- <a href="" data-toggle="modal" data-target="#pelamarEdit<?= $u['id'] ?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i>Edit</a>
                                 <a href="<?= base_url() . 'administrator/deleteU/' . $u['id'] ?>" data-nama="<?= $u['nama']; ?>" class="btn btn-danger btn-sm deleteP"><i class="fa fa-fw fa-trash"></i>Delete</a> -->
                                 <!-- <button class="btn btn-primary detail" relid="<?= $u['nim']; ?>">View</button> -->
                                 <!-- <a href="" relid="<?= $u['nim'] ?>" class="btn btn-warning btn-sm detail"><i class="fa fa-fw fa-eye"></i> Detail</a> -->
                             </td>
                         </tr>
+                        
                     <?php $count+=1;} endforeach;?>
                     <?php if (empty($skripsi) || $count == 0) : ?>
                         <tr>
@@ -127,5 +128,5 @@
         });
     }
 </script>
-<div class="modal fade displaycontent" id="myModal">
+
     <?php include('modal.php'); ?>
