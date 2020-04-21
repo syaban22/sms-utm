@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 31, 2020 at 07:24 PM
+-- Generation Time: Apr 21, 2020 at 10:00 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -64,10 +64,14 @@ CREATE TABLE `dosen` (
 --
 
 INSERT INTO `dosen` (`nip`, `nama`, `gambar`, `username`, `prodi`, `email`, `tgl_buat`) VALUES
-('197101092006021012', 'Muhammad Kautsar Sophan, S.T., M.T.	', '', 10, '4111', '', ''),
-('19740102017021002', 'Ir. Soekarno, Alm.', '', 22, '1112', '', ''),
-('197406102008121002', 'Dr. Arif Muntasa, S.SI., M.T.', '', 13, '4111', '', ''),
-('198101092006041003', 'Achmad Jauhari, S.T., M.Kom.', '', 14, '4111', '', '');
+('196911182001121004', 'Dr. Arif Muntasa, S.SI., M.T.', 'default.jpg', 45, '4111', '', ''),
+('197101092006021012', 'Muhammad Kautsar Sophan, S.T., M.T.', 'default.jpg', 10, '4111', '', ''),
+('19740102017021002', 'Ir. Soekarno, Alm.', 'default.jpg', 22, '1112', '', ''),
+('197402212008011006', 'Dwi Kuswanto, S.Pd., M.T.', 'default.jpg', 38, '4111', '', '1587307634'),
+('197803092003122009', 'Arik Kurniawati, S.Kom., M.T.', 'default.jpg', 36, '4111', '', '1587294193'),
+('197901092006021011', 'Sigit Susanto Putro, S.Kom., M.Kom', 'default.jpg', 23, '4111', 'Sigit.Susanto.P@trunojoyo.ac.id', ''),
+('197902222005012003', 'Ari Kusumaningsih, S.T., M.T.', 'default.jpg', 35, '4111', '', ''),
+('198101092006041003', 'Achmad Jauhari, S.T., M.Kom.', 'default.jpg', 14, '4111', '', '');
 
 -- --------------------------------------------------------
 
@@ -91,6 +95,42 @@ INSERT INTO `fakultas` (`kode_fak`, `fakultas`) VALUES
 ('04', 'Fakultas Teknik'),
 ('05', 'Fakultas Ilmu-Ilmu Keislaman'),
 ('06', 'Fakultas Ilmu Sosial dan Budaya');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jadwal_sempro`
+--
+
+CREATE TABLE `jadwal_sempro` (
+  `id` int(11) NOT NULL,
+  `id_skripsi` int(11) NOT NULL,
+  `tanggal` varchar(256) DEFAULT NULL,
+  `waktu` varchar(256) DEFAULT NULL,
+  `periode` varchar(256) NOT NULL,
+  `penguji_1` int(18) DEFAULT NULL,
+  `penguji_2` int(18) DEFAULT NULL,
+  `penguji_3` int(18) DEFAULT NULL,
+  `ruangan` varchar(256) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jadwal_sidang`
+--
+
+CREATE TABLE `jadwal_sidang` (
+  `id` int(11) NOT NULL,
+  `id_skripsi` int(11) NOT NULL,
+  `tanggal` varchar(256) DEFAULT NULL,
+  `waktu` varchar(256) DEFAULT NULL,
+  `periode` varchar(256) NOT NULL,
+  `penguji_1` int(18) DEFAULT NULL,
+  `penguji_2` int(18) DEFAULT NULL,
+  `penguji_3` int(18) DEFAULT NULL,
+  `ruangan` varchar(256) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -132,7 +172,13 @@ CREATE TABLE `mahasiswa` (
 --
 
 INSERT INTO `mahasiswa` (`nim`, `nama`, `gambar`, `prodi`, `email`, `tgl_buat`, `username`) VALUES
-('170411100119', 'Sya\'ban', '', '4111', '', '0000-00-00', 8);
+('1701111', 'anak ilmu perikanan', 'default.jpg', '1111', '', '1587363651', 46),
+('170411100007', 'Anas Tri Krisna', 'default.jpg', '4111', '', '', 31),
+('170411100015', 'Abd. Ghofar Suwarno', 'default.jpg', '4111', '', '', 33),
+('170411100024', 'Moh. Irsad', 'default.jpg', '4111', '', '', 32),
+('170411100042', 'Ria Rostiani', 'default.jpg', '4111', '', '', 34),
+('170411100099', 'Ahmad Khairi Ramadan', 'default.jpg', '4111', '', '', 30),
+('170411100119', 'Sya\'ban', 'sbn_sma.jpg', '4111', '', '0000-00-00', 8);
 
 -- --------------------------------------------------------
 
@@ -174,12 +220,19 @@ CREATE TABLE `skripsi` (
   `nim` char(12) NOT NULL,
   `dosbing_1` varchar(18) DEFAULT NULL,
   `dosbing_2` varchar(18) DEFAULT NULL,
-  `dosen_uji1` varchar(18) DEFAULT NULL,
-  `dosen_uji2` varchar(18) DEFAULT NULL,
-  `dosen_uji3` varchar(18) DEFAULT NULL,
   `prodi` varchar(4) NOT NULL,
-  `nilai` float DEFAULT 0
+  `nilai` float DEFAULT 0,
+  `status` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `skripsi`
+--
+
+INSERT INTO `skripsi` (`id`, `judul`, `abstract`, `nim`, `dosbing_1`, `dosbing_2`, `prodi`, `nilai`, `status`) VALUES
+(20, 'tes1', 'tes1', '170411100007', '19740102017021002', '196911182001121004', '4111', 0, 1),
+(21, 'tes2', 'tes2', '170411100015', '197101092006021012', '197901092006021011', '4111', 0, 0),
+(22, 'tes3', 'tes3', '170411100015', '197101092006021012', '197901092006021011', '4111', 0, 2);
 
 -- --------------------------------------------------------
 
@@ -197,8 +250,16 @@ CREATE TABLE `status` (
 --
 
 INSERT INTO `status` (`id`, `ket`) VALUES
-(1, 'lulus'),
-(2, 'gagal');
+(0, 'gagal'),
+(1, 'mendaftarkan Skripsi'),
+(2, 'peserta seminar proposal'),
+(3, 'proses bimbingan skripsi'),
+(4, 'mengajukan sidang skripsi'),
+(5, 'peserta ujian sidang skripsi'),
+(6, 'skripsi lulus'),
+(7, 'upload laporan skripsi'),
+(21, 'peserta seminar ulang proposal'),
+(51, 'peserta sidang ulang skripsi	');
 
 -- --------------------------------------------------------
 
@@ -219,13 +280,29 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `username`, `password`, `level_id`) VALUES
 (4, 'administrator', '$2y$10$lOjQD3YKnG1TAqyF1k9JeOIkTRzk8inf8n/CosseJRukE/CaKD.5m', 1),
-(5, 'AdminTI', '$2y$10$2uPPC9EUKzhVWtHHH1efHeV.aCNKWfYYLNwsRmLE6UNjGXawcSAt6', 2),
-(6, 'dosen', '$2y$10$G7HSSHiHISvvHv14jcISSu00/5fXvn2/vMgcFMVEP5r4jWI9NEKEW', 3),
+(5, 'Teknik Informatika', '$2y$10$STanvCWBStCmfEtR3WWph.hRlIfbAEogr7DY33G9.bR0Sp8Pu4fSW', 2),
+(6, 'test', '$2y$10$RikrwAlp.b6tM1Sx6ibCpulC.YwCx4H5z474qJgA9Bclpbwye65nu', 3),
 (8, '170411100119', '$2y$10$rx93xysDjs4GOjSvuCspMeyrwtUr4XYbndGvntTyuvvJJHPAunZta', 4),
 (10, '197101092006021012', '$2y$10$U2xaaVKXgX.zmrzG/mg33.cJi0M3cmKY3ynyJ9P3gTZ1ZUuNwL90S', 3),
 (13, '197406102008121002', '$2y$10$PXXoHHU1VXw93gFMv2FL4OoCG2cfiTqbyCeU9LwJPGyZwUIcsomMO', 3),
 (14, '198101092006041003', '$2y$10$WrSKILFnm4JuDBv8HYh1vuGPtfmRNMSuZHTsw92LupsQhhxvTPj5G', 3),
-(22, '19740102017021002', '$2y$10$kc7dim4u.xC8kqxecg3iAuJReYtufzshyrXFgs2qIee/toBuNhBBK', 3);
+(22, '19740102017021002', '$2y$10$kc7dim4u.xC8kqxecg3iAuJReYtufzshyrXFgs2qIee/toBuNhBBK', 3),
+(23, '197901092006021011', '$2y$10$i9ruKQBqa25Cq0w0LxQXReG3V9mHVEqEuNQvGH1s2sWXUzkJdFIxe', 3),
+(29, '170411100091', '$2y$10$AlUw26.IrvKBckGfjn.Qe.E4pja4XvoXolJux5iijh6rJJQnVxfba', 4),
+(30, '170411100099', '$2y$10$GN/lYl30HtZdznulOVy7wOYw3j5Rn/UBceuwJ4Jp9LwoTVu3QVEfi', 4),
+(31, '170411100007', '$2y$10$saDeaWuB3gE27WSA5S35YOBTXS2RrGTdUW9DEN/a7dJGxzcbq7vXG', 4),
+(32, '170411100024', '$2y$10$5Ln5prYBf8Upw7Vb3sdI9u7dbLSzbGna.RT7zTgLjtlXE9ZHmx0s6', 4),
+(33, '170411100015', '$2y$10$4ohDN/873RJVawPs0VxYCOOF6JHSaoC4nbdo51U.SHhhCCM3zzasO', 4),
+(34, '170411100042', '$2y$10$Js.4ZQnEBPEcwVT2GW7Rh.gEodGGklt5iyPRPDVCLLRDKyRerHQa2', 4),
+(35, '197902222005012003', '$2y$10$dYffDJCiMupJQNYwnYS51ODMj.AQV2s9usw25WDhZZ4iqLLDlX2cW', 3),
+(36, '197803092003122009', '$2y$10$4CWWnBgQVX0NFFZ4pg9FxexYulDFrrOhXR7RNNXTQtjmKdHCK1riC', 3),
+(38, '197402212008011006', '$2y$10$TPE8J2fZH.uqNZSovATRd.8CTgQ5CG70PECueMwaP1J.mC6fUF43G', 3),
+(39, 'asd', '$2y$10$obW9ti0EacQzZS2SHJNwV.Yy4/sqHES7rvi84JuIW1VqIYQP/9jny', 3),
+(41, '086', '$2y$10$FY3Rtg1xaHI5g/qwo4/8eu3.6sTxkVMnZPNUAcFa5s5xq9dSh1dcO', 3),
+(42, '11', '$2y$10$S7bMkHyUqWH/DY0H1yuAEeR5yvtOcnJXBQ21QOOCLTXnJjFSwCs5u', 4),
+(44, '130111100', '$2y$10$nuBalhaCx3fSfqw0M5Iosewk3iXeS2ToZ.VHKpmvRhfsK1EW7mQCW', 4),
+(45, '196911182001121004', '$2y$10$BK7taTawIVwfBsYlHo9Vj.sGjMNumWlT/Xv4bk1RCHY6EF6awxAVe', 3),
+(46, '1701111', '$2y$10$wITa5vyDX8VApEdorS7YpecNW/R4MqaSk7FT2CNDzB8OHaDF.pV8u', 4);
 
 -- --------------------------------------------------------
 
@@ -366,6 +443,18 @@ ALTER TABLE `fakultas`
   ADD PRIMARY KEY (`kode_fak`);
 
 --
+-- Indexes for table `jadwal_sempro`
+--
+ALTER TABLE `jadwal_sempro`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `jadwal_sidang`
+--
+ALTER TABLE `jadwal_sidang`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `jenkel`
 --
 ALTER TABLE `jenkel`
@@ -393,11 +482,9 @@ ALTER TABLE `skripsi`
   ADD PRIMARY KEY (`id`),
   ADD KEY `dosbing_1` (`dosbing_1`),
   ADD KEY `dosbing_2` (`dosbing_2`),
-  ADD KEY `dosen_uji1` (`dosen_uji1`),
-  ADD KEY `dosen_uji2` (`dosen_uji2`),
-  ADD KEY `dosen_uji3` (`dosen_uji3`),
   ADD KEY `prodi` (`prodi`),
-  ADD KEY `nim` (`nim`);
+  ADD KEY `nim` (`nim`),
+  ADD KEY `skripsi_ibfk_8` (`status`);
 
 --
 -- Indexes for table `status`
@@ -450,6 +537,18 @@ ALTER TABLE `admin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `jadwal_sempro`
+--
+ALTER TABLE `jadwal_sempro`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `jadwal_sidang`
+--
+ALTER TABLE `jadwal_sidang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `jenkel`
 --
 ALTER TABLE `jenkel`
@@ -459,19 +558,19 @@ ALTER TABLE `jenkel`
 -- AUTO_INCREMENT for table `skripsi`
 --
 ALTER TABLE `skripsi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `status`
 --
 ALTER TABLE `status`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `user_access_menu`
@@ -534,11 +633,9 @@ ALTER TABLE `prodi`
 ALTER TABLE `skripsi`
   ADD CONSTRAINT `skripsi_ibfk_1` FOREIGN KEY (`dosbing_1`) REFERENCES `dosen` (`nip`) ON UPDATE CASCADE,
   ADD CONSTRAINT `skripsi_ibfk_2` FOREIGN KEY (`dosbing_2`) REFERENCES `dosen` (`nip`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `skripsi_ibfk_3` FOREIGN KEY (`dosen_uji1`) REFERENCES `dosen` (`nip`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `skripsi_ibfk_4` FOREIGN KEY (`dosen_uji2`) REFERENCES `dosen` (`nip`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `skripsi_ibfk_5` FOREIGN KEY (`dosen_uji3`) REFERENCES `dosen` (`nip`) ON UPDATE CASCADE,
   ADD CONSTRAINT `skripsi_ibfk_6` FOREIGN KEY (`prodi`) REFERENCES `prodi` (`kode_prodi`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `skripsi_ibfk_7` FOREIGN KEY (`nim`) REFERENCES `mahasiswa` (`nim`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `skripsi_ibfk_7` FOREIGN KEY (`nim`) REFERENCES `mahasiswa` (`nim`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `skripsi_ibfk_8` FOREIGN KEY (`status`) REFERENCES `status` (`id`);
 
 --
 -- Constraints for table `user`
