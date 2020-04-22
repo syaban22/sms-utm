@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 21, 2020 at 10:00 PM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.2
+-- Generation Time: Apr 22, 2020 at 06:49 PM
+-- Server version: 10.4.6-MariaDB
+-- PHP Version: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -148,7 +148,7 @@ CREATE TABLE `jenkel` (
 --
 
 INSERT INTO `jenkel` (`id`, `jenis`) VALUES
-(1, 'Laki - laki'),
+(1, 'Laki - Laki'),
 (2, 'Perempuan');
 
 -- --------------------------------------------------------
@@ -322,14 +322,11 @@ CREATE TABLE `user_access_menu` (
 
 INSERT INTO `user_access_menu` (`id`, `role_id`, `menu_id`) VALUES
 (1, 1, 1),
-(4, 1, 9),
 (10, 2, 10),
 (11, 3, 11),
 (12, 4, 12),
-(13, 1, 12),
-(14, 1, 11),
 (15, 1, 2),
-(16, 1, 10);
+(17, 1, 9);
 
 -- --------------------------------------------------------
 
@@ -414,7 +411,9 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active
 (22, 10, 'Daftar Dosen', 'admin/daftarDosen', 'fa fa-user fa-fw', 1),
 (23, 10, 'Daftar Mahasiswa', 'admin/daftarMahasiswa', 'fa fa-user fa-fw', 1),
 (24, 1, 'Daftar Mahasiswa', 'administrator/daftarMahasiswa', 'fa fa-user fa-fw', 1),
-(25, 10, 'Daftar Skripsi', 'admin/daftarSkripsi', 'fa fa-fw fa-home', 1);
+(25, 10, 'Daftar Skripsi', 'admin/daftarSkripsi', 'fa fa-fw fa-home', 1),
+(26, 1, 'Daftar Jenis Kelamin', 'administrator/getJenKel', 'fas fa-fw fa-user', 1),
+(27, 1, 'Daftar Status', 'administrator/getStatus', 'fas fa-fw fa-clipboard-list', 1);
 
 --
 -- Indexes for dumped tables
@@ -552,7 +551,7 @@ ALTER TABLE `jadwal_sidang`
 -- AUTO_INCREMENT for table `jenkel`
 --
 ALTER TABLE `jenkel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `skripsi`
@@ -564,7 +563,7 @@ ALTER TABLE `skripsi`
 -- AUTO_INCREMENT for table `status`
 --
 ALTER TABLE `status`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -576,7 +575,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `user_access_menu`
 --
 ALTER TABLE `user_access_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `user_level`
@@ -594,7 +593,7 @@ ALTER TABLE `user_menu`
 -- AUTO_INCREMENT for table `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- Constraints for dumped tables
