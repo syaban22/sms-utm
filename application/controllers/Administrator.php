@@ -652,5 +652,119 @@ class Administrator extends CI_Controller
 		$this->load->view('administrator/index', $data);
 		$this->load->view('template/footer');
 	}
+
+	function getJenKel()
+	{
+		$data['judul'] = 'Daftar Jenis Kelamin';
+		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+		$data['profil'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+		$data['profil'] = $data['user'];
+		$data['profil']['nama'] = 'administrator';
+		$data['profil']['gambar'] = 'default.jpg';
+
+		$this->load->model('jenkel_model', 'JenKelM');
+		$data['jenkel'] = $this->JenKelM->getJenKel();
+		$data['start'] = 0;
+
+		$this->form_validation->set_rules('Jenkel', 'Jenkel', 'required');
+
+		if ($this->form_validation->run() == false) {
+			$this->load->view('template/header', $data);
+			$this->load->view('template/sidebar', $data);
+			$this->load->view('template/topbar', $data);
+			$this->load->view('administrator/jenkel', $data);
+			$this->load->view('template/footer');
+		} else {
+			if ($this->db->get_where('jenkel', ['jenis' => $this->input->post('Jenkel')])->row_array() == null) {
+				$data = [
+					'jenis' => $this->input->post('Jenkel')
+				];
+				$this->db->insert('jenkel', $data);
+				$this->session->set_flashdata('pesan', '1 Jenis Kelamin baru berhasil ditambahkan');
+			} else {
+				// gagal
+				$this->session->set_flashdata('pesan', 'Gagal menambahkah Jenis Kelamin');
+			}
+			redirect('administrator/getJenkel');
+		}
+	}
+
+	public function updateJenkel($id)
+	{
+		$this->form_validation->set_rules('jenkel', 'jenkel', 'required');
+		$data = array(
+			'jenis' => $this->input->post('JenkelU'),
+		);
+
+		$this->db->where('id', $id);
+		$this->db->update('jenkel', $data);
+		$this->session->set_flashdata('pesan', 'Edit data Jenis Kelamin berhasil');
+		redirect('administrator/getJenkel');
+	}
+
+	public function deleteJenkel($id)
+	{
+		$this->db->delete('jenkel', array('id' => $id));
+		$this->session->set_flashdata('pesan', '1 Jenis Kelamin berhasil dihapus');
+		redirect('administrator/getJenkel');
+	}
+
+	function getStatus()
+	{
+		$data['judul'] = 'Daftar Status';
+		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+		$data['profil'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+		$data['profil'] = $data['user'];
+		$data['profil']['nama'] = 'administrator';
+		$data['profil']['gambar'] = 'default.jpg';
+
+		$this->load->model('skripsi_model', 'StatusSkripsi');
+		$data['status'] = $this->StatusSkripsi->getStatus();
+		$data['start'] = 0;
+
+		$this->form_validation->set_rules('Kode', 'Kode', 'required');
+		$this->form_validation->set_rules('Status', 'Status', 'required');
+
+		if ($this->form_validation->run() == false) {
+			$this->load->view('template/header', $data);
+			$this->load->view('template/sidebar', $data);
+			$this->load->view('template/topbar', $data);
+			$this->load->view('administrator/status', $data);
+			$this->load->view('template/footer');
+		} else {
+			if ($this->db->get_where('status', ['ket' => $this->input->post('Status')])->row_array() == null) {
+				$data = [
+					'ket' => $this->input->post('Status')
+				];
+				$this->db->insert('status', $data);
+				$this->session->set_flashdata('pesan', '1 Status baru berhasil ditambahkan');
+			} else {
+				// gagal
+				$this->session->set_flashdata('pesan', 'Gagal menambahkah Status');
+			}
+			redirect('administrator/getStatus');
+		}
+	}
+
+	public function updateStatus($id)
+	{
+		$this->form_validation->set_rules('Kode', 'Kode', 'required');
+		$this->form_validation->set_rules('Status', 'Status', 'required');
+		$data = array(
+			'ket' => $this->input->post('StatusU'),
+		);
+
+		$this->db->where('id', $id);
+		$this->db->update('status', $data);
+		$this->session->set_flashdata('pesan', 'Edit data Status berhasil');
+		redirect('administrator/getStatus');
+	}
+
+	public function deleteStatus($id)
+	{
+		$this->db->delete('status', array('id' => $id));
+		$this->session->set_flashdata('pesan', '1 Status berhasil dihapus');
+		redirect('administrator/getStatus');
+	}
 	// sampai sini belum terpakai
 }

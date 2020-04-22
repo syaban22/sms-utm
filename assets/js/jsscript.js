@@ -733,3 +733,137 @@ if (flashdata == 'Edit Data Fakultas berhasil') {
 		timer: 2000
 	})
 }
+
+//CRUD JENKEL (ADMINISTRATOR)
+//Konfirmasi delete jenkel
+$('.deleteJenkel').on('click', function (e) {
+	e.preventDefault();
+	const nama = $(this).data('nama');
+	const href = $(this).attr('href');
+	Swal.fire({
+		title: 'Hapus Jenis Kelamin',
+		html: "Apakah anda yakin untuk menghapus Jenis Kelamin  " + '<b>' + nama + '</b>' + " ?",
+		icon: 'warning',
+		showCancelButton: true,
+		focusConfirm: false,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Ya',
+		cancelmButtonText: 'Tidak'
+	}).then((result) => {
+		if (result.value) {
+			document.location.href = href;
+		}
+	})
+});
+
+//Delete jenkel
+if (flashdata == '1 Jenis Kelamin berhasil dihapus') {
+	Swal.fire({
+		position: 'center',
+		icon: 'success',
+		title: flashdata,
+		showConfirmButton: false,
+		timer: 2000
+	})
+}
+
+//Edit Jenkel
+if (flashdata == 'Edit data Jenis Kelamin berhasil') {
+	Swal.fire({
+		position: 'center',
+		icon: 'success',
+		title: flashdata,
+		showConfirmButton: false,
+		timer: 2000
+	})
+}
+
+//Tambah Jenkel
+if (flashdata == '1 Jenis Kelamin baru berhasil ditambahkan') {
+	Swal.fire({
+		position: 'center',
+		icon: 'success',
+		title: flashdata,
+		showConfirmButton: false,
+		timer: 2000
+	})
+}
+
+//Tambah Jenkel gagal (ADMINISTRATOR)
+if (flashdata == 'Gagal menambahkah Jenis Kelamin') {
+	Swal.fire({
+		position: 'center',
+		icon: 'error',
+		title: 'Menambahkan Jenis Kelamin tidak berhasil',
+		text: 'Harap periksa kembali dan coba lagi',
+		showConfirmButton: true,
+	})
+}
+
+//CRUD Status (ADMINISTRATOR)
+//Konfirmasi delete Status
+$('.deleteStatus').on('click', function (e) {
+	e.preventDefault();
+	const nama = $(this).data('nama');
+	const href = $(this).attr('href');
+	Swal.fire({
+		title: 'Hapus Status',
+		html: "Apakah anda yakin untuk menghapus Status  " + '<b>' + nama + '</b>' + " ?",
+		icon: 'warning',
+		showCancelButton: true,
+		focusConfirm: false,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Ya',
+		cancelmButtonText: 'Tidak'
+	}).then((result) => {
+		if (result.value) {
+			document.location.href = href;
+		}
+	})
+});
+
+//Delete Status
+if (flashdata == '1 Status berhasil dihapus') {
+	Swal.fire({
+		position: 'center',
+		icon: 'success',
+		title: flashdata,
+		showConfirmButton: false,
+		timer: 2000
+	})
+}
+
+//Edit Status
+if (flashdata == 'Edit data Status berhasil') {
+	Swal.fire({
+		position: 'center',
+		icon: 'success',
+		title: flashdata,
+		showConfirmButton: false,
+		timer: 2000
+	})
+}
+
+//Tambah Status
+if (flashdata == '1 Status baru berhasil ditambahkan') {
+	Swal.fire({
+		position: 'center',
+		icon: 'success',
+		title: flashdata,
+		showConfirmButton: false,
+		timer: 2000
+	})
+}
+
+//Tambah Status gagal (ADMINISTRATOR)
+if (flashdata == 'Gagal menambahkah Status') {
+	Swal.fire({
+		position: 'center',
+		icon: 'error',
+		title: 'Menambahkan Status tidak berhasil',
+		text: 'Harap periksa kembali dan coba lagi',
+		showConfirmButton: true,
+	})
+}
