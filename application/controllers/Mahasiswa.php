@@ -100,35 +100,60 @@ class Mahasiswa extends CI_Controller
         $this->form_validation->set_rules('dosbing1', 'Dosbing1', 'required');
         $this->form_validation->set_rules('dosbing2', 'Dosbing2', 'required');
 
+        $config['upload_path']          = './assets/files/berkas';
+        $config['allowed_types']        = 'doc|docx|pdf';
+        $config['max_size']             = 2000;
+        $config['encrypt_name']            = TRUE;
+
+        $this->upload->initialize($config);
+
 
         if ($this->db->get_where('skripsi', ['nim' => $nim])->row_array() == true) {
             //nanti diubah ketika masih ada skripsi yang belum lulus baru dialihkan #pake looping
             $this->session->set_flashdata('pesan', 'Anda telah mendaftarkan 1 Skripsi');
             redirect('Mahasiswa/StatusSkripsi');
+        }
+        if ($this->form_validation->run() == false) {
+            if (!$this->upload->do_upload('file')) {
+                $data['error'] = $this->upload->display_errors();
+            } else {
+                $data['error'] = "Complete validation above and upload it again";
+            }
+            $this->load->view('template/header_Pekerjaan', $data);
+            // $this->load->view('template/sidebar', $data);
+            $this->load->view('template/topbar', $data);
+            $this->load->view('Mahasiswa/DaftarkanSkripsi', $data);
+            $this->load->view('template/footer');
         } else {
-
-            if ($this->form_validation->run() == false) {
+            if (!$this->upload->do_upload('file')) {
+                $data['error'] = $this->upload->display_errors();
                 $this->load->view('template/header_Pekerjaan', $data);
                 // $this->load->view('template/sidebar', $data);
                 $this->load->view('template/topbar', $data);
                 $this->load->view('Mahasiswa/DaftarkanSkripsi', $data);
                 $this->load->view('template/footer');
             } else {
-                //belum ada handlenya
+                $this->upload->do_upload('file');
+                $gbr = $this->upload->data();
+                $file = $gbr['file_name'];
+                var_dump($file);
+                die;
                 $data = [
                     'judul' => $this->input->post('judul'),
                     'abstract' => $this->input->post('abstract'),
                     'prodi' => substr($nim, 3, 4),
                     'nim' => $nim,
                     'dosbing_1' => $this->input->post('dosbing1'),
-                    'dosbing_2' => $this->input->post('dosbing2')
+                    'dosbing_2' => $this->input->post('dosbing2'),
+                    'berkas' => $file
                     // status
                 ];
-                //echo $this->input->post('dosbing1');
                 $this->db->insert('skripsi', $data);
-                $this->session->set_flashdata('pesan', 'berhasil dikirim');
-                redirect('Mahasiswa/index');
+                $this->session->set_flashdata('pesan', 'Skripsi Anda berhasil didaftarkan');
+                redirect('Mahasiswa/Profile');
+                //belum ada handlenya
             }
+            //echo $this->input->post('dosbing1');
         }
 
         // $config['upload_path']          = './asset/files/ktp/';
@@ -277,5 +302,103 @@ class Mahasiswa extends CI_Controller
                 }
             }
         }
+    }
+
+    public function JadwalSempro()
+    {
+        $this->session->unset_userdata('keyword');
+        $data['judul'] = 'Jadwal Sempro';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $userid = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['profil'] = $this->db->get_where('mahasiswa', ['username' => $userid['id']])->row_array();
+        $this->load->model('jadwal_model', 'jadwalM');
+        $this->load->model('skripsi_model', 'skripsiM');
+        $data['level'] = $this->db->get('user_level')->result_array();
+        //$data['user'] = $this->db->from('user');
+
+        if ($this->input->post('submit')) {
+            $data['keyword'] = $this->input->post('keyword');
+            $this->session->set_userdata('keyword', $data['keyword']);
+        } else {
+            $data['keyword'] = $this->session->userdata('keyword');
+        }
+
+        $this->db->like('s.judul', $data['keyword']);
+        $this->db->from('jadwal_sempro js, skripsi s');
+        $this->db->where('s.id = js.id_skripsi');
+        // $this->db->where('level_id != 1 AND level_id != 2');
+        $config['total_rows'] = $this->db->count_all_results();
+        $data['total_rows'] = $config['total_rows'];
+        $config['base_url'] = 'http://localhost/sms-utm/mahasiswa/JadwalSempro';
+
+        $config['per_page'] = 5;
+
+        $this->pagination->initialize($config);
+
+        if ($this->uri->segment(3) !== null) {
+            $data['start'] = $this->uri->segment(3);
+        } else {
+            $data['start'] = 0;
+        }
+
+        // $data['skri'] = $this->db->get_where('skripsi', ['nim' => $this->session->userdata('username')])->row_array();
+        // var_dump($data['skri']);
+
+        $data['JSemp'] = $this->jadwalM->getJadwalSempro($config['per_page'], $data['start'], $data['keyword'], $data['user']['level_id'], $data['user']['username'], null);
+
+        $this->load->view('template/header', $data);
+        $this->load->view('template/sidebar', $data);
+        $this->load->view('template/topbar', $data);
+        $this->load->view('mahasiswa/JadwalSempro', $data);
+        $this->load->view('template/footer');
+    }
+
+    public function JadwalSidang()
+    {
+        $this->session->unset_userdata('keyword');
+        $data['judul'] = 'Jadwal Sidang';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $userid = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['profil'] = $this->db->get_where('mahasiswa', ['username' => $userid['id']])->row_array();
+        $this->load->model('jadwal_model', 'jadwalM');
+        $this->load->model('skripsi_model', 'skripsiM');
+        $data['level'] = $this->db->get('user_level')->result_array();
+        //$data['user'] = $this->db->from('user');
+
+        if ($this->input->post('submit')) {
+            $data['keyword'] = $this->input->post('keyword');
+            $this->session->set_userdata('keyword', $data['keyword']);
+        } else {
+            $data['keyword'] = $this->session->userdata('keyword');
+        }
+
+        $this->db->like('s.judul', $data['keyword']);
+        $this->db->from('jadwal_sidang js, skripsi s');
+        $this->db->where('s.id = js.id_skripsi');
+        // $this->db->where('level_id != 1 AND level_id != 2');
+        $config['total_rows'] = $this->db->count_all_results();
+        $data['total_rows'] = $config['total_rows'];
+        $config['base_url'] = 'http://localhost/sms-utm/mahasiswa/JadwalSidang';
+
+        $config['per_page'] = 5;
+
+        $this->pagination->initialize($config);
+
+        if ($this->uri->segment(3) !== null) {
+            $data['start'] = $this->uri->segment(3);
+        } else {
+            $data['start'] = 0;
+        }
+
+        // $data['skri'] = $this->db->get_where('skripsi', ['nim' => $this->session->userdata('username')])->row_array();
+        // var_dump($data['skri']);
+
+        $data['JSid'] = $this->jadwalM->getJadwalSidang($config['per_page'], $data['start'], $data['keyword'], $data['user']['level_id'], $data['user']['username'], null);
+
+        $this->load->view('template/header', $data);
+        $this->load->view('template/sidebar', $data);
+        $this->load->view('template/topbar', $data);
+        $this->load->view('mahasiswa/JadwalSidang', $data);
+        $this->load->view('template/footer');
     }
 }

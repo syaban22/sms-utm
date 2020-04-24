@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2020 at 06:49 PM
+-- Generation Time: Apr 24, 2020 at 07:22 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -108,11 +108,21 @@ CREATE TABLE `jadwal_sempro` (
   `tanggal` varchar(256) DEFAULT NULL,
   `waktu` varchar(256) DEFAULT NULL,
   `periode` varchar(256) NOT NULL,
-  `penguji_1` int(18) DEFAULT NULL,
-  `penguji_2` int(18) DEFAULT NULL,
-  `penguji_3` int(18) DEFAULT NULL,
+  `penguji_1` varchar(18) DEFAULT NULL,
+  `penguji_2` varchar(18) DEFAULT NULL,
+  `penguji_3` varchar(18) DEFAULT NULL,
   `ruangan` varchar(256) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `jadwal_sempro`
+--
+
+INSERT INTO `jadwal_sempro` (`id`, `id_skripsi`, `tanggal`, `waktu`, `periode`, `penguji_1`, `penguji_2`, `penguji_3`, `ruangan`) VALUES
+(1, 21, '24042020', '08:30-09:00', '2019/2020', '196911182001121004', '197402212008011006', '197902222005012003', 'RKBF 204'),
+(4, 20, '24042020', '08:30-09:00', '2019/2020', '197803092003122009', '19740102017021002', '197101092006021012', 'RKBF 204'),
+(5, 22, '25042020', '10:00-10.30', '2019/2020', '197402212008011006', '197901092006021011', '198101092006041003', 'Ruang IJCST'),
+(6, 26, '25042020', '10:00-10.30', '2019/2020', '198101092006041003', '197101092006021012', '197402212008011006', 'Lab CC');
 
 -- --------------------------------------------------------
 
@@ -126,11 +136,19 @@ CREATE TABLE `jadwal_sidang` (
   `tanggal` varchar(256) DEFAULT NULL,
   `waktu` varchar(256) DEFAULT NULL,
   `periode` varchar(256) NOT NULL,
-  `penguji_1` int(18) DEFAULT NULL,
-  `penguji_2` int(18) DEFAULT NULL,
-  `penguji_3` int(18) DEFAULT NULL,
+  `penguji_1` varchar(18) DEFAULT NULL,
+  `penguji_2` varchar(18) DEFAULT NULL,
+  `penguji_3` varchar(18) DEFAULT NULL,
   `ruangan` varchar(256) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `jadwal_sidang`
+--
+
+INSERT INTO `jadwal_sidang` (`id`, `id_skripsi`, `tanggal`, `waktu`, `periode`, `penguji_1`, `penguji_2`, `penguji_3`, `ruangan`) VALUES
+(2, 20, '24042020', '08:53', '2019/2020', '197101092006021012', '197402212008011006', '197101092006021012', 'RKBF 202'),
+(3, 26, '27042020', '12:00-15.30', '2019/2020', '19740102017021002', '197803092003122009', '197902222005012003', 'Lab TIA');
 
 -- --------------------------------------------------------
 
@@ -222,17 +240,19 @@ CREATE TABLE `skripsi` (
   `dosbing_2` varchar(18) DEFAULT NULL,
   `prodi` varchar(4) NOT NULL,
   `nilai` float DEFAULT 0,
-  `status` int(11) DEFAULT NULL
+  `status` int(11) DEFAULT NULL,
+  `berkas` varchar(120) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `skripsi`
 --
 
-INSERT INTO `skripsi` (`id`, `judul`, `abstract`, `nim`, `dosbing_1`, `dosbing_2`, `prodi`, `nilai`, `status`) VALUES
-(20, 'tes1', 'tes1', '170411100007', '19740102017021002', '196911182001121004', '4111', 0, 1),
-(21, 'tes2', 'tes2', '170411100015', '197101092006021012', '197901092006021011', '4111', 0, 0),
-(22, 'tes3', 'tes3', '170411100015', '197101092006021012', '197901092006021011', '4111', 0, 2);
+INSERT INTO `skripsi` (`id`, `judul`, `abstract`, `nim`, `dosbing_1`, `dosbing_2`, `prodi`, `nilai`, `status`, `berkas`) VALUES
+(20, 'tes1', 'tes1', '170411100007', '19740102017021002', '196911182001121004', '4111', 0, 1, ''),
+(21, 'tes2', 'tes2', '170411100015', '197101092006021012', '197901092006021011', '4111', 0, 0, ''),
+(22, 'tes3', 'tes3', '170411100015', '197101092006021012', '197901092006021011', '4111', 0, 2, ''),
+(26, 'Deteksi buah dengan metode Haar Cascade', 'Pada mulanya, skripsi ini dibuat hanya untuk bercandaan saja. Namun semua berubah setelah negara api menyerang hingga meresap ke tulang', '170411100119', '197101092006021012', '197402212008011006', '4111', 0, NULL, '');
 
 -- --------------------------------------------------------
 
@@ -413,7 +433,13 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active
 (24, 1, 'Daftar Mahasiswa', 'administrator/daftarMahasiswa', 'fa fa-user fa-fw', 1),
 (25, 10, 'Daftar Skripsi', 'admin/daftarSkripsi', 'fa fa-fw fa-home', 1),
 (26, 1, 'Daftar Jenis Kelamin', 'administrator/getJenKel', 'fas fa-fw fa-user', 1),
-(27, 1, 'Daftar Status', 'administrator/getStatus', 'fas fa-fw fa-clipboard-list', 1);
+(27, 1, 'Daftar Status', 'administrator/getStatus', 'fas fa-fw fa-clipboard-list', 1),
+(28, 10, 'Jadwal Sempro', 'admin/JadwalSempro', 'fa fa-fw fa-home', 1),
+(29, 10, 'Jadwal Sidang', 'admin/JadwalSidang', 'fa fa-user fa-fw', 1),
+(30, 12, 'Jadwal Sempro', 'mahasiswa/JadwalSempro', 'fa fa-user fa-fw', 1),
+(31, 12, 'Jadwal Sidang', 'mahasiswa/JadwalSidang', 'fa fa-user fa-fw', 1),
+(32, 11, 'Jadwal Sempro', 'dosen/JadwalSempro', 'fa fa-user fa-fw', 1),
+(33, 11, 'Jadwal Sidang', 'dosen/JadwalSidang', 'fa fa-user fa-fw', 1);
 
 --
 -- Indexes for dumped tables
@@ -445,13 +471,18 @@ ALTER TABLE `fakultas`
 -- Indexes for table `jadwal_sempro`
 --
 ALTER TABLE `jadwal_sempro`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_skripsi` (`id_skripsi`),
+  ADD KEY `penguji_1` (`penguji_1`),
+  ADD KEY `penguji_2` (`penguji_2`),
+  ADD KEY `penguji_3` (`penguji_3`);
 
 --
 -- Indexes for table `jadwal_sidang`
 --
 ALTER TABLE `jadwal_sidang`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_skripsi` (`id_skripsi`);
 
 --
 -- Indexes for table `jenkel`
@@ -539,13 +570,13 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `jadwal_sempro`
 --
 ALTER TABLE `jadwal_sempro`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `jadwal_sidang`
 --
 ALTER TABLE `jadwal_sidang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `jenkel`
@@ -557,7 +588,7 @@ ALTER TABLE `jenkel`
 -- AUTO_INCREMENT for table `skripsi`
 --
 ALTER TABLE `skripsi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `status`
@@ -593,7 +624,7 @@ ALTER TABLE `user_menu`
 -- AUTO_INCREMENT for table `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- Constraints for dumped tables
@@ -612,6 +643,21 @@ ALTER TABLE `admin`
 ALTER TABLE `dosen`
   ADD CONSTRAINT `dosen_ibfk_1` FOREIGN KEY (`prodi`) REFERENCES `prodi` (`kode_prodi`),
   ADD CONSTRAINT `dosen_ibfk_2` FOREIGN KEY (`username`) REFERENCES `user` (`id`);
+
+--
+-- Constraints for table `jadwal_sempro`
+--
+ALTER TABLE `jadwal_sempro`
+  ADD CONSTRAINT `jadwal_sempro_ibfk_1` FOREIGN KEY (`id_skripsi`) REFERENCES `skripsi` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `jadwal_sempro_ibfk_2` FOREIGN KEY (`penguji_1`) REFERENCES `dosen` (`nip`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `jadwal_sempro_ibfk_3` FOREIGN KEY (`penguji_2`) REFERENCES `dosen` (`nip`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `jadwal_sempro_ibfk_4` FOREIGN KEY (`penguji_3`) REFERENCES `dosen` (`nip`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `jadwal_sidang`
+--
+ALTER TABLE `jadwal_sidang`
+  ADD CONSTRAINT `jadwal_sidang_ibfk_1` FOREIGN KEY (`id_skripsi`) REFERENCES `skripsi` (`id`);
 
 --
 -- Constraints for table `mahasiswa`

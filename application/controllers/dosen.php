@@ -152,34 +152,6 @@ class dosen extends CI_Controller
         $this->load->view('template/footer');
     }
 
-
-    // public function perusahaan()
-    // {
-    //     $data['judul'] = 'Perusahaan';
-    //     $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-
-    //     $data['perusahaan'] = $this->db->get('perusahaan')->result_array();
-
-    //     $this->form_validation->set_rules('perusahaan', 'Perusahaan', 'required');
-
-    //     if ($this->form_validation->run() == false) {
-    //         $this->load->view('template/header', $data);
-    //         $this->load->view('template/sidebar', $data);
-    //         $this->load->view('template/topbar', $data);
-    //         $this->load->view('dosen/perusahaan', $data);
-    //         $this->load->view('template/footer');
-    //     } else {
-    //         $data = [
-    //             'perusahaan' => $this->input->post('perusahaan'),
-    //         ];
-
-    //         $this->db->insert('perusahaan', $data);
-    //         $this->session->set_flashdata('pesan', 'Perusahaan baru berhasil ditambahkan');
-    //         redirect('dosen/perusahaan');
-    //     }
-    // }
-
-
     function get_file()
     {
         $id = $this->uri->segment(3);
@@ -191,5 +163,97 @@ class dosen extends CI_Controller
         $data = file_get_contents($path);
         $name = $file;
         force_download($name, $data);
+    }
+
+    public function JadwalSempro()
+    {
+        $this->session->unset_userdata('keyword');
+        $data['judul'] = 'Jadwal Sempro';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $userid = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['profil'] = $this->db->get_where('dosen', ['username' => $userid['id']])->row_array();
+        $this->load->model('jadwal_model', 'jadwalM');
+        $this->load->model('skripsi_model', 'skripsiM');
+        $data['level'] = $this->db->get('user_level')->result_array();
+        //$data['user'] = $this->db->from('user');
+
+        if ($this->input->post('submit')) {
+            $data['keyword'] = $this->input->post('keyword');
+            $this->session->set_userdata('keyword', $data['keyword']);
+        } else {
+            $data['keyword'] = $this->session->userdata('keyword');
+        }
+
+        $this->db->like('s.judul', $data['keyword']);
+        $this->db->from('jadwal_sempro js, skripsi s');
+        $this->db->where('s.id = js.id_skripsi');
+        // $this->db->where('level_id != 1 AND level_id != 2');
+        $config['total_rows'] = $this->db->count_all_results();
+        $data['total_rows'] = $config['total_rows'];
+        $config['base_url'] = 'http://localhost/sms-utm/dosen/JadwalSempro';
+
+        $config['per_page'] = 5;
+
+        $this->pagination->initialize($config);
+
+        if ($this->uri->segment(3) !== null) {
+            $data['start'] = $this->uri->segment(3);
+        } else {
+            $data['start'] = 0;
+        }
+
+        $data['JSemp'] = $this->jadwalM->getJadwalSempro($config['per_page'], $data['start'], $data['keyword'], $data['user']['level_id'], null, null);
+
+        $this->load->view('template/header', $data);
+        $this->load->view('template/sidebar', $data);
+        $this->load->view('template/topbar', $data);
+        $this->load->view('dosen/JadwalSempro', $data);
+        $this->load->view('template/footer');
+    }
+
+    public function JadwalSidang()
+    {
+        $this->session->unset_userdata('keyword');
+        $data['judul'] = 'Jadwal Sidang';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $userid = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['profil'] = $this->db->get_where('dosen', ['username' => $userid['id']])->row_array();
+        $this->load->model('jadwal_model', 'jadwalM');
+        $this->load->model('skripsi_model', 'skripsiM');
+        $data['level'] = $this->db->get('user_level')->result_array();
+        //$data['user'] = $this->db->from('user');
+
+        if ($this->input->post('submit')) {
+            $data['keyword'] = $this->input->post('keyword');
+            $this->session->set_userdata('keyword', $data['keyword']);
+        } else {
+            $data['keyword'] = $this->session->userdata('keyword');
+        }
+
+        $this->db->like('s.judul', $data['keyword']);
+        $this->db->from('jadwal_sidang js, skripsi s');
+        $this->db->where('s.id = js.id_skripsi');
+        // $this->db->where('level_id != 1 AND level_id != 2');
+        $config['total_rows'] = $this->db->count_all_results();
+        $data['total_rows'] = $config['total_rows'];
+        $config['base_url'] = 'http://localhost/sms-utm/dosen/JadwalSidang';
+
+        $config['per_page'] = 5;
+
+        $this->pagination->initialize($config);
+
+        if ($this->uri->segment(3) !== null) {
+            $data['start'] = $this->uri->segment(3);
+        } else {
+            $data['start'] = 0;
+        }
+
+        $data['JSid'] = $this->jadwalM->getJadwalSidang($config['per_page'], $data['start'], $data['keyword'], $data['user']['level_id'], null, null);
+
+        $this->load->view('template/header', $data);
+        $this->load->view('template/sidebar', $data);
+        $this->load->view('template/topbar', $data);
+        $this->load->view('dosen/JadwalSidang', $data);
+        $this->load->view('template/footer');
     }
 }

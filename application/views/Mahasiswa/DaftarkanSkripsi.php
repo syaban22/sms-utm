@@ -6,8 +6,8 @@
 				<h2 class='title'>Daftarkan Skripsi</h2>
 				<!-- 
 					nampilkan kode fak dan kode prodi dari nim
-				<?= "kode fakultas : ",$kodefakultas; ?>
-				<?= "kode prodi : ",$kodeprodi; ?> 
+				<?= "kode fakultas : ", $kodefakultas; ?>
+				<?= "kode prodi : ", $kodeprodi; ?> 
 				-->
 			</div>
 			<div class="card-body">
@@ -15,14 +15,14 @@
 					<div class="form-row">
 						<div class="name">Judul Skripsi</div>
 						<div class="value">
-							<input class="input--style-6" type="text" name="judul">
+							<input class="input--style-6" type="text" name="judul" value="<?= set_value('judul'); ?>">
 							<?= form_error('judul', '<div class="alert-danger mt-2" role="alert">', '</div>'); ?>
 						</div>
 					</div>
-					<div class="form-row">
+					<div class=" form-row">
 						<div class="name">Abstract</div>
 						<div class="value">
-							<input class="input--style-6" type="text" name="abstract">
+							<input class="input--style-6" type="text" name="abstract" value="<?= set_value('abstract'); ?>">
 							<?= form_error('abstract', '<div class="alert-danger mt-2" role="alert">', '</div>'); ?>
 						</div>
 					</div>
@@ -46,9 +46,11 @@
 							<div class="input-group">
 								<select class="input--style-6" name="dosbing2" id="dosbing2" onchange="dosbingb()">
 									<option value="">- Pilih Dosen Pembimbing 2 -</option>
-									<?php $i=0; foreach ($dosen as $d) : ?>
-										<option class="<?=$i;?>" value="<?= $d['nip']; ?>"><?= $d['nama']; ?></option>
-									<?php $i+=1; endforeach; ?>
+									<?php $i = 0;
+									foreach ($dosen as $d) : ?>
+										<option class="<?= $i; ?>" value="<?= $d['nip']; ?>"><?= $d['nama']; ?></option>
+									<?php $i += 1;
+									endforeach; ?>
 								</select>
 								<?= form_error('dosbing2', '<div class="alert-danger mt-2" role="alert">', '</div>'); ?>
 							</div>
@@ -59,16 +61,16 @@
 						<select type="hidden" class="input--style-6" name="dosbing" id="dosbing" onchange="dosbinga()">
 							<option value="">- Pilih Dosen Pembimbing 1 -</option>
 							<?php foreach ($dosen as $d) : ?>
-								<option  value="<?= $d['nip']; ?>"><?= $d['nama']; ?></option>
+								<option value="<?= $d['nip']; ?>"><?= $d['nama']; ?></option>
 							<?php endforeach; ?>
 						</select>
 					</span>
 					<!-- end of patokan -->
-					<!-- <div class="form-row">
+					<div class="form-row">
 						<div class="name">Upload Berkas</div>
 						<div class="value">
 							<div class="input-group js-input-file">
-								<input class="input-file" type="file" name="ktp" id="file">
+								<input class="input-file" type="file" name="file" id="file">
 								<label class="label--file" for="file">Choose file</label>
 								<span class="input-file__info">No file chosen</span>
 							</div>
@@ -76,7 +78,7 @@
 								2 MB</div>
 							<div class="alert-danger mt-2" role="alert"> <?= $error; ?></div>
 						</div>
-					</div> -->
+					</div>
 			</div>
 			<div class="card-footer">
 				<button class="btn btn--radius-2 btn--blue-2" type="submit">Daftarkan</button>

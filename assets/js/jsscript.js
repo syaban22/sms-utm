@@ -28,6 +28,17 @@ if (flashdata == 'Anda telah mendaftarkan 1 Skripsi') {
 	})
 }
 
+//Mahasiswa Tambah Skripsi (Mahasiswa)
+if (flashdata == 'Skripsi Anda berhasil didaftarkan') {
+	Swal.fire({
+		position: 'center',
+		icon: 'success',
+		title: flashdata,
+		showConfirmButton: false,
+		timer: 2000
+	})
+}
+
 if (flashdata == 'Format Foto Salah') {
 	Swal.fire({
 		position: 'center',
@@ -864,6 +875,162 @@ if (flashdata == 'Gagal menambahkah Status') {
 		icon: 'error',
 		title: 'Menambahkan Status tidak berhasil',
 		text: 'Harap periksa kembali dan coba lagi',
+		showConfirmButton: true,
+	})
+}
+
+//CRUD Jadwal Sempro
+//Edit Jadwal
+if (flashdata == 'Edit Jadwal Sempro berhasil') {
+	Swal.fire({
+		position: 'center',
+		icon: 'success',
+		title: flashdata,
+		showConfirmButton: false,
+		timer: 2000
+	})
+}
+
+//Konfirmasi delete Jadwal Sempro
+$('.deleteJS').on('click', function (e) {
+	e.preventDefault();
+	const nama = $(this).data('nama');
+	const href = $(this).attr('href');
+	Swal.fire({
+		title: 'Hapus Jadwal Sempro',
+		html: "Apakah anda yakin untuk menghapus Jadwal Sempro  " + '<b>' + nama + '</b>' + " ?",
+		icon: 'warning',
+		showCancelButton: true,
+		focusConfirm: false,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Ya',
+		cancelmButtonText: 'Tidak'
+	}).then((result) => {
+		if (result.value) {
+			document.location.href = href;
+		}
+	})
+});
+
+//Delete Status
+if (flashdata == '1 Jadwal Sempro berhasil dihapus') {
+	Swal.fire({
+		position: 'center',
+		icon: 'success',
+		title: flashdata,
+		showConfirmButton: false,
+		timer: 2000
+	})
+}
+
+//Hapus Jadwal Sempro gagal
+if (flashdata == 'Hapus Jadwal Sempro gagal') {
+	Swal.fire({
+		position: 'center',
+		icon: 'error',
+		title: 'Menghapus Jadwal Sempro tidak berhasil',
+		text: 'Harap periksa kembali dan coba lagi',
+		showConfirmButton: true,
+	})
+}
+
+//Tambah Jadwl Sempro
+if (flashdata == 'Jadwal Sempro baru berhasil ditambahkan') {
+	Swal.fire({
+		position: 'center',
+		icon: 'success',
+		title: flashdata,
+		showConfirmButton: false,
+		timer: 2000
+	})
+}
+
+//Tambah Jadwal Sempro gagal
+if (flashdata == 'Gagal menambahkah Jadwal Sempro') {
+	Swal.fire({
+		position: 'center',
+		icon: 'error',
+		title: 'Menambahkan Jadwal Sempro tidak berhasil',
+		text: 'Judul telah didaftarkan untuk Sempro',
+		showConfirmButton: true,
+	})
+}
+
+//CRUD Jadwal Sidang
+//Edit Jadwal
+if (flashdata == 'Edit Jadwal Sidang berhasil') {
+	Swal.fire({
+		position: 'center',
+		icon: 'success',
+		title: flashdata,
+		showConfirmButton: false,
+		timer: 2000
+	})
+}
+
+//Konfirmasi delete Jadwal Sidang
+$('.deleteJS').on('click', function (e) {
+	e.preventDefault();
+	const nama = $(this).data('nama');
+	const href = $(this).attr('href');
+	Swal.fire({
+		title: 'Hapus Jadwal Sidang',
+		html: "Apakah anda yakin untuk menghapus Jadwal Sidang  " + '<b>' + nama + '</b>' + " ?",
+		icon: 'warning',
+		showCancelButton: true,
+		focusConfirm: false,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Ya',
+		cancelmButtonText: 'Tidak'
+	}).then((result) => {
+		if (result.value) {
+			document.location.href = href;
+		}
+	})
+});
+
+//Delete Status
+if (flashdata == '1 Jadwal Sidang berhasil dihapus') {
+	Swal.fire({
+		position: 'center',
+		icon: 'success',
+		title: flashdata,
+		showConfirmButton: false,
+		timer: 2000
+	})
+}
+
+//Hapus Jadwal Sidang gagal
+if (flashdata == 'Hapus Jadwal Sidang gagal') {
+	Swal.fire({
+		position: 'center',
+		icon: 'error',
+		title: 'Menghapus Jadwal Sidang tidak berhasil',
+		text: 'Harap periksa kembali dan coba lagi',
+		showConfirmButton: true,
+	})
+}
+
+//Tambah Jadwl Sidang
+if (flashdata == 'Jadwal Sidang baru berhasil ditambahkan') {
+	Swal.fire({
+		position: 'center',
+		icon: 'success',
+		title: flashdata,
+		showConfirmButton: false,
+		timer: 2000
+	})
+}
+
+//Tambah Jadwal Sidang gagal
+if (flashdata == 'Gagal menambahkah Jadwal Sidang') {
+	Swal.fire({
+		position: 'center',
+		icon: 'error',
+		title: 'Menambahkan Jadwal Sidang tidak berhasil',
+		text: 'Judul telah didaftarkan untuk Sidang',
 		showConfirmButton: true,
 	})
 }
