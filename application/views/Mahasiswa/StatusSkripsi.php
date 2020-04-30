@@ -62,21 +62,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $count=0;; foreach ($skripsi as $u) : 
+                    <?php $count=0;$start=0; foreach ($skripsi as $u) :
                         if ($u['nim'] == $this->session->userdata('username')){?>
                         <tr>
                             <th scope="row"><?= ++$start; ?></th>
                             <td><?= $u['judul']; ?></td>
-                            <td><?= $u['dosbing1']; ?></td>
-                            <td><?= $u['dosbing2']; ?></td>
-                            <!-- <td><?= $u['prodi']; ?></td> -->
+                            <td><?= $u['dosbing_1']; ?></td>
+                            <td><?= $u['dosbing_2']; ?></td>
                             <!-- <?php if ($u['nilai'] != 0) : ?>
                                 <td><?= $u['nilai']; ?></td>
                             <?php else : ?>
                                 <td>N/A</td>
                             <?php endif; ?> -->
                             <td>
-                                <a data-toggle="modal" data-target="#detail<?= $u['id'] ?>" onclick="javascript:load_modal(<?php echo $u['nim']; ?>)" class="btn btn-warning btn-sm detail"><i class="fa fa-fw fa-eye"></i>Lihat Detail</a>
+                                <a data-toggle="modal" data-target="#detail<?= $u['id'] ?>"  class="btn btn-warning btn-sm detail"><i class="fa fa-fw fa-eye"></i>Lihat Detail</a>
                                 <!-- <a href="" data-toggle="modal" data-target="#pelamarEdit<?= $u['id'] ?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i>Edit</a>
                                 <a href="<?= base_url() . 'administrator/deleteU/' . $u['id'] ?>" data-nama="<?= $u['nama']; ?>" class="btn btn-danger btn-sm deleteP"><i class="fa fa-fw fa-trash"></i>Delete</a> -->
                                 <!-- <button class="btn btn-primary detail" relid="<?= $u['nim']; ?>">View</button> -->
@@ -114,19 +113,57 @@
 </div>
 <!-- End of Main Content -->
 
-<script type="text/javascript">
-    //$(".modal-dialog").hide();
-    function load_modal(nim_mhs) {
-        $.ajax({
-            type: "POST",
-            url: "<?php echo site_url('Mahasiswa/getDataSkripsi'); ?>",
-            data: "nim_mhs=" + nim_mhs,
-            success: function(response) {
-                $(".displaycontent").html(response);
-
-            }
-        });
-    }
-</script>
-
-    <?php include('modal.php'); ?>
+<?php  foreach ($skripsi as $u) :
+    if ($u['nim'] == $this->session->userdata('username')) { ?>
+        <!-- modal detail -->
+        <div class="modal fade displaycontent" id="detail<?= $u['id'] ?>">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Detail Skripsi</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <td>Judul</td>
+                                    <td><?php echo $u['judul']; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Abstrak</td>
+                                    <td><?php echo $u['abstract']; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Dosen Pembimbing 1</td>
+                                    <td><?php echo $u['dosbing_1']; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Dosen Pembimbing2</td>
+                                    <td><?php echo $u['dosbing_2']; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Prodi</td>
+                                    <td><?php echo $u['prodi']; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>status</td>
+                                    <td><?php echo $this->db->get_where('status',['id'=>$u['status']])->row_array()['ket'];?></td>
+                                </tr>
+                                <tr>
+                                    <td>Nilai</td>
+                                    <?php if ($u['nilai'] != 0) : ?>
+                                        <td><?= $u['nilai']; ?></td>
+                                    <?php else : ?>
+                                        <td>N/A</td>
+                                    <?php endif; ?>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end modal detail -->
+<?php }
+endforeach; ?>

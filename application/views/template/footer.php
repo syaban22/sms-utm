@@ -58,7 +58,7 @@
 
 <!-- Custom scripts for all pages-->
 <script src="<?= base_url('assets/'); ?>js/sb-admin-2.min.js"></script>
-<script type="text/javascript" src="<?= base_url('assets/'); ?>js/mhs.js"></script>
+
 <script>
   $('.form-check-input').on('click', function() {
     const menuId = $(this).data('menu');

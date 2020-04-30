@@ -1,4 +1,6 @@
 <!-- Begin Page Content -->
+<!-- <script type="text/javascript" src="<?= base_url('assets/'); ?>js/admin.js"></script> -->
+<!-- belum diperbaiki skripnya -->
 <div class="container-fluid">
 	<div class="flash-data" data-flashdata="<?= $this->session->flashdata('pesan'); ?>"></div>
 	<!-- Page Heading -->
@@ -211,7 +213,7 @@
 	</div>
 
 
-<?php endforeach; ?>
+<?php endforeach;?>
 
 <!-- Modal Tambah Jadwal -->
 <div class="modal fade" id="JadwalSemproBaru" tabindex="-1" role="dialog" aria-labelledby="JadwalSemproBaruLabel" aria-hidden="true">
@@ -230,9 +232,10 @@
 						<div class="name mb-3">Judul Skripsi</div>
 						<select class="form-control value" name="judul" id="judul" onchange="" required>
 							<option value="">- Pilih Judul -</option>
-							<?php foreach ($skripsi as $j) : ?>
-								<option value="<?= $j['id']; ?>"><?= $j['judul']; ?></option>
-							<?php endforeach; ?>
+							<?php foreach ($skripsi as $s) :
+								if ($s['status']=='1'){?>
+								<option value="<?= $s['id']; ?>"><?= $s['judul']; ?></option>
+								<?php } endforeach; ?>
 						</select>
 					</div>
 					<div class="form-group">
@@ -254,7 +257,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<select name="penguji1" id="penguji1" class="form-control" required>
+						<select name="penguji1" id="penguji1" class="form-control" onchange="dosena()" required>
 							<option value="">- Pilih Dosen Penguji 1 -</option>
 							<?php foreach ($dosen as $f) : ?>
 								<option value="<?= $f['nip']; ?>"><?= $f['nama']; ?></option>
@@ -262,7 +265,7 @@
 						</select>
 					</div>
 					<div class="form-group">
-						<select name="penguji2" id="penguji2" class="form-control" required>
+						<select name="penguji2" id="penguji2" class="form-control" onchange="dosena()" required>
 							<option value="">- Pilih Dosen Penguji 2 -</option>
 							<?php foreach ($dosen as $f) : ?>
 								<option value="<?= $f['nip']; ?>"><?= $f['nama']; ?></option>
@@ -270,7 +273,7 @@
 						</select>
 					</div>
 					<div class="form-group">
-						<select name="penguji3" id="penguji3" class="form-control" required>
+						<select name="penguji3" id="penguji3" class="form-control" onchange="dosena()" required>
 							<option value="">- Pilih Dosen Penguji 3 -</option>
 							<?php foreach ($dosen as $f) : ?>
 								<option value="<?= $f['nip']; ?>"><?= $f['nama']; ?></option>
@@ -308,7 +311,7 @@
 				<form action="<?= base_url('admin/updatePenguji/') . $u['id']; ?>" method="POST">
 					<div class="modal-body">
 						<div class="form-group">
-							<select name="penguji1" id="penguji1" class="form-control">
+							<select name="penguji1" id="penguji1" class="form-control" onchange="penguji()">
 								<option value="">- Pilih Penguji 1 -</option>
 								<?php foreach ($penguji as $p) : ?>
 									<option value="<?= $p['nip']; ?>"><?= $p['nama']; ?> </option>

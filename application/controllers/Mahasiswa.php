@@ -121,23 +121,22 @@ class Mahasiswa extends CI_Controller
             }
             $this->load->view('template/header_Pekerjaan', $data);
             // $this->load->view('template/sidebar', $data);
-            $this->load->view('template/topbar', $data);
-            $this->load->view('Mahasiswa/DaftarkanSkripsi', $data);
+            $this->load->view('template/topbar');
+            $this->load->view('Mahasiswa/DaftarkanSkripsi');
             $this->load->view('template/footer');
         } else {
             if (!$this->upload->do_upload('file')) {
                 $data['error'] = $this->upload->display_errors();
                 $this->load->view('template/header_Pekerjaan', $data);
                 // $this->load->view('template/sidebar', $data);
-                $this->load->view('template/topbar', $data);
-                $this->load->view('Mahasiswa/DaftarkanSkripsi', $data);
+                $this->load->view('template/topbar');
+                $this->load->view('Mahasiswa/DaftarkanSkripsi');
                 $this->load->view('template/footer');
             } else {
                 $this->upload->do_upload('file');
                 $gbr = $this->upload->data();
                 $file = $gbr['file_name'];
                 var_dump($file);
-                die;
                 $data = [
                     'judul' => $this->input->post('judul'),
                     'abstract' => $this->input->post('abstract'),
@@ -145,13 +144,12 @@ class Mahasiswa extends CI_Controller
                     'nim' => $nim,
                     'dosbing_1' => $this->input->post('dosbing1'),
                     'dosbing_2' => $this->input->post('dosbing2'),
+                    'status' => '1',
                     'berkas' => $file
-                    // status
                 ];
                 $this->db->insert('skripsi', $data);
                 $this->session->set_flashdata('pesan', 'Skripsi Anda berhasil didaftarkan');
                 redirect('Mahasiswa/Profile');
-                //belum ada handlenya
             }
             //echo $this->input->post('dosbing1');
         }
@@ -214,39 +212,41 @@ class Mahasiswa extends CI_Controller
         $data['level'] = $this->db->get('user_level')->result_array();
         //$data['user'] = $this->db->from('user');
 
-        if ($this->input->post('submit')) {
-            $data['keyword'] = $this->input->post('keyword');
-            $this->session->set_userdata('keyword', $data['keyword']);
-        } else {
-            $data['keyword'] = $this->session->userdata('keyword');
-        }
+        // paging ini bisa dihapus kalau memang tidak dibutuhkan!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // if ($this->input->post('submit')) {
+        //     $data['keyword'] = $this->input->post('keyword');
+        //     $this->session->set_userdata('keyword', $data['keyword']);
+        // } else {
+        //     $data['keyword'] = $this->session->userdata('keyword');
+        // }
 
-        $this->db->like('nim', $data['keyword']);
-        $this->db->from('skripsi');
-        // $this->db->where('level_id != 1 AND level_id != 2');
-        $config['total_rows'] = $this->db->count_all_results();
-        $data['total_rows'] = $config['total_rows'];
-        $config['base_url'] = 'http://localhost/sms-utm/admin/StatusSkripsi';
+        // $this->db->like('nim', $data['keyword']);
+        // $this->db->from('skripsi');
+        // // $this->db->where('level_id != 1 AND level_id != 2');
+        // $config['total_rows'] = $this->db->count_all_results();
+        // $data['total_rows'] = $config['total_rows'];
+        // $config['base_url'] = 'http://localhost/sms-utm/admin/StatusSkripsi';
 
-        $config['per_page'] = 5;
+        // $config['per_page'] = 5;
 
-        $this->pagination->initialize($config);
+        // $this->pagination->initialize($config);
 
-        if ($this->uri->segment(3) !== null) {
-            $data['start'] = $this->uri->segment(3);
-        } else {
-            $data['start'] = 0;
-        }
+        // if ($this->uri->segment(3) !== null) {
+        //     $data['start'] = $this->uri->segment(3);
+        // } else {
+        //     $data['start'] = 0;
+        // }
+        // $data['skripsi'] = $this->skripsiM->getSkripsi($config['per_page'], $data['start'], $data['keyword'], $data['user']['level_id']);
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-        $data['skripsi'] = $this->skripsiM->getSkripsi($config['per_page'], $data['start'], $data['keyword'], $data['user']['level_id']);
+        // $data['skripsi'] = $this->db->get('skripsi')->result_array();
+        $data['skripsi'] = $this->db->get_where('skripsi',['nim'=>$this->session->userdata('username')])->result_array();
         $data['penguji'] = $this->skripsiM->getPenguji();
 
-
-
         $this->load->view('template/header', $data);
-        $this->load->view('template/sidebar', $data);
-        $this->load->view('template/topbar', $data);
-        $this->load->view('mahasiswa/StatusSkripsi', $data);
+        $this->load->view('template/sidebar');
+        $this->load->view('template/topbar');
+        $this->load->view('mahasiswa/StatusSkripsi');
         $this->load->view('template/footer');
     }
 

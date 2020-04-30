@@ -1,4 +1,5 @@
 <!-- Begin Page Content -->
+<script type="text/javascript" src="<?= base_url('assets/'); ?>js/mhs.js"></script>
 <div class="page-wrapper bg-darkl p-t-100 p-b-50">
 	<div class="wrapper wrapper--w900">
 		<div class="card card-6">
@@ -15,14 +16,14 @@
 					<div class="form-row">
 						<div class="name">Judul Skripsi</div>
 						<div class="value">
-							<input class="input--style-6" type="text" name="judul" value="<?= set_value('judul'); ?>">
+							<input class="input--style-6" type="text" name="judul" placeholder="Judul">
 							<?= form_error('judul', '<div class="alert-danger mt-2" role="alert">', '</div>'); ?>
 						</div>
 					</div>
 					<div class=" form-row">
 						<div class="name">Abstract</div>
 						<div class="value">
-							<input class="input--style-6" type="text" name="abstract" value="<?= set_value('abstract'); ?>">
+							<textarea rows="4" cols="50" class="input--style-6" name="abstract" placeholder="Abstract"></textarea>
 							<?= form_error('abstract', '<div class="alert-danger mt-2" role="alert">', '</div>'); ?>
 						</div>
 					</div>

@@ -45,9 +45,9 @@ class admin extends CI_Controller
 		}
 		$data['users'] = $this->userM->getUsers($config['per_page'], $data['start'], $data['keyword'], $data['user']['level_id']);
 		$this->load->view('template/header', $data);
-		$this->load->view('template/sidebar', $data);
-		$this->load->view('template/topbar', $data);
-		$this->load->view('admin/index', $data);
+		$this->load->view('template/sidebar' );
+		$this->load->view('template/topbar');
+		$this->load->view('admin/index');
 		$this->load->view('template/footer');
 	}
 
@@ -387,23 +387,6 @@ class admin extends CI_Controller
 		redirect('admin/level');
 	}
 
-	public function levelakses($id)
-	{
-		$data['judul'] = 'Level Akses';
-		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-
-		$data['level'] = $this->db->get_where('user_level', ['id' => $id])->row_array();
-
-		$this->db->where('id !=', 1);
-		$data['menu'] = $this->db->get('user_menu')->result_array();
-
-		$this->load->view('template/header', $data);
-		$this->load->view('template/sidebar', $data);
-		$this->load->view('template/topbar', $data);
-		$this->load->view('admin/level-akses', $data);
-		$this->load->view('template/footer');
-	}
-
 	function get_file()
 	{
 		$id = $this->uri->segment(3);
@@ -537,9 +520,9 @@ class admin extends CI_Controller
 
 		if ($this->form_validation->run() == false) {
 			$this->load->view('template/header', $data);
-			$this->load->view('template/sidebar', $data);
-			$this->load->view('template/topbar', $data);
-			$this->load->view('admin/JadwalSempro', $data);
+			$this->load->view('template/sidebar');
+			$this->load->view('template/topbar');
+			$this->load->view('admin/JadwalSempro');
 			$this->load->view('template/footer');
 		} else {
 			if ($this->db->get_where('jadwal_sempro', ['id_skripsi' => $this->input->post('judul')])->row_array() == null) {
@@ -553,8 +536,14 @@ class admin extends CI_Controller
 					'penguji_3' => $this->input->post('penguji3'),
 					'ruangan' => $this->input->post('ruangan'),
 				];
-
+				$id_skripsi = $this->db->get_where('skripsi',['id'=>$this->input->post('judul')])->row_array()['id'];
 				$this->db->insert('jadwal_sempro', $data);
+				echo $id_skripsi;
+				$data = [
+					'status' => '2'
+				];
+				$this->db->where('id', $id_skripsi);
+				$this->db->update('skripsi', $data);
 				$this->session->set_flashdata('pesan', 'Jadwal Sempro baru berhasil ditambahkan');
 			} else {
 				// gagal
