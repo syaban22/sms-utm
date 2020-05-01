@@ -24,7 +24,7 @@ class jadwal_model extends CI_Model
             $query = $this->db->query("
             SELECT js.id, s.judul, js.tanggal, js.waktu, js.periode, js.penguji_1, js.penguji_2, js.penguji_3, d.nama as penguji1, (SELECT d.nama FROM dosen d WHERE d.nip = js.penguji_2) AS penguji2, (SELECT d.nama FROM dosen d WHERE d.nip = js.penguji_3) as penguji3, js.ruangan
             FROM jadwal_sempro js, skripsi s, dosen d, mahasiswa m
-            WHERE s.nim=m.nim AND s.nim=$nim AND s.id = js.id_skripsi AND d.nip = js.penguji_1
+            WHERE s.nim=m.nim AND s.nim=$nim AND s.id = js.id_skripsi AND d.nip = js.penguji_1 AND s.status=2
             ");
         }
         return $query->result_array();
