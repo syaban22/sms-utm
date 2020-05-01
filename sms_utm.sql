@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 24, 2020 at 07:22 PM
--- Server version: 10.4.6-MariaDB
--- PHP Version: 7.3.9
+-- Generation Time: May 01, 2020 at 07:47 AM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -119,10 +119,8 @@ CREATE TABLE `jadwal_sempro` (
 --
 
 INSERT INTO `jadwal_sempro` (`id`, `id_skripsi`, `tanggal`, `waktu`, `periode`, `penguji_1`, `penguji_2`, `penguji_3`, `ruangan`) VALUES
-(1, 21, '24042020', '08:30-09:00', '2019/2020', '196911182001121004', '197402212008011006', '197902222005012003', 'RKBF 204'),
-(4, 20, '24042020', '08:30-09:00', '2019/2020', '197803092003122009', '19740102017021002', '197101092006021012', 'RKBF 204'),
-(5, 22, '25042020', '10:00-10.30', '2019/2020', '197402212008011006', '197901092006021011', '198101092006041003', 'Ruang IJCST'),
-(6, 26, '25042020', '10:00-10.30', '2019/2020', '198101092006041003', '197101092006021012', '197402212008011006', 'Lab CC');
+(7, 33, '30042020', '08:30-09:00', '2019/2020', '197901092006021011', '19740102017021002', '197902222005012003', 'Lab CC'),
+(8, 34, '30042020', '09:00-09:30', '2019/2020', '19740102017021002', '197402212008011006', '198101092006041003', 'Lab CC');
 
 -- --------------------------------------------------------
 
@@ -250,9 +248,11 @@ CREATE TABLE `skripsi` (
 
 INSERT INTO `skripsi` (`id`, `judul`, `abstract`, `nim`, `dosbing_1`, `dosbing_2`, `prodi`, `nilai`, `status`, `berkas`) VALUES
 (20, 'tes1', 'tes1', '170411100007', '19740102017021002', '196911182001121004', '4111', 0, 1, ''),
-(21, 'tes2', 'tes2', '170411100015', '197101092006021012', '197901092006021011', '4111', 0, 0, ''),
-(22, 'tes3', 'tes3', '170411100015', '197101092006021012', '197901092006021011', '4111', 0, 2, ''),
-(26, 'Deteksi buah dengan metode Haar Cascade', 'Pada mulanya, skripsi ini dibuat hanya untuk bercandaan saja. Namun semua berubah setelah negara api menyerang hingga meresap ke tulang', '170411100119', '197101092006021012', '197402212008011006', '4111', 0, NULL, '');
+(21, 'tes2', 'tes2', '170411100015', '197101092006021012', '197901092006021011', '4111', 0, 0, NULL),
+(22, 'tes3', 'tes3', '170411100015', '197101092006021012', '197901092006021011', '4111', 0, 1, ''),
+(26, 'Deteksi buah dengan metode Haar Cascade', 'Pada mulanya, skripsi ini dibuat hanya untuk bercandaan saja. Namun semua berubah setelah negara api menyerang hingga meresap ke tulang', '170411100119', '197101092006021012', '197402212008011006', '4111', 0, 4, ''),
+(33, 'ngedab sampai jidat pecah-pecar dan otak sariawan', 'none', '170411100099', '196911182001121004', '197101092006021012', '4111', 0, 3, '524861885b502e3956186af886c1c83c.pdf'),
+(34, 'Sampai Sempro', 'none', '170411100042', '197902222005012003', '197803092003122009', '4111', 0, 2, '544b28f0a232282e5e62c49cfd75a76b.pdf');
 
 -- --------------------------------------------------------
 
@@ -366,7 +366,7 @@ CREATE TABLE `user_level` (
 
 INSERT INTO `user_level` (`id`, `level`, `ket`) VALUES
 (1, 'Administrator', 'Akses level tertinggi'),
-(2, 'adminprodi', 'Akses level admin prodi'),
+(2, 'admin', 'Akses level admin prodi'),
 (3, 'Dosen', 'Akses level dosen'),
 (4, 'Mahasiswa', 'Akses level mahasiswa');
 
@@ -570,7 +570,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `jadwal_sempro`
 --
 ALTER TABLE `jadwal_sempro`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `jadwal_sidang`
@@ -588,7 +588,7 @@ ALTER TABLE `jenkel`
 -- AUTO_INCREMENT for table `skripsi`
 --
 ALTER TABLE `skripsi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `status`
@@ -657,7 +657,7 @@ ALTER TABLE `jadwal_sempro`
 -- Constraints for table `jadwal_sidang`
 --
 ALTER TABLE `jadwal_sidang`
-  ADD CONSTRAINT `jadwal_sidang_ibfk_1` FOREIGN KEY (`id_skripsi`) REFERENCES `skripsi` (`id`);
+  ADD CONSTRAINT `jadwal_sidang_ibfk_1` FOREIGN KEY (`id_skripsi`) REFERENCES `skripsi` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `mahasiswa`
