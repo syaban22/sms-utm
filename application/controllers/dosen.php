@@ -117,32 +117,34 @@ class dosen extends CI_Controller
         $this->load->model('skripsi_model', 'skripsiM');
         $data['level'] = $this->db->get('user_level')->result_array();
         //$data['user'] = $this->db->from('user');
+        
+        // dihapus jika memang tidak digunakan (pagination)!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // if ($this->input->post('submit')) {
+        //     $data['keyword'] = $this->input->post('keyword');
+        //     $this->session->set_userdata('keyword', $data['keyword']);
+        // } else {
+        //     $data['keyword'] = $this->session->userdata('keyword');
+        // }
 
-        if ($this->input->post('submit')) {
-            $data['keyword'] = $this->input->post('keyword');
-            $this->session->set_userdata('keyword', $data['keyword']);
-        } else {
-            $data['keyword'] = $this->session->userdata('keyword');
-        }
+        // $this->db->like('nim', $data['keyword']);
+        // $this->db->from('skripsi');
+        // // $this->db->where('level_id != 1 AND level_id != 2');
+        // $config['total_rows'] = $this->db->count_all_results();
+        // $data['total_rows'] = $config['total_rows'];
+        // $config['base_url'] = 'http://localhost/sms-utm/admin/StatusSkripsi';
 
-        $this->db->like('nim', $data['keyword']);
-        $this->db->from('skripsi');
-        // $this->db->where('level_id != 1 AND level_id != 2');
-        $config['total_rows'] = $this->db->count_all_results();
-        $data['total_rows'] = $config['total_rows'];
-        $config['base_url'] = 'http://localhost/sms-utm/admin/StatusSkripsi';
+        // $config['per_page'] = 5;
 
-        $config['per_page'] = 5;
+        // $this->pagination->initialize($config);
 
-        $this->pagination->initialize($config);
-
-        if ($this->uri->segment(3) !== null) {
-            $data['start'] = $this->uri->segment(3);
-        } else {
-            $data['start'] = 0;
-        }
-
-        $data['skripsi'] = $this->skripsiM->getSkripsi($config['per_page'], $data['start'], $data['keyword'], $data['user']['level_id']);
+        // if ($this->uri->segment(3) !== null) {
+        //     $data['start'] = $this->uri->segment(3);
+        // } else {
+        //     $data['start'] = 0;
+        // }
+            // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+        $nip=$this->session->userdata('username');
+        $data['skripsi'] = $this->skripsiM->getBimbingan($data['user']['level_id'],$nip,null);
         $data['penguji'] = $this->skripsiM->getPenguji();
 
         $this->load->view('template/header', $data);
@@ -201,14 +203,43 @@ class dosen extends CI_Controller
         } else {
             $data['start'] = 0;
         }
-
-        $data['JSemp'] = $this->jadwalM->getJadwalSempro($config['per_page'], $data['start'], $data['keyword'], $data['user']['level_id'], null, null);
+        $nip=$this->session->userdata['username'];
+        $data['JSemp'] = $this->jadwalM->pengujisempro($config['per_page'], $data['start'], $data['keyword'], $data['user']['level_id'], $nip);
+        
 
         $this->load->view('template/header', $data);
-        $this->load->view('template/sidebar', $data);
-        $this->load->view('template/topbar', $data);
-        $this->load->view('dosen/JadwalSempro', $data);
+        $this->load->view('template/sidebar' );
+        $this->load->view('template/topbar');
+        $this->load->view('dosen/JadwalSempro');
         $this->load->view('template/footer');
+    }
+    // kalau bisa pop up untuk 3 tombol dibawah ini dibuatkan isinya : verivikasi sempro berhasil
+    public function LolosSempro($id){
+        $sempro = $this->db->get_where('jadwal_sempro',['id'=>$id])->row_array();
+        $id_skripsi = $sempro['id_skripsi'];
+        $data = ['status'=> '3'];
+        $this->db->where('id', $id_skripsi);
+		$this->db->update('skripsi', $data);
+        $this->session->set_flashdata('pesan', 'Edit Jadwal Sempro berhasil');
+        redirect('dosen/JadwalSempro');
+    }
+    public function UlangSempro($id){
+        $sempro = $this->db->get_where('jadwal_sempro',['id'=>$id])->row_array();
+        $id_skripsi = $sempro['id_skripsi'];
+        $data = ['status'=> '21'];
+        $this->db->where('id', $id_skripsi);
+        $this->db->update('skripsi', $data);
+        $this->session->set_flashdata('pesan', 'Edit Jadwal Sempro berhasil');
+        redirect('dosen/JadwalSempro');
+    }
+    public function GagalSempro($id){
+        $sempro = $this->db->get_where('jadwal_sempro',['id'=>$id])->row_array();
+        $id_skripsi = $sempro['id_skripsi'];
+        $data = ['status'=> '0'];
+        $this->db->where('id', $id_skripsi);
+        $this->db->update('skripsi', $data);
+        $this->session->set_flashdata('pesan', 'Edit Jadwal Sempro berhasil');
+        redirect('dosen/JadwalSempro');
     }
 
     public function JadwalSidang()

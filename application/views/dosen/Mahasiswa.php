@@ -29,7 +29,7 @@
                 }
                 ?>
 
-                <form class="form-inline" action="<?= base_url('mahasiswa/StatusSkripsi'); ?>" method="post">
+                <form class="form-inline" action="<?= base_url('dosen/getMahasiswa'); ?>" method="post">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search Name" name="keyword" autocomplete="off" autofocus>
                     <input type="submit" class="btn btn-primary" name="submit" value="Search">
 
@@ -37,15 +37,6 @@
             </nav>
         </div>
     </div> -->
-    <!-- <div class="col-md-2">
-		<select class="form-control" name="" id="perusahaan">
-			<option value="5">5</option>
-			<option value="10">10</option>
-			<option value="15">15</option>
-			<option value="20">20</option>
-		</select>
-	</div>
-	<br> -->
     <div class="row">
         <div class="col-md">
             <table class="table table-hover" id="perus">
@@ -62,7 +53,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if (empty($skripsi)) : ?>
+                    <?php if (empty($skripsi)) { ?>
                         <tr>
                             <td colspan="12">
                                 <div class="alert alert-danger" role="alert">
@@ -70,8 +61,8 @@
                                 </div>
                             </td>
                         </tr>
-                    <?php endif; ?>
-                    <?php foreach ($skripsi as $u) : ?>
+                    <?php } else{ ?>
+                    <?php $start=0; foreach ($skripsi as $u) : ?>
                         <tr>
                             <th scope="row"><?= ++$start; ?></th>
                             <td><?= $u['nama']; ?></td>
@@ -89,7 +80,7 @@
                                 <a href="<?= base_url() . 'administrator/deleteU/' . $u['id'] ?>" data-nama="<?= $u['nama']; ?>" class="btn btn-danger btn-sm deleteP"><i class="fa fa-fw fa-trash"></i>Delete</a>
                             </td> -->
                         </tr>
-                    <?php endforeach; ?>
+                    <?php endforeach; }?>
                 </tbody>
 
 
@@ -110,8 +101,8 @@
 </div>
 <!-- End of Main Content -->
 
-<!-- <?php foreach ($users as $u) :
-        ?>
+<!-- sepertinya tidak perlu modal edit -->
+<!-- <?php if (!empty($skripsi)) { foreach ($users as $u) : ?>
 
     <!-- Modal Edit -->
 <div class="modal fade" id="pelamarEdit<?= $u['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="pelamarEditLabel" aria-hidden="true">
@@ -160,4 +151,5 @@
     </div>
 </div>
 
-<?php endforeach; ?> -->
+<?php endforeach; }?> 
+-->

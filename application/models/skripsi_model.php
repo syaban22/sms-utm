@@ -10,12 +10,12 @@ class skripsi_model extends CI_Model
                 $query =
                     "
 			SELECT u.id, u.nama, u.username, u.level_id, l.level as level FROM user u, user_level l WHERE u.level_id = l.id and u.username LIKE '%$keyword%' limit $start, $limit
-		";
+		    ";
             } else {
                 $query =
                     "
 			SELECT u.id, u.nama, u.username, u.level_id, l.level as level FROM user u, user_level l WHERE u.level_id = l.id limit $start, $limit
-		";
+		    ";
             }
         }
         if (($user == 2)) {
@@ -23,41 +23,20 @@ class skripsi_model extends CI_Model
                 $query =
                     "
                     SELECT s.id, s.judul, m.nama, s.nim, d.nama as dosbing1,
-(SELECT d.nama FROM dosen d, skripsi sk WHERE d.nip = sk.dosbing_2 AND sk.id=s.id GROUP BY d.nip) as dosbing2,
-p.prodi, s.nilai
-FROM mahasiswa m, dosen d, skripsi s, prodi p
-WHERE s.nim = m.nim AND s.dosbing_1 = d.nip AND p.kode_prodi = s.prodi AND s.nim LIKE '%$keyword%' limit $start, $limit
-		";
+                    (SELECT d.nama FROM dosen d, skripsi sk WHERE d.nip = sk.dosbing_2 AND sk.id=s.id GROUP BY d.nip) as dosbing2,
+                    p.prodi, s.nilai
+                    FROM mahasiswa m, dosen d, skripsi s, prodi p
+                    WHERE s.nim = m.nim AND s.dosbing_1 = d.nip AND p.kode_prodi = s.prodi AND s.nim LIKE '%$keyword%' limit $start, $limit
+                ";
             } else {
                 $query =
                     "
                     SELECT s.id, s.judul, m.nama, s.nim, d.nama as dosbing1,
-(SELECT d.nama FROM dosen d, skripsi sk WHERE d.nip = sk.dosbing_2 AND sk.id=s.id GROUP BY d.nip) as dosbing2,
-p.prodi, s.nilai
-FROM mahasiswa m, dosen d, skripsi s, prodi p
-WHERE s.nim = m.nim AND s.dosbing_1 = d.nip AND p.kode_prodi = s.prodi limit $start, $limit
-		";
-            }
-        }
-        if (($user == 3)) {
-            if ($keyword !== null) {
-                $query =
-                    "
-                    SELECT s.id, s.judul, m.nama, s.nim, d.nama as dosbing1,
-(SELECT d.nama FROM dosen d, skripsi sk WHERE d.nip = sk.dosbing_2 AND sk.id=s.id GROUP BY d.nip) as dosbing2,
-p.prodi, s.nilai
-FROM mahasiswa m, dosen d, skripsi s, prodi p
-WHERE s.nim = m.nim AND s.dosbing_1 = d.nip AND p.kode_prodi = s.prodi = s.prodi AND s.nim LIKE '%$keyword%' limit $start, $limit
-		";
-            } else {
-                $query =
-                    "
-                    SELECT s.id, s.judul, m.nama, s.nim, d.nama as dosbing1,
-(SELECT d.nama FROM dosen d, skripsi sk WHERE d.nip = sk.dosbing_2 AND sk.id=s.id GROUP BY d.nip) as dosbing2,
-p.prodi, s.nilai
-FROM mahasiswa m, dosen d, skripsi s, prodi p
-WHERE s.nim = m.nim AND s.dosbing_1 = d.nip AND p.kode_prodi = s.prodi limit $start, $limit
-		";
+                    (SELECT d.nama FROM dosen d, skripsi sk WHERE d.nip = sk.dosbing_2 AND sk.id=s.id GROUP BY d.nip) as dosbing2,
+                    p.prodi, s.nilai
+                    FROM mahasiswa m, dosen d, skripsi s, prodi p
+                    WHERE s.nim = m.nim AND s.dosbing_1 = d.nip AND p.kode_prodi = s.prodi limit $start, $limit
+                ";
             }
         }
 
@@ -74,9 +53,9 @@ WHERE s.nim = m.nim AND s.dosbing_1 = d.nip AND p.kode_prodi = s.prodi limit $st
                 (SELECT st.ket
                 FROM skripsi sk, status st
                 WHERE sk.status = st.id AND sk.id=s.id AND sk.nim = $nim) as status
-FROM mahasiswa m, dosen d, skripsi s, prodi p
-WHERE s.nim = m.nim AND s.nim = $nim AND s.dosbing_1 = d.nip AND p.kode_prodi = s.prodi AND s.nim LIKE '%$keyword%' limit $start, $limit
-    ";
+                FROM mahasiswa m, dosen d, skripsi s, prodi p
+                WHERE s.nim = m.nim AND s.nim = $nim AND s.dosbing_1 = d.nip AND p.kode_prodi = s.prodi AND s.nim LIKE '%$keyword%' limit $start, $limit
+                ";
             } else {
                 $query =
                     "
@@ -88,12 +67,41 @@ WHERE s.nim = m.nim AND s.nim = $nim AND s.dosbing_1 = d.nip AND p.kode_prodi = 
                     (SELECT st.ket
                     FROM skripsi sk, status st
                     WHERE sk.status = st.id AND sk.id=s.id AND sk.nim = $nim) as status
-FROM mahasiswa m, dosen d, skripsi s, prodi p
-WHERE s.nim = m.nim AND s.nim = $nim AND s.dosbing_1 = d.nip AND p.kode_prodi = s.prodi limit $start, $limit
-		";
+                    FROM mahasiswa m, dosen d, skripsi s, prodi p
+                    WHERE s.nim = m.nim AND s.nim = $nim AND s.dosbing_1 = d.nip AND p.kode_prodi = s.prodi limit $start, $limit
+                    ";
             }
         }
         return $this->db->query($query, $limit, $start, $keyword)->result_array();
+    }
+    public function getBimbingan($user,$nip,$keyword){
+        if (($user == 3)) {
+            if ($keyword !== null) {
+                $query =
+                    "
+                    SELECT s.id, s.judul, m.nama, s.nim,
+                    (SELECT d.nama FROM dosen d, skripsi sk WHERE d.nip = sk.dosbing_1 AND sk.id=s.id GROUP BY d.nip) as dosbing1,
+                    (SELECT d.nama FROM dosen d, skripsi sk WHERE d.nip = sk.dosbing_2 AND sk.id=s.id GROUP BY d.nip) as dosbing2,
+                    p.prodi, s.nilai
+                    FROM mahasiswa m, dosen d, skripsi s, prodi p
+                    WHERE s.nim = m.nim AND p.kode_prodi = s.prodi AND (s.dosbing_1=$nip OR s.dosbing_2=$nip) 
+                    AND s.nim LIKE '%$keyword%' 
+                    GROUP BY s.id 
+                ";
+            } else {
+                $query =
+                    "
+                    SELECT s.id, s.judul, m.nama, s.nim,
+                    (SELECT d.nama FROM dosen d, skripsi sk WHERE d.nip = sk.dosbing_1 AND sk.id=s.id GROUP BY d.nip) as dosbing1,
+                    (SELECT d.nama FROM dosen d, skripsi sk WHERE d.nip = sk.dosbing_2 AND sk.id=s.id GROUP BY d.nip) as dosbing2,
+                    p.prodi, s.nilai
+                    FROM mahasiswa m, dosen d, skripsi s, prodi p
+                    WHERE s.nim = m.nim AND p.kode_prodi = s.prodi AND (s.dosbing_1=$nip OR s.dosbing_2=$nip)
+                    GROUP BY s.id 
+                ";
+            }
+            return $this->db->query($query)->result_array();
+        }
     }
 
     public function getPenguji()
