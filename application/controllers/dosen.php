@@ -286,4 +286,36 @@ class dosen extends CI_Controller
         $this->load->view('dosen/JadwalSidang', $data);
         $this->load->view('template/footer');
     }
+
+    //method bimbingan skripsi
+    public function BimbinganSkripsi()
+    {
+        $this->session->unset_userdata('keyword');
+        $data['judul'] = 'Catatan Bimbingan';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $userid = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['profil'] = $this->db->get_where('dosen', ['username' => $userid['id']])->row_array();
+        $this->load->model('bimbingan_model', 'bimbinganM');
+
+        $data['start'] = 0;
+        $data['bimbingan'] = $this->bimbinganM->getCatatan($data['user']['username'], $data['user']['level_id']);
+
+        $this->load->view('template/header', $data);
+        $this->load->view('template/sidebar', $data);
+        $this->load->view('template/topbar', $data);
+        $this->load->view('dosen/BimbinganSkripsi', $data);
+        $this->load->view('template/footer');
+    }
+
+    public function updateCatatan($id)
+    {
+        $data = array(
+            'pembahasan' => $this->input->post('catatan')
+        );
+
+        $this->db->where('id', $id);
+        $this->db->update('bimbingan', $data);
+        $this->session->set_flashdata('pesan', 'Edit Catatan Berhasil');
+        redirect('dosen/BimbinganSkripsi');
+    }
 }

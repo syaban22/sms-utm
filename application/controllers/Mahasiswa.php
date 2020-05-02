@@ -439,7 +439,7 @@ class Mahasiswa extends CI_Controller
         $this->load->model('bimbingan_model', 'bimbinganM');
 
         $data['start'] = 0;
-        $data['bimbingan'] = $this->bimbinganM->getCatatan($data['user']['username']);
+        $data['bimbingan'] = $this->bimbinganM->getCatatan($data['user']['username'], $data['user']['level_id']);
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar', $data);

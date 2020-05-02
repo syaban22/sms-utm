@@ -1246,3 +1246,14 @@ if (flashdata == 'Mengajukan Bimbingan Skripsi Berhasil') {
 		timer: 2000
 	})
 }
+
+//berhasil mengajukan mengubah catatan (Dosen)
+if (flashdata == 'Edit Catatan Berhasil') {
+	Swal.fire({
+		position: 'center',
+		icon: 'success',
+		title: flashdata,
+		showConfirmButton: false,
+		timer: 2000
+	})
+}
