@@ -18,34 +18,6 @@
             </div>
         </div>
     </div>
-    <!-- <div class="row">
-        <div class="col-md">
-            <nav class="navbar navbar-light bg-light">
-                <?php
-                if ($keyword == null) {
-                    echo '<a class="navbar-brand">Total : ' . $total_rows . '</a>';
-                } else {
-                    echo '<a class="navbar-brand">Hasil Pencarian : ' . $total_rows . '</a>';
-                }
-                ?>
-
-                <form class="form-inline" action="<?= base_url('mahasiswa/StatusSkripsi'); ?>" method="post">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search Name" name="keyword" autocomplete="off" autofocus>
-                    <input type="submit" class="btn btn-primary" name="submit" value="Search">
-
-                </form>
-            </nav>
-        </div>
-    </div> -->
-    <!-- <div class="col-md-2">
-		<select class="form-control" name="" id="perusahaan">
-			<option value="5">5</option>
-			<option value="10">10</option>
-			<option value="15">15</option>
-			<option value="20">20</option>
-		</select>
-	</div>
-	<br> -->
     <div class="row">
         <div class="col-md">
             <table class="table table-hover" id="perus">
@@ -57,9 +29,6 @@
                         <th scope="col">Dosbing2</th>
                         <th scope="col">Detail</th>
                         <th scope="col">Action</th>
-                        <!-- <th scope="col">Prodi</th>
-                        <th scope="col">Nilai</th> -->
-                        <!-- <th scope="col">Action</th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -79,21 +48,18 @@
                             <?php endif; ?> -->
                                 <td>
                                     <a data-toggle="modal" data-target="#detail<?= $u['id'] ?>" class="btn btn-warning btn-sm detail"><i class="fa fa-fw fa-eye"></i>Lihat Detail</a>
-                                    <?php if ($u['status'] == '1') : ?>
-                                        <!-- tombol daftar skripsi + pop up "apakah anda yakin akan mendaftarkan skripsi anda untuk seminar proposal" -->
-                                <td>
-                                    <!-- btn -->
-                                    <a href="<?= base_url() . 'mahasiswa/DaftarSempro/' . $u['id'] ?>" class=" btn btn-success btn-sm sempro"><i class="fa fa-fw fa-check"></i> Daftar Sempro</a>
                                 </td>
-                            <?php endif; ?>
-                            <?php if ($u['status'] == '3') : ?>
-                                <!-- if untuk mengajukan bimbingan -->
-                                <td>
-                                    <!-- btn -->
-                                    <a href="" data-toggle="modal" data-target="#mhsBimbingan" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i> Ajukan Bimbingan</a>
-                                </td>
-                            <?php endif; ?>
-                            </td>
+                                <?php if ($u['status'] == '1') { ?>
+                                    <td>
+                                        <a href="<?= base_url() . 'mahasiswa/DaftarSempro/' . $u['id'] ?>" class=" btn btn-success btn-sm sempro"><i class="fa fa-fw fa-check"></i> Daftar Sempro</a>
+                                    </td>
+                                <?php }
+                                else if ($u['status'] == '3'){?>
+                                    <td>
+                                        <a href="" data-toggle="modal" data-target="#mhsBimbingan<?= $u['id']; ?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i> Ajukan Bimbingan</a>
+                                    </td>
+                                <?php } else{echo "<td>N/A</td>";}?>
+                                
                             </tr>
                     <?php $count += 1;
                         }
@@ -186,7 +152,7 @@ endforeach; ?>
 <?php foreach ($skripsi as $u) : ?>
 
     <!-- Modal Edit -->
-    <div class="modal fade" id="mhsBimbingan" tabindex="-1" role="dialog" aria-labelledby="mahasiswaEditLabel" aria-hidden="true">
+    <div class="modal fade" id="mhsBimbingan<?= $u['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="mahasiswaEditLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -215,10 +181,13 @@ endforeach; ?>
                         <div class="form-group">
                             <label for="dosbing">Pembimbing</label>
                             <select name="dosbing" id="dosbing" class="form-control mt-2">
-                                <option value="<?= $u['dosbing_1']; ?>"><?= $u['dosbing_1']; ?></option>
-                                <?php foreach ($skripsi as $p) : ?>
-                                    <option value="<?= $p['dosbing_2']; ?>"><?= $p['dosbing_2']; ?> </option>
-                                <?php endforeach; ?>
+                                <?php $first='selected';
+                                foreach ($bimbingan as $b) : 
+                                    if ($b['nip']==$u['dosbing_1'] || $b['nip']==$u['dosbing_2']){ 
+                                        ?>
+                                        <option value="<?= $b['nip']; ?>" <?= $first; ?>><?= $b['nama']; ?> </option>
+                                    <?php $first='';
+                                } endforeach; ?>
                             </select>
                         </div>
                     </div>
