@@ -31,7 +31,7 @@
 						<div class="name">Dosen Pembimbing 1</div>
 						<div class="value">
 							<div class="input-group">
-								<select class="input--style-6" name="dosbing1" id="dosbing1" onchange="dosbinga()">
+								<select class="input--style-6" name="dosbing1" id="dosbing1" onchange="dosbingX()">
 									<option value="">- Pilih Dosen Pembimbing 1 -</option>
 									<?php foreach ($dosen as $d) : ?>
 										<option value="<?= $d['nip']; ?>"><?= $d['nama']; ?></option>
@@ -45,7 +45,7 @@
 						<div class="name">Dosen Pembimbing 2</div>
 						<div class="value">
 							<div class="input-group">
-								<select class="input--style-6" name="dosbing2" id="dosbing2" onchange="dosbingb()">
+								<select class="input--style-6" name="dosbing2" id="dosbing2" onchange="dosbingX()">
 									<option value="">- Pilih Dosen Pembimbing 2 -</option>
 									<?php $i = 0;
 									foreach ($dosen as $d) : ?>
@@ -59,8 +59,7 @@
 					</div>
 					<!-- patokan untuk js -->
 					<span style="display : none">
-						<select type="hidden" class="input--style-6" name="dosbing" id="dosbing" onchange="dosbinga()">
-							<option value="">- Pilih Dosen Pembimbing 1 -</option>
+						<select type="hidden" class="input--style-6" name="dosbing" id="dosbing" onchange="">
 							<?php foreach ($dosen as $d) : ?>
 								<option value="<?= $d['nip']; ?>"><?= $d['nama']; ?></option>
 							<?php endforeach; ?>

@@ -1,82 +1,43 @@
-function dosena(){
-    var dos = document.getElementById("dosbing");
-    var dos1 = document.getElementById("penguji1");
-    var dos2 = document.getElementById("penguji2");
-    var dos2 = document.getElementById("penguji3");
-    var sel=dos2.value;
-    var lend1=dos.options.length;
+function penguji(){
+    var dos = document.getElementById("tdosen");
+    var dos1 = document.getElementById("tpenguji1");
+    var dos2 = document.getElementById("tpenguji2");
+    var dos3 = document.getElementById("tpenguji3");
+    var sel1=dos1.value;
+    var sel2=dos2.value;
+    var sel3=dos3.value;
+    var lend=dos.options.length;
+    var lend1=dos1.options.length;
     var lend2=dos2.options.length;
-    for (i=0;i<lend2;i++){
-        dos2.options[0]=null;
-    }
-    for (i=1;i<lend1;i++){
-        var opt = document.createElement('option');
-        opt.appendChild(document.createTextNode(dos.options[i].text));
-        opt.value=dos.options[i].value;
-        dos2.appendChild(opt);
-        if(dos.options[i].value==sel){
-            dos2.selectedIndex=i-1;
+    var lend3=dos3.options.length;
+
+    var penguji=[dos1,dos2,dos3];
+    var leng=[lend1,lend2,lend3];
+    var sel=[sel1,sel2,sel3];
+    for (p=0;p<leng.length;p++){
+        for (i=0;i<leng[p];i++){penguji[p].options[0]=null;}
+        for (i=1;i<lend;i++){
+            var opt = document.createElement('option');
+            opt.appendChild(document.createTextNode(dos.options[i].text));
+            opt.value=dos.options[i].value;
+            penguji[p].appendChild(opt);
+            if(dos.options[i].value==sel[p]){
+                penguji[p].selectedIndex=i-1;
+            }
         }
     }
-    lend2=dos2.options.length;
-    for (i=0;i<lend2;i++){
-        if (dos2.options[i].value==dos1.value){
-            dos2.options[i]=null;
-            break;
-        }
-    } 
-}
-function dosenb(){
-    var dos = document.getElementById("dosbing");
-    var dos1 = document.getElementById("dosbing1");
-    var dos2 = document.getElementById("dosbing2");
-    var sel=dos1.value;
-    var lend1=dos.options.length;
-    var lend2=dos1.options.length;
-    for (i=0;i<lend2;i++){
-        dos1.options[0]=null;
-    }
-    for (i=1;i<lend1;i++){
-        var opt = document.createElement('option');
-        opt.appendChild(document.createTextNode(dos.options[i].text));
-        opt.value=dos.options[i].value;
-        dos1.appendChild(opt);
-        if(dos.options[i].value==sel){
-            dos1.selectedIndex=i-1;
+
+    for (x=0;x<penguji.length;x++){
+        for (y=0;y<penguji.length;y++){
+            if (penguji[y]!=penguji[x]){
+                lend=penguji[y].options.length;
+                for (i=0;i<lend;i++){
+                    if (penguji[y].options[i].value==penguji[x].value){
+                        penguji[y].options[i]=null;
+                        break;
+                    }
+                }
+            }
         }
     }
-    lend2=dos1.options.length;
-    for (i=0;i<lend2;i++){
-        if (dos1.options[i].value==dos2.value){
-            dos1.options[i]=null;
-            break;
-        }
-    } 
-}
-function dosenc(){
-    var dos = document.getElementById("dosbing");
-    var dos1 = document.getElementById("dosbing1");
-    var dos2 = document.getElementById("dosbing2");
-    var sel=dos1.value;
-    var lend1=dos.options.length;
-    var lend2=dos1.options.length;
-    for (i=0;i<lend2;i++){
-        dos1.options[0]=null;
-    }
-    for (i=1;i<lend1;i++){
-        var opt = document.createElement('option');
-        opt.appendChild(document.createTextNode(dos.options[i].text));
-        opt.value=dos.options[i].value;
-        dos1.appendChild(opt);
-        if(dos.options[i].value==sel){
-            dos1.selectedIndex=i-1;
-        }
-    }
-    lend2=dos1.options.length;
-    for (i=0;i<lend2;i++){
-        if (dos1.options[i].value==dos2.value){
-            dos1.options[i]=null;
-            break;
-        }
-    } 
 }

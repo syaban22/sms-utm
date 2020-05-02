@@ -1,5 +1,5 @@
 <!-- Begin Page Content -->
-<!-- <script type="text/javascript" src="<?= base_url('assets/'); ?>js/admin.js"></script> -->
+<script type="text/javascript" src="<?= base_url('assets/'); ?>js/admin.js"></script>
 <!-- belum diperbaiki skripnya -->
 <div class="container-fluid">
 	<div class="flash-data" data-flashdata="<?= $this->session->flashdata('pesan'); ?>"></div>
@@ -110,7 +110,7 @@
 </div>
 <!-- End of Main Content -->
 
-<?php foreach ($JSemp as $u) : ?>
+<!-- <?php foreach ($JSemp as $u) : ?>
 	<!-- Modal Edit -->
 	<div class="modal fade" id="JadwalSemproEdit<?= $u['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="JadwalSemproEditLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
@@ -213,7 +213,7 @@
 	</div>
 
 
-<?php endforeach;?>
+<?php endforeach;?> -->
 
 <!-- Modal Tambah Jadwal -->
 <div class="modal fade" id="JadwalSemproBaru" tabindex="-1" role="dialog" aria-labelledby="JadwalSemproBaruLabel" aria-hidden="true">
@@ -225,7 +225,6 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-
 			<form action="<?= base_url('admin/JadwalSempro'); ?>" method="POST" class="needs-validation" novalidate>
 				<div class="modal-body">
 					<div class="form-group">
@@ -256,8 +255,17 @@
 							Masukan Periode Sempro
 						</div>
 					</div>
+					<span style="display : none">
+						<div class="form-group">
+							<select type="hidden" name="dosen" id="tdosen" class="form-control">
+								<?php foreach ($dosen as $f) : ?>
+									<option value="<?= $f['nip']; ?>"><?= $f['nama']; ?></option>
+								<?php endforeach; ?>
+							</select>
+						</div>
+					</span>
 					<div class="form-group">
-						<select name="penguji1" id="penguji1" class="form-control" onchange="dosena()" required>
+						<select name="penguji1" id="tpenguji1" class="form-control" onchange="penguji()" required>
 							<option value="">- Pilih Dosen Penguji 1 -</option>
 							<?php foreach ($dosen as $f) : ?>
 								<option value="<?= $f['nip']; ?>"><?= $f['nama']; ?></option>
@@ -265,7 +273,7 @@
 						</select>
 					</div>
 					<div class="form-group">
-						<select name="penguji2" id="penguji2" class="form-control" onchange="dosena()" required>
+						<select name="penguji2" id="tpenguji2" class="form-control" onchange="penguji()" required>
 							<option value="">- Pilih Dosen Penguji 2 -</option>
 							<?php foreach ($dosen as $f) : ?>
 								<option value="<?= $f['nip']; ?>"><?= $f['nama']; ?></option>
@@ -273,7 +281,7 @@
 						</select>
 					</div>
 					<div class="form-group">
-						<select name="penguji3" id="penguji3" class="form-control" onchange="dosena()" required>
+						<select name="penguji3" id="tpenguji3" class="form-control" onchange="penguji()" required>
 							<option value="">- Pilih Dosen Penguji 3 -</option>
 							<?php foreach ($dosen as $f) : ?>
 								<option value="<?= $f['nip']; ?>"><?= $f['nama']; ?></option>
@@ -296,7 +304,7 @@
 	</div>
 </div>
 <!-- Modal tambah penguji -->
-<?php foreach ($JSemp as $u) : ?>
+<!-- <?php foreach ($JSemp as $u) : ?>
 	<!-- Modal Tambah Penguji1 -->
 	<div class="modal fade" id="penguji1<?= $u['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="pengujiLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
@@ -389,4 +397,4 @@
 			</div>
 		</div>
 	</div>
-<?php endforeach; ?>
+<?php endforeach; ?> -->
