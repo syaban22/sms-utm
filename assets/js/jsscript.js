@@ -139,6 +139,18 @@ if (flashdata == '1 User baru berhasil ditambahkan') {
 	})
 }
 
+//gagal menambahkan user (ADMINISTRATOR)
+if (flashdata == 'Username ini sudah terpakai') {
+	Swal.fire({
+		position: 'center',
+		icon: 'error',
+		title: flashdata,
+		text: 'Harap periksa kembali dan coba lagi',
+		showConfirmButton: false,
+		timer: 3000
+	})
+}
+
 // alert untuk tambah dosen (dari ADMIN PRODI + ADMINISTRATOR)
 if (flashdata == '1 User Dosen berhasil ditambahkan') {
 	Swal.fire({
@@ -147,6 +159,18 @@ if (flashdata == '1 User Dosen berhasil ditambahkan') {
 		title: flashdata,
 		showConfirmButton: false,
 		timer: 2000
+	})
+}
+
+//gagal menambahkan dosen (ADMIN + ADMINISTRATOR)
+if (flashdata == 'Menambahkan Dosen gagal') {
+	Swal.fire({
+		position: 'center',
+		icon: 'error',
+		title: flashdata,
+		text: 'NIP ini sudah pernah didaftarkan',
+		showConfirmButton: false,
+		timer: 3000
 	})
 }
 
@@ -268,6 +292,18 @@ if (flashdata == '1 Program Studi baru berhasil ditambahkan') {
 	})
 }
 
+//Tambah Prodi gagal (ADMINISTRATOR)
+if (flashdata == 'Menambahkan Program Studi tidak berhasil') {
+	Swal.fire({
+		position: 'center',
+		icon: 'error',
+		title: flashdata,
+		text: 'Program Studi telah terdaftar',
+		showConfirmButton: false,
+		timer: 3000
+	})
+}
+
 //Konfirmasi Delete Prodi (ADMINISTRATOR)
 $('.deletePro').on('click', function (e) {
 	e.preventDefault();
@@ -364,6 +400,30 @@ if (flashdata == '1 User Mahasiswa berhasil ditambahkan') {
 		title: flashdata,
 		showConfirmButton: false,
 		timer: 2000
+	})
+}
+
+//gagal menambahkan Mahasiswa (ADMIN + ADMINISTRATOR)
+if (flashdata == 'Menambahkan Mahasiswa gagal') {
+	Swal.fire({
+		position: 'center',
+		icon: 'error',
+		title: flashdata,
+		text: 'NIM ini sudah pernah didaftarkan',
+		showConfirmButton: false,
+		timer: 3000
+	})
+}
+
+//gagal menambahkan Mahasiswa (prodi tidak sesuai) (ADMIN + ADMINISTRATOR)
+if (flashdata == 'Menambahkan Mahasiswa gagal prodi') {
+	Swal.fire({
+		position: 'center',
+		icon: 'error',
+		title: 'Menambahkan Mahasiswa gagal',
+		text: 'Prodi tidak sesuai, periksa kembali',
+		showConfirmButton: false,
+		timer: 3000
 	})
 }
 
@@ -734,6 +794,18 @@ if (flashdata == 'Gagal menghapus Fakultas') {
 	})
 }
 
+//Tambah Fakultas gagal (ADMINISTRATOR)
+if (flashdata == 'Menambahkan Fakultas tidak berhasil') {
+	Swal.fire({
+		position: 'center',
+		icon: 'error',
+		title: flashdata,
+		text: 'Fakultas telah terdaftar',
+		showConfirmButton: false,
+		timer: 3000
+	})
+}
+
 //Edit Data Fakultas (ADMINISTRATOR)
 if (flashdata == 'Edit Data Fakultas berhasil') {
 	Swal.fire({
@@ -854,6 +926,102 @@ if (flashdata == 'Edit data Status berhasil') {
 		title: flashdata,
 		showConfirmButton: false,
 		timer: 2000
+	})
+}
+
+//Konfirmasi perubahan status Sempro (lolos)
+$('.lolos').on('click', function (e) {
+	e.preventDefault();
+	const href = $(this).attr('href');
+	Swal.fire({
+		title: 'Perubahan Status Hasil Sempro',
+		html: "Apakah anda yakin untuk merubah Status Sempro menjadi  " + '<b>' + 'Lulus' + '</b>' + " ?",
+		icon: 'warning',
+		showCancelButton: true,
+		focusConfirm: false,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Ya',
+		cancelmButtonText: 'Tidak'
+	}).then((result) => {
+		if (result.value) {
+			document.location.href = href;
+		}
+	})
+});
+
+//Konfirmasi perubahan status Sempro (ulangi sempro)
+$('.ulangsempro').on('click', function (e) {
+	e.preventDefault();
+	const href = $(this).attr('href');
+	Swal.fire({
+		title: 'Perubahan Status Hasil Sempro',
+		html: "Apakah anda yakin untuk merubah Status Sempro menjadi  " + '<b>' + 'Ulangi Sempro' + '</b>' + " ?",
+		icon: 'warning',
+		showCancelButton: true,
+		focusConfirm: false,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Ya',
+		cancelmButtonText: 'Tidak'
+	}).then((result) => {
+		if (result.value) {
+			document.location.href = href;
+		}
+	})
+});
+
+//Konfirmasi perubahan status Sempro (ulangi sempro)
+$('.gagalsempro').on('click', function (e) {
+	e.preventDefault();
+	const href = $(this).attr('href');
+	Swal.fire({
+		title: 'Perubahan Status Hasil Sempro',
+		html: "Apakah anda yakin untuk merubah Status Sempro menjadi  " + '<b>' + 'Sempro Gagal' + '</b>' + " ?",
+		icon: 'warning',
+		showCancelButton: true,
+		focusConfirm: false,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Ya',
+		cancelmButtonText: 'Tidak'
+	}).then((result) => {
+		if (result.value) {
+			document.location.href = href;
+		}
+	})
+});
+
+//Perubahan Status Sempro (DOSEN)
+if (flashdata == 'perubahan status lolos') {
+	Swal.fire({
+		position: 'center',
+		icon: 'success',
+		title: 'Status telah diubah menjadi "Lulus Sempro"',
+		showConfirmButton: false,
+		timer: 3000
+	})
+}
+
+//Perubahan Status Sempro (DOSEN)
+if (flashdata == 'perubahan status ulang') {
+	Swal.fire({
+		position: 'center',
+		icon: 'success',
+		title: 'Status telah diubah menjadi "Sempro Ulang"',
+		showConfirmButton: false,
+		timer: 3000
+	})
+}
+
+//Perubahan Status Sempro (DOSEN)
+if (flashdata == 'perubahan status gagal') {
+	Swal.fire({
+		position: 'center',
+		icon: 'success',
+		title: 'Status telah diubah menjadi "Sempro Gagal"',
+		showConfirmButton: false,
+		timer: 3000
 	})
 }
 

@@ -73,25 +73,26 @@
 								</div>
 							</td>
 						</tr>
-					<?php } else{?>
-					<?php foreach ($JSemp as $u) : ?>
-						<tr>
-							<th scope="row"><?= ++$start; ?></th>
-							<td><?= $u['judul']; ?></td>
-							<td><?= $u['tanggal']; ?></td>
-							<td><?= $u['waktu']; ?></td>
-							<td><?= $u['periode']; ?></td>
-							<td><?= $u['penguji1']; ?></td>
-							<td><?= $u['penguji2']; ?></td>
-							<td><?= $u['penguji3']; ?></td>
-							<td><?= $u['ruangan']; ?></td>
-							<td>
-								<a href="<?= base_url() . 'dosen/LolosSempro/' . $u['id'] ?>"class="btn btn-success btn-sm"><i class="fa fa-fw fa-check"></i>Lolos</a>
-								<a href="<?= base_url() . 'dosen/UlangSempro/' . $u['id'] ?>" class="btn btn-warning btn-sm ulangsempro"><i class="fa fa-fw fa-exclamation-triangle"></i>Ulang</a>
-								<a href="<?= base_url() . 'dosen/GagalSempro/' . $u['id'] ?>" class="btn btn-danger btn-sm gagalsempro"><i class="fa fa-fw fa-trash	"></i>Gagal</a>
-							</td>
-						</tr>
-					<?php endforeach; }?>
+					<?php } else { ?>
+						<?php foreach ($JSemp as $u) : ?>
+							<tr>
+								<th scope="row"><?= ++$start; ?></th>
+								<td><?= $u['judul']; ?></td>
+								<td><?= $u['tanggal']; ?></td>
+								<td><?= $u['waktu']; ?></td>
+								<td><?= $u['periode']; ?></td>
+								<td><?= $u['penguji1']; ?></td>
+								<td><?= $u['penguji2']; ?></td>
+								<td><?= $u['penguji3']; ?></td>
+								<td><?= $u['ruangan']; ?></td>
+								<td>
+									<a href="<?= base_url() . 'dosen/LolosSempro/' . $u['id'] ?>" class=" btn btn-success btn-sm lolos"><i class="fa fa-fw fa-check"></i>Lolos</a>
+									<a href="<?= base_url() . 'dosen/UlangSempro/' . $u['id'] ?>" class="btn btn-warning btn-sm ulangsempro"><i class="fa fa-fw fa-exclamation-triangle"></i>Ulang</a>
+									<a href="<?= base_url() . 'dosen/GagalSempro/' . $u['id'] ?>" class="btn btn-danger btn-sm gagalsempro"><i class="fa fa-fw fa-trash	"></i>Gagal</a>
+								</td>
+							</tr>
+					<?php endforeach;
+					} ?>
 				</tbody>
 
 

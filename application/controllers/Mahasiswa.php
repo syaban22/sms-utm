@@ -240,7 +240,7 @@ class Mahasiswa extends CI_Controller
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         // $data['skripsi'] = $this->db->get('skripsi')->result_array();
-        $data['skripsi'] = $this->db->get_where('skripsi',['nim'=>$this->session->userdata('username')])->result_array();
+        $data['skripsi'] = $this->db->get_where('skripsi', ['nim' => $this->session->userdata('username')])->result_array();
         $data['penguji'] = $this->skripsiM->getPenguji();
 
         $this->load->view('template/header', $data);
@@ -262,13 +262,6 @@ class Mahasiswa extends CI_Controller
     {
         $data['judul'] = 'My Profile';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        // $em = $this->session->userdata('email');
-
-        // $this->db->select_sum('cek');
-        // $this->db->from('lamar_pekerjaan');
-        // $this->db->where('email', $em);
-        // $query = $this->db->get();
-        // $data['stat'] = $query->row()->cek;
 
         $this->form_validation->set_rules('curpass', 'Password Lama', 'required|trim');
         $this->form_validation->set_rules('newpass', 'Password Baru', 'required|trim|min_length[8]|matches[conpass]');
@@ -286,7 +279,7 @@ class Mahasiswa extends CI_Controller
                 redirect('Mahasiswa/Profile');
             } else {
                 if ($curpass == $newpass) {
-                    echo "test";
+                    // echo "test";
                     $this->session->set_flashdata('msg', '<div class="alert-danger" role="alert">Password Baru tidak boleh sama dengan Password Lama!</div>');
                     $this->session->set_flashdata('pesan', 'Gagal pass');
                     redirect('Mahasiswa/Profile');

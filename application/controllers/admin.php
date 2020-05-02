@@ -45,7 +45,7 @@ class admin extends CI_Controller
 		}
 		$data['users'] = $this->userM->getUsers($config['per_page'], $data['start'], $data['keyword'], $data['user']['level_id']);
 		$this->load->view('template/header', $data);
-		$this->load->view('template/sidebar' );
+		$this->load->view('template/sidebar');
 		$this->load->view('template/topbar');
 		$this->load->view('admin/index');
 		$this->load->view('template/footer');
@@ -116,6 +116,7 @@ class admin extends CI_Controller
 				$this->session->set_flashdata('pesan', '1 User Dosen berhasil ditambahkan');
 			} else {
 				// gagal karena nip sudah digunakan
+				$this->session->set_flashdata('pesan', 'Menambahkan Dosen gagal');
 			}
 			redirect('admin/daftarDosen');
 		}
@@ -223,9 +224,11 @@ class admin extends CI_Controller
 					$this->session->set_flashdata('pesan', '1 User Mahasiswa berhasil ditambahkan');
 				} else {
 					// gagal karena nim digunakan
+					$this->session->set_flashdata('pesan', 'Menambahkan Mahasiswa gagal');
 				}
 			} else {
 				// ditambahkan flashdata untuk data gagal diinputkan karena prodi tidak sesuai
+				$this->session->set_flashdata('pesan', 'Menambahkan Mahasiswa gagal prodi');
 			}
 			redirect('admin/daftarMahasiswa');
 		}
@@ -258,9 +261,11 @@ class admin extends CI_Controller
 				}
 			} else {
 				// gagal nim telah digunakan
+				$this->session->set_flashdata('pesan', 'Menambahkan Mahasiswa gagal');
 			}
 		} else {
 			// gagal prodi tidak sesuai
+			$this->session->set_flashdata('pesan', 'Menambahkan Mahasiswa gagal prodi');
 		}
 		redirect('admin/daftarMahasiswa');
 	}
@@ -536,7 +541,7 @@ class admin extends CI_Controller
 					'penguji_3' => $this->input->post('penguji3'),
 					'ruangan' => $this->input->post('ruangan'),
 				];
-				$id_skripsi = $this->db->get_where('skripsi',['id'=>$this->input->post('judul')])->row_array()['id'];
+				$id_skripsi = $this->db->get_where('skripsi', ['id' => $this->input->post('judul')])->row_array()['id'];
 				$this->db->insert('jadwal_sempro', $data);
 				echo $id_skripsi;
 				$data = [

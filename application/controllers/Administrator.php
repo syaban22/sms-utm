@@ -67,6 +67,7 @@ class Administrator extends CI_Controller
 				$this->session->set_flashdata('pesan', '1 User baru berhasil ditambahkan');
 			} else {
 				// gagal menambahkan, username sudah terpakai
+				$this->session->set_flashdata('pesan', 'Username ini sudah terpakai');
 			}
 			redirect('administrator/index');
 		}
@@ -92,6 +93,7 @@ class Administrator extends CI_Controller
 			$this->session->set_flashdata('pesan', 'Edit Data User berhasil');
 		} catch (Exception $e) {
 			// edit gagal username sudah ada
+			$this->session->set_flashdata('pesan', 'Username ini sudah terpakai');
 			// $e->getMessage();
 		}
 		redirect('administrator/index');
@@ -155,6 +157,7 @@ class Administrator extends CI_Controller
 				$this->session->set_flashdata('pesan', '1 Fakultas baru berhasil ditambahkan');
 			} else {
 				// gagal
+				$this->session->set_flashdata('pesan', 'Menambahkan Fakultas tidak berhasil');
 			}
 			redirect('administrator/fakultas');
 		}
@@ -240,9 +243,9 @@ class Administrator extends CI_Controller
 				];
 
 				$this->db->insert('prodi', $data);
-				$this->session->set_flashdata('pesan', '1 Program Studi baru berhasil ditambahkan');
 			} else {
 				// gagal
+				$this->session->set_flashdata('pesan', 'Menambahkan Program Studi tidak berhasil');
 			}
 			redirect('administrator/ProgramStudi');
 		}
@@ -430,6 +433,7 @@ class Administrator extends CI_Controller
 				$this->session->set_flashdata('pesan', '1 User Dosen berhasil ditambahkan');
 			} else {
 				// gagal karena nip sudah digunakan
+				$this->session->set_flashdata('pesan', 'Menambahkan Dosen gagal');
 			}
 			redirect('administrator/daftarDosen');
 		}
@@ -550,6 +554,7 @@ class Administrator extends CI_Controller
 				$this->session->set_flashdata('pesan', '1 User Mahasiswa berhasil ditambahkan');
 			} else {
 				// gagal karena nim digunakan
+				$this->session->set_flashdata('pesan', 'Menambahkan Mahasiswa gagal');
 			}
 			redirect('administrator/daftarMahasiswa');
 		}
@@ -582,6 +587,7 @@ class Administrator extends CI_Controller
 			}
 		} else {
 			// gagal nim telah digunakan
+			$this->session->set_flashdata('pesan', 'Menambahkan Mahasiswa gagal');
 		}
 		redirect('administrator/daftarMahasiswa');
 	}
