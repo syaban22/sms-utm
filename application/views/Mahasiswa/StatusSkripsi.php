@@ -80,11 +80,6 @@
                                 <!-- tombol daftar skripsi + pop up "apakah anda yakin akan mendaftarkan skripsi anda untuk seminar proposal" -->
                                 <?php }
                                 // if untuk sempro kondisinya ketika catatan bimbingan sudah 6x bimbingan?>
-
-                                <!-- <a href="" data-toggle="modal" data-target="#pelamarEdit<?= $u['id'] ?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i>Edit</a>
-                                <a href="<?= base_url() . 'administrator/deleteU/' . $u['id'] ?>" data-nama="<?= $u['nama']; ?>" class="btn btn-danger btn-sm deleteP"><i class="fa fa-fw fa-trash"></i>Delete</a> -->
-                                <!-- <button class="btn btn-primary detail" relid="<?= $u['nim']; ?>">View</button> -->
-                                <!-- <a href="" relid="<?= $u['nim'] ?>" class="btn btn-warning btn-sm detail"><i class="fa fa-fw fa-eye"></i> Detail</a> -->
                             </td>
                         </tr>
                         
