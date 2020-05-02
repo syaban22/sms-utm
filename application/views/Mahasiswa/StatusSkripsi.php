@@ -78,8 +78,14 @@
                                 <a data-toggle="modal" data-target="#detail<?= $u['id'] ?>"  class="btn btn-warning btn-sm detail"><i class="fa fa-fw fa-eye"></i>Lihat Detail</a>
                                 <?php if ($u['status']='1'){?>
                                 <!-- tombol daftar skripsi + pop up "apakah anda yakin akan mendaftarkan skripsi anda untuk seminar proposal" -->
+                                <!-- btn -->
                                 <?php }
-                                // if untuk sempro kondisinya ketika catatan bimbingan sudah 6x bimbingan?>
+                                // if 
+                                if (($u['status']='3'){?>
+                                <!-- if untuk mengajukan bimbingan -->
+                                    <!-- btn -->
+                                    <?php }?>
+
                             </td>
                         </tr>
                         
