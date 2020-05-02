@@ -56,40 +56,48 @@
                         <th scope="col">Dosbing1</th>
                         <th scope="col">Dosbing2</th>
                         <th scope="col">Detail</th>
+                        <th scope="col">Action</th>
                         <!-- <th scope="col">Prodi</th>
                         <th scope="col">Nilai</th> -->
                         <!-- <th scope="col">Action</th> -->
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $count=0;$start=0; foreach ($skripsi as $u) :
-                        if ($u['nim'] == $this->session->userdata('username')){?>
-                        <tr>
-                            <th scope="row"><?= ++$start; ?></th>
-                            <td><?= $u['judul']; ?></td>
-                            <td><?= $u['dosbing_1']; ?></td>
-                            <td><?= $u['dosbing_2']; ?></td>
-                            <!-- <?php if ($u['nilai'] != 0) : ?>
+                    <?php $count = 0;
+                    $start = 0;
+                    foreach ($skripsi as $u) :
+                        if ($u['nim'] == $this->session->userdata('username')) { ?>
+                            <tr>
+                                <th scope="row"><?= ++$start; ?></th>
+                                <td><?= $u['judul']; ?></td>
+                                <td><?= $u['dosbing_1']; ?></td>
+                                <td><?= $u['dosbing_2']; ?></td>
+                                <!-- <?php if ($u['nilai'] != 0) : ?>
                                 <td><?= $u['nilai']; ?></td>
                             <?php else : ?>
                                 <td>N/A</td>
                             <?php endif; ?> -->
-                            <td>
-                                <a data-toggle="modal" data-target="#detail<?= $u['id'] ?>"  class="btn btn-warning btn-sm detail"><i class="fa fa-fw fa-eye"></i>Lihat Detail</a>
-                                <?php if ($u['status']='1'){?>
-                                <!-- tombol daftar skripsi + pop up "apakah anda yakin akan mendaftarkan skripsi anda untuk seminar proposal" -->
-                                <!-- btn -->
-                                <?php }
-                                // if 
-                                if (($u['status']='3'){?>
-                                <!-- if untuk mengajukan bimbingan -->
+                                <td>
+                                    <a data-toggle="modal" data-target="#detail<?= $u['id'] ?>" class="btn btn-warning btn-sm detail"><i class="fa fa-fw fa-eye"></i>Lihat Detail</a>
+                                    <?php if ($u['status'] == '1') : ?>
+                                        <!-- tombol daftar skripsi + pop up "apakah anda yakin akan mendaftarkan skripsi anda untuk seminar proposal" -->
+                                <td>
                                     <!-- btn -->
-                                    <?php }?>
-
+                                    <a href="<?= base_url() . 'mahasiswa/DaftarSempro/' . $u['id'] ?>" class=" btn btn-success btn-sm sempro"><i class="fa fa-fw fa-check"></i> Daftar Sempro</a>
+                                </td>
+                            <?php endif; ?>
+                            <?php if ($u['status'] == '3') : ?>
+                                <!-- if untuk mengajukan bimbingan -->
+                                <td>
+                                    <!-- btn -->
+                                    <a href="" data-toggle="modal" data-target="#mhsBimbingan" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i> Ajukan Bimbingan</a>
+                                </td>
+                            <?php endif; ?>
                             </td>
-                        </tr>
-                        
-                    <?php $count+=1;} endforeach;?>
+                            </tr>
+                    <?php $count += 1;
+                        }
+                    endforeach; ?>
                     <?php if (empty($skripsi) || $count == 0) : ?>
                         <tr>
                             <td colspan="12">
@@ -119,7 +127,7 @@
 </div>
 <!-- End of Main Content -->
 
-<?php  foreach ($skripsi as $u) :
+<?php foreach ($skripsi as $u) :
     if ($u['nim'] == $this->session->userdata('username')) { ?>
         <!-- modal detail -->
         <div class="modal fade displaycontent" id="detail<?= $u['id'] ?>">
@@ -154,7 +162,7 @@
                                 </tr>
                                 <tr>
                                     <td>status</td>
-                                    <td><?php echo $this->db->get_where('status',['id'=>$u['status']])->row_array()['ket'];?></td>
+                                    <td><?php echo $this->db->get_where('status', ['id' => $u['status']])->row_array()['ket']; ?></td>
                                 </tr>
                                 <tr>
                                     <td>Nilai</td>
@@ -173,3 +181,55 @@
         <!-- end modal detail -->
 <?php }
 endforeach; ?>
+
+<!-- Modal Ajukan Bimbingan -->
+<?php foreach ($skripsi as $u) : ?>
+
+    <!-- Modal Edit -->
+    <div class="modal fade" id="mhsBimbingan" tabindex="-1" role="dialog" aria-labelledby="mahasiswaEditLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mahasiswaEditLabel">Ajukan Bimbingan Skripi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="<?= base_url('mahasiswa/MhsBimbingan/' . $u['nim']); ?>" method="POST">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="judul">Judul Skripsi</label>
+                            <input type="text" disabled class="form-control" id="judul" name="judul" value="<?= $u['judul']; ?>">
+                            <?= form_error('judul', '<div class="alert-danger" role="alert">', '</div>'); ?>
+                        </div>
+                        <div class="form-group">
+                            <label for="tanggal">Tanggal</label>
+                            <input type="text" class="form-control" id="tanggal" name="tanggal">
+                            <?= form_error('tanggal', '<div class="alert-danger" role="alert">', '</div>'); ?>
+                        </div>
+                        <div class="form-group">
+                            <label for="tempat">Tempat</label>
+                            <input type="text" class="form-control" id="tempat" name="tempat">
+                            <?= form_error('tempat', '<div class="alert-danger" role="alert">', '</div>'); ?>
+                        </div>
+                        <div class="form-group">
+                            <label for="dosbing">Pembimbing</label>
+                            <select name="dosbing" id="dosbing" class="form-control mt-2">
+                                <option value="<?= $u['dosbing_1']; ?>"><?= $u['dosbing_1']; ?></option>
+                                <?php foreach ($skripsi as $p) : ?>
+                                    <option value="<?= $p['dosbing_2']; ?>"><?= $p['dosbing_2']; ?> </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+<?php endforeach; ?>

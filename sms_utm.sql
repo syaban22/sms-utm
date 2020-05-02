@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 01, 2020 at 07:47 AM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.2
+-- Generation Time: May 02, 2020 at 09:43 AM
+-- Server version: 10.4.6-MariaDB
+-- PHP Version: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -42,6 +42,28 @@ CREATE TABLE `admin` (
 
 INSERT INTO `admin` (`id`, `nama`, `gambar`, `username`, `prodi`) VALUES
 (5, 'Admin TIF', 'default.jpg', 5, '4111');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bimbingan`
+--
+
+CREATE TABLE `bimbingan` (
+  `id` int(11) NOT NULL,
+  `id_skripsi` int(11) NOT NULL,
+  `pembahasan` varchar(256) NOT NULL,
+  `dosbing` varchar(18) NOT NULL,
+  `tanggal` varchar(256) NOT NULL,
+  `tempat` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `bimbingan`
+--
+
+INSERT INTO `bimbingan` (`id`, `id_skripsi`, `pembahasan`, `dosbing`, `tanggal`, `tempat`) VALUES
+(3, 20, 'Perdebatan karena Skripsi masih belum memiliki jennis kelamin hingga saat ini', '19740102017021002', '01-05-2020', 'Kantin Asrama');
 
 -- --------------------------------------------------------
 
@@ -107,7 +129,7 @@ CREATE TABLE `jadwal_sempro` (
   `id_skripsi` int(11) NOT NULL,
   `tanggal` varchar(256) DEFAULT NULL,
   `waktu` varchar(256) DEFAULT NULL,
-  `periode` varchar(256) NOT NULL,
+  `periode` varchar(256) DEFAULT NULL,
   `penguji_1` varchar(18) DEFAULT NULL,
   `penguji_2` varchar(18) DEFAULT NULL,
   `penguji_3` varchar(18) DEFAULT NULL,
@@ -119,8 +141,7 @@ CREATE TABLE `jadwal_sempro` (
 --
 
 INSERT INTO `jadwal_sempro` (`id`, `id_skripsi`, `tanggal`, `waktu`, `periode`, `penguji_1`, `penguji_2`, `penguji_3`, `ruangan`) VALUES
-(7, 33, '30042020', '08:30-09:00', '2019/2020', '197901092006021011', '19740102017021002', '197902222005012003', 'Lab CC'),
-(8, 34, '30042020', '09:00-09:30', '2019/2020', '19740102017021002', '197402212008011006', '198101092006041003', 'Lab CC');
+(7, 33, '30042020', '08:30-09:00', '2019/2020', '197901092006021011', '19740102017021002', '197902222005012003', 'Lab CC');
 
 -- --------------------------------------------------------
 
@@ -247,11 +268,11 @@ CREATE TABLE `skripsi` (
 --
 
 INSERT INTO `skripsi` (`id`, `judul`, `abstract`, `nim`, `dosbing_1`, `dosbing_2`, `prodi`, `nilai`, `status`, `berkas`) VALUES
-(20, 'tes1', 'tes1', '170411100007', '19740102017021002', '196911182001121004', '4111', 0, 1, ''),
+(20, 'tes1', 'tes1', '170411100007', '19740102017021002', '196911182001121004', '4111', 0, 3, ''),
 (21, 'tes2', 'tes2', '170411100015', '197101092006021012', '197901092006021011', '4111', 0, 0, NULL),
 (22, 'tes3', 'tes3', '170411100015', '197101092006021012', '197901092006021011', '4111', 0, 1, ''),
-(26, 'Deteksi buah dengan metode Haar Cascade', 'Pada mulanya, skripsi ini dibuat hanya untuk bercandaan saja. Namun semua berubah setelah negara api menyerang hingga meresap ke tulang', '170411100119', '197101092006021012', '197402212008011006', '4111', 0, 4, ''),
-(33, 'ngedab sampai jidat pecah-pecar dan otak sariawan', 'none', '170411100099', '196911182001121004', '197101092006021012', '4111', 0, 3, '524861885b502e3956186af886c1c83c.pdf'),
+(26, 'Deteksi buah dengan metode Haar Cascade', 'Pada mulanya, skripsi ini dibuat hanya untuk bercandaan saja. Namun semua berubah setelah negara api menyerang hingga meresap ke tulang', '170411100119', '197101092006021012', '197402212008011006', '4111', 0, 2, ''),
+(33, 'ngedab sampai jidat pecah-pecar dan otak sariawan', 'none', '170411100099', '196911182001121004', '197101092006021012', '4111', 0, 2, '524861885b502e3956186af886c1c83c.pdf'),
 (34, 'Sampai Sempro', 'none', '170411100042', '197902222005012003', '197803092003122009', '4111', 0, 2, '544b28f0a232282e5e62c49cfd75a76b.pdf');
 
 -- --------------------------------------------------------
@@ -439,7 +460,8 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active
 (30, 12, 'Jadwal Sempro', 'mahasiswa/JadwalSempro', 'fa fa-user fa-fw', 1),
 (31, 12, 'Jadwal Sidang', 'mahasiswa/JadwalSidang', 'fa fa-user fa-fw', 1),
 (32, 11, 'Jadwal Sempro', 'dosen/JadwalSempro', 'fa fa-user fa-fw', 1),
-(33, 11, 'Jadwal Sidang', 'dosen/JadwalSidang', 'fa fa-user fa-fw', 1);
+(33, 11, 'Jadwal Sidang', 'dosen/JadwalSidang', 'fa fa-user fa-fw', 1),
+(34, 12, 'Catatan Bimbingan', 'mahasiswa/catBim', 'fa fa-user fa-fw', 1);
 
 --
 -- Indexes for dumped tables
@@ -452,6 +474,14 @@ ALTER TABLE `admin`
   ADD PRIMARY KEY (`id`),
   ADD KEY `usr_admin` (`username`),
   ADD KEY `usr_prodi` (`prodi`);
+
+--
+-- Indexes for table `bimbingan`
+--
+ALTER TABLE `bimbingan`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_skripsi` (`id_skripsi`),
+  ADD KEY `dosbing_1` (`dosbing`);
 
 --
 -- Indexes for table `dosen`
@@ -567,10 +597,16 @@ ALTER TABLE `admin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `bimbingan`
+--
+ALTER TABLE `bimbingan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `jadwal_sempro`
 --
 ALTER TABLE `jadwal_sempro`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `jadwal_sidang`
@@ -624,7 +660,7 @@ ALTER TABLE `user_menu`
 -- AUTO_INCREMENT for table `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- Constraints for dumped tables
@@ -636,6 +672,13 @@ ALTER TABLE `user_sub_menu`
 ALTER TABLE `admin`
   ADD CONSTRAINT `usr_admin` FOREIGN KEY (`username`) REFERENCES `user` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `usr_prodi` FOREIGN KEY (`prodi`) REFERENCES `prodi` (`kode_prodi`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `bimbingan`
+--
+ALTER TABLE `bimbingan`
+  ADD CONSTRAINT `bimbingan_ibfk_1` FOREIGN KEY (`id_skripsi`) REFERENCES `skripsi` (`id`),
+  ADD CONSTRAINT `bimbingan_ibfk_2` FOREIGN KEY (`dosbing`) REFERENCES `dosen` (`nip`);
 
 --
 -- Constraints for table `dosen`

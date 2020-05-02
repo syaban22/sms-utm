@@ -215,7 +215,7 @@ class dosen extends CI_Controller
         $this->db->where('id', $id_skripsi);
         $this->db->update('skripsi', $data);
         $this->db->delete('jadwal_sempro', array('id' => $id));
-        $this->session->set_flashdata('pesan', 'Edit Jadwal Sempro berhasil');
+        $this->session->set_flashdata('pesan', 'perubahan status lolos');
         redirect('dosen/JadwalSempro');
     }
     public function UlangSempro($id)
@@ -226,7 +226,7 @@ class dosen extends CI_Controller
         $this->db->where('id', $id_skripsi);
         $this->db->update('skripsi', $data);
         $this->db->delete('jadwal_sempro', array('id' => $id));
-        $this->session->set_flashdata('pesan', 'Edit Jadwal Sempro berhasil');
+        $this->session->set_flashdata('pesan', 'perubahan status ulang');
         redirect('dosen/JadwalSempro');
     }
     public function GagalSempro($id)
@@ -237,7 +237,7 @@ class dosen extends CI_Controller
         $this->db->where('id', $id_skripsi);
         $this->db->update('skripsi', $data);
         $this->db->delete('jadwal_sempro', array('id' => $id));
-        $this->session->set_flashdata('pesan', 'Edit Jadwal Sempro berhasil');
+        $this->session->set_flashdata('pesan', 'perubahan status gagal');
         redirect('dosen/JadwalSempro');
     }
 

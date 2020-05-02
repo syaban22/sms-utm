@@ -243,6 +243,8 @@ class Mahasiswa extends CI_Controller
         $data['skripsi'] = $this->db->get_where('skripsi', ['nim' => $this->session->userdata('username')])->result_array();
         $data['penguji'] = $this->skripsiM->getPenguji();
 
+        $data['bimbingan'] = $this->db->get('dosen')->result_array();
+
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar');
         $this->load->view('template/topbar');
@@ -392,6 +394,57 @@ class Mahasiswa extends CI_Controller
         $this->load->view('template/sidebar', $data);
         $this->load->view('template/topbar', $data);
         $this->load->view('mahasiswa/JadwalSidang', $data);
+        $this->load->view('template/footer');
+    }
+
+    public function DaftarSempro($id)
+    {
+        $data = [
+            'id_skripsi' => $id,
+            'tanggal' => 'pending',
+            'waktu' => 'pending',
+            'periode' => 'pending',
+            'penguji_1' => NULL,
+            'penguji_2' => NULL,
+            'penguji_3' => NULL,
+            'ruangan' => 'pending',
+        ];
+        $id_skripsi = $this->db->get_where('skripsi', ['id' => $id])->row_array()['id'];
+        $this->db->insert('jadwal_sempro', $data);
+        echo $id_skripsi;
+        $data = [
+            'status' => '2'
+        ];
+        $this->db->where('id', $id_skripsi);
+        $this->db->update('skripsi', $data);
+        $this->session->set_flashdata('pesan', 'Mendaftarkan Skripsi untuk Sempro berhasil');
+        redirect('mahasiswa/StatusSkripsi');
+    }
+
+    //method untuk catatan bimbingan
+    public function MhsBimbingan()
+    {
+        $this->session->set_flashdata('pesan', 'Mengajukan Bimbingan Skripsi Berhasil');
+        redirect('mahasiswa/StatusSkripsi');
+    }
+
+    //method untuk catatan bimbingan
+    public function CatBim()
+    {
+        $this->session->unset_userdata('keyword');
+        $data['judul'] = 'Catatan Bimbingan';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $userid = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['profil'] = $this->db->get_where('mahasiswa', ['username' => $userid['id']])->row_array();
+        $this->load->model('bimbingan_model', 'bimbinganM');
+
+        $data['start'] = 0;
+        $data['bimbingan'] = $this->bimbinganM->getCatatan($data['user']['username']);
+
+        $this->load->view('template/header', $data);
+        $this->load->view('template/sidebar', $data);
+        $this->load->view('template/topbar', $data);
+        $this->load->view('mahasiswa/CatatanBimbingan', $data);
         $this->load->view('template/footer');
     }
 }

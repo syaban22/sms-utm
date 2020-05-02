@@ -1202,3 +1202,47 @@ if (flashdata == 'Gagal menambahkah Jadwal Sidang') {
 		showConfirmButton: true,
 	})
 }
+
+//Bimibingan Mahasiswa
+//Tombol konfirmasi daftar sempro
+$('.sempro').on('click', function (e) {
+	e.preventDefault();
+	const href = $(this).attr('href');
+	Swal.fire({
+		title: 'Daftar Seminar Proposal',
+		html: "Apakah anda yakin mendaftarkan Skripsi ini untuk " + '<b>' + 'Seminar Proposal' + '</b>' + " ?",
+		icon: 'warning',
+		showCancelButton: true,
+		focusConfirm: false,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Ya',
+		cancelmButtonText: 'Tidak'
+	}).then((result) => {
+		if (result.value) {
+			document.location.href = href;
+		}
+	})
+});
+
+//Tambah Jadwl Sidang
+if (flashdata == 'Mendaftarkan Skripsi untuk Sempro berhasil') {
+	Swal.fire({
+		position: 'center',
+		icon: 'success',
+		title: flashdata,
+		showConfirmButton: false,
+		timer: 2000
+	})
+}
+
+//berhasil mengajukan bimbingan (Mahasiswa)
+if (flashdata == 'Mengajukan Bimbingan Skripsi Berhasil') {
+	Swal.fire({
+		position: 'center',
+		icon: 'success',
+		title: flashdata,
+		showConfirmButton: false,
+		timer: 2000
+	})
+}
