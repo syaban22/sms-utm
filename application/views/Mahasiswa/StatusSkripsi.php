@@ -54,7 +54,7 @@
                                         <a href="<?= base_url() . 'mahasiswa/DaftarSempro/' . $u['id'] ?>" class=" btn btn-success btn-sm sempro"><i class="fa fa-fw fa-check"></i> Daftar Sempro</a>
                                     </td>
                                 <?php }
-                                else if ($u['status'] == '3'){?>
+                                else if ($u['status'] == '3' && !$bimbingan){?>
                                     <td>
                                         <a href="" data-toggle="modal" data-target="#mhsBimbingan<?= $u['id']; ?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i> Ajukan Bimbingan</a>
                                     </td>
@@ -150,8 +150,6 @@ endforeach; ?>
 
 <!-- Modal Ajukan Bimbingan -->
 <?php foreach ($skripsi as $u) : ?>
-
-    <!-- Modal Edit -->
     <div class="modal fade" id="mhsBimbingan<?= $u['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="mahasiswaEditLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -161,7 +159,7 @@ endforeach; ?>
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="<?= base_url('mahasiswa/MhsBimbingan/' . $u['nim']); ?>" method="POST">
+                <form action="<?= base_url('mahasiswa/MhsBimbingan/' . $u['id']); ?>" method="POST">
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="judul">Judul Skripsi</label>
@@ -182,7 +180,7 @@ endforeach; ?>
                             <label for="dosbing">Pembimbing</label>
                             <select name="dosbing" id="dosbing" class="form-control mt-2">
                                 <?php $first='selected';
-                                foreach ($bimbingan as $b) : 
+                                foreach ($dosen as $b) : 
                                     if ($b['nip']==$u['dosbing_1'] || $b['nip']==$u['dosbing_2']){ 
                                         ?>
                                         <option value="<?= $b['nip']; ?>" <?= $first; ?>><?= $b['nama']; ?> </option>
@@ -192,8 +190,8 @@ endforeach; ?>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Edit</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Ajukan</button>
                     </div>
                 </form>
             </div>

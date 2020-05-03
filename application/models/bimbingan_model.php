@@ -17,4 +17,10 @@ class bimbingan_model extends CI_Model
         }
         return $query->result_array();
     }
+    public function cekcatatan($nim){
+        $query =  $this->db->query("SELECT s.judul, b.pembahasan, b.tanggal, b.tempat, d.nama  
+        FROM bimbingan b, dosen d, skripsi s, mahasiswa m
+        WHERE b.id_skripsi=s.id AND b.dosbing=d.nip AND m.nim = s.nim AND s.nim=$nim AND b.pembahasan is NULL");
+        return $query->result_array();
+    }
 }

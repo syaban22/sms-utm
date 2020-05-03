@@ -207,7 +207,7 @@ class Mahasiswa extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $userid = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $data['profil'] = $this->db->get_where('mahasiswa', ['username' => $userid['id']])->row_array();
-
+        $this->load->model('bimbingan_model', 'bimbinganM');
         $this->load->model('skripsi_model', 'skripsiM');
         $data['level'] = $this->db->get('user_level')->result_array();
         //$data['user'] = $this->db->from('user');
@@ -242,8 +242,8 @@ class Mahasiswa extends CI_Controller
         // $data['skripsi'] = $this->db->get('skripsi')->result_array();
         $data['skripsi'] = $this->db->get_where('skripsi', ['nim' => $this->session->userdata('username')])->result_array();
         $data['penguji'] = $this->skripsiM->getPenguji();
-
-        $data['bimbingan'] = $this->db->get('dosen')->result_array();
+        $data['dosen']= $this->db->get('dosen')->result_array();
+        $data['bimbingan'] = $this->bimbinganM->cekCatatan($this->session->userdata('username'));
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar');
@@ -422,14 +422,24 @@ class Mahasiswa extends CI_Controller
     }
 
     //method untuk catatan bimbingan
-    public function MhsBimbingan()
+    public function MhsBimbingan($id)
     {
+        
+        $post=$this->input->post();
+        $data = [
+            'id_skripsi' => $id,
+            'tanggal' => $post['tanggal'],
+            'tempat' => $post['tempat'],
+            'dosbing' => $post['dosbing']
+        ];
+        
+        $this->db->insert('bimbingan', $data);
         $this->session->set_flashdata('pesan', 'Mengajukan Bimbingan Skripsi Berhasil');
-        redirect('mahasiswa/StatusSkripsi');
+        redirect('mahasiswa/catBim');
     }
 
     //method untuk catatan bimbingan
-    public function CatBim()
+    public function catBim()
     {
         $this->session->unset_userdata('keyword');
         $data['judul'] = 'Catatan Bimbingan';
@@ -442,9 +452,9 @@ class Mahasiswa extends CI_Controller
         $data['bimbingan'] = $this->bimbinganM->getCatatan($data['user']['username'], $data['user']['level_id']);
 
         $this->load->view('template/header', $data);
-        $this->load->view('template/sidebar', $data);
-        $this->load->view('template/topbar', $data);
-        $this->load->view('mahasiswa/CatatanBimbingan', $data);
+        $this->load->view('template/sidebar');
+        $this->load->view('template/topbar');
+        $this->load->view('mahasiswa/CatatanBimbingan');
         $this->load->view('template/footer');
     }
 }
