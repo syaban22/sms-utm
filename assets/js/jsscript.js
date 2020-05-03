@@ -207,6 +207,28 @@ $('.deleteDosen').on('click', function (e) {
 	})
 });
 
+//Modal Pop-up Delete Confirmation (delete bimbingan controler dosen)
+$('.deletebimbingan').on('click', function (e) {
+	e.preventDefault();
+	const nama = $(this).data('nama');
+	const href = $(this).attr('href');
+	Swal.fire({
+		title: 'Hapus Catatan Bimbingan',
+		html: "Apakah anda yakin untuk menghapus catatan " + '<b>' + nama + '</b>' + " ?",
+		icon: 'warning',
+		showCancelButton: true,
+		focusConfirm: false,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Ya',
+		cancelmButtonText: 'Tidak'
+	}).then((result) => {
+		if (result.value) {
+			document.location.href = href;
+		}
+	})
+});
+
 //Alert TambahFakultas (ADMINISTRATOR)
 if (flashdata == '1 Fakultas baru berhasil ditambahkan') {
 	Swal.fire({
@@ -369,6 +391,17 @@ $('.deleteFak').on('click', function (e) {
 		}
 	})
 });
+
+//Delete catatan bimbingan (Dosen)
+if (flashdata == '1 catatan bimbingan berhasil dihapus') {
+	Swal.fire({
+		position: 'center',
+		icon: 'success',
+		title: flashdata,
+		showConfirmButton: false,
+		timer: 2000
+	})
+}
 
 //Delete User Dosen (ADMIN Prodi)
 if (flashdata == '1 User Dosen berhasil dihapus') {

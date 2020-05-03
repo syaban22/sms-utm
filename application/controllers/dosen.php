@@ -288,10 +288,10 @@ class dosen extends CI_Controller
     }
 
     //method bimbingan skripsi
-    public function BimbinganSkripsi()
+    public function Bimbingan()
     {
         $this->session->unset_userdata('keyword');
-        $data['judul'] = 'Catatan Bimbingan';
+        $data['judul'] = 'Permintaan Bimbingan';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $userid = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $data['profil'] = $this->db->get_where('dosen', ['username' => $userid['id']])->row_array();
@@ -312,10 +312,14 @@ class dosen extends CI_Controller
         $data = array(
             'pembahasan' => $this->input->post('catatan')
         );
-
         $this->db->where('id', $id);
         $this->db->update('bimbingan', $data);
         $this->session->set_flashdata('pesan', 'Edit Catatan Berhasil');
-        redirect('dosen/BimbinganSkripsi');
+        redirect('dosen/Bimbingan');
+    }
+    public function deletecatatan($id){
+        $this->db->delete('bimbingan', array('id' => $id));
+		$this->session->set_flashdata('pesan', '1 catatan bimbingan berhasil dihapus');
+		redirect('dosen/Bimbingan');
     }
 }

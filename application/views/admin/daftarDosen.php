@@ -78,7 +78,7 @@
 							<td><?= $u['prodi']; ?></td>
 							<td><?= $u['username']; ?></td>
 							<td>
-								<a href="" data-toggle="modal" data-target="#pelamarEdit<?= $u['nip'] ?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i>Edit</a>
+								<a href="" data-toggle="modal" data-target="#dosen<?= $u['nip'] ?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i>Edit</a>
 								<a href="<?= base_url() . 'admin/deleteDosen/' . $u['nip'] ?>" data-nama="<?= $u['nama']; ?>" class="btn btn-danger btn-sm deleteDosen"><i class="fa fa-fw fa-trash"></i>Delete</a>
 							</td>
 						</tr>
@@ -108,11 +108,11 @@
 <?php foreach ($dosen as $u) : ?>
 
 	<!-- Modal Edit -->
-	<div class="modal fade" id="pelamarEdit<?= $u['nip'] ?>" tabindex="-1" role="dialog" aria-labelledby="pelamarEditLabel" aria-hidden="true">
+	<div class="modal fade" id="dosen<?= $u['nip'] ?>" tabindex="-1" role="dialog" aria-labelledby="dosenlabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="pelamarEditLabel">Edit Data Pelamar</h5>
+					<h5 class="modal-title" id="dosenlabel">Edit Data Pelamar</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>

@@ -56,7 +56,6 @@
                         <th scope="col">Judul Skripsi</th>
                         <th scope="col">Tanggal</th>
                         <th scope="col">Tempat</th>
-                        <th scope="col">Dosen Pembimbing</th>
                         <th scope="col">Pembahasan</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -77,13 +76,13 @@
                             <td><?= $u['judul']; ?></td>
                             <td><?= $u['tanggal']; ?></td>
                             <td><?= $u['tempat']; ?></td>
-                            <td><?= $u['nama']; ?></td>
                             <td><?= $u['pembahasan']; ?></td>
                             <?php if ($u['pembahasan'] == null) : ?>
-                                <td><a href="" data-toggle="modal" data-target="#EditCatatan" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i> Tambahkan Catatan</a></td>
+                                <td><a href="" data-toggle="modal" data-target="#EditCatatan<?=$u['id'];?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i> Tambahkan Catatan</a>
                             <?php elseif ($u['pembahasan'] != null) : ?>
-                                <td><a href="" data-toggle="modal" data-target="#EditCatatan" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i> Ubah Catatan</a></td>
+                                <td><a href="" data-toggle="modal" data-target="#EditCatatan<?=$u['id'];?>" class="btn btn-info btn-sm"><i class="fa fa-fw fa-edit"></i> Ubah Catatan</a>
                             <?php endif; ?>
+                            <a href="<?= base_url() . 'dosen/deletecatatan/' . $u['id'] ?>" data-nama="<?= $u['judul']; ?>" class="btn btn-danger btn-sm deletebimbingan"><i class="fa fa-fw fa-trash"></i>Hapus</a></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -101,7 +100,7 @@
 <?php foreach ($bimbingan as $u) : ?>
 
     <!-- Modal Edit -->
-    <div class="modal fade" id="EditCatatan" tabindex="-1" role="dialog" aria-labelledby="EditCatatanLabel" aria-hidden="true">
+    <div class="modal fade" id="EditCatatan<?=$u['id'];?>" tabindex="-1" role="dialog" aria-labelledby="EditCatatanLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -120,7 +119,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Edit</button>
+                        <button type="submit" class="btn btn-primary">Ubah</button>
                     </div>
                 </form>
             </div>

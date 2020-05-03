@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 02, 2020 at 09:43 AM
--- Server version: 10.4.6-MariaDB
--- PHP Version: 7.3.9
+-- Generation Time: May 03, 2020 at 02:59 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -52,7 +52,7 @@ INSERT INTO `admin` (`id`, `nama`, `gambar`, `username`, `prodi`) VALUES
 CREATE TABLE `bimbingan` (
   `id` int(11) NOT NULL,
   `id_skripsi` int(11) NOT NULL,
-  `pembahasan` varchar(256) NOT NULL,
+  `pembahasan` varchar(256) DEFAULT NULL,
   `dosbing` varchar(18) NOT NULL,
   `tanggal` varchar(256) NOT NULL,
   `tempat` varchar(256) NOT NULL
@@ -63,7 +63,8 @@ CREATE TABLE `bimbingan` (
 --
 
 INSERT INTO `bimbingan` (`id`, `id_skripsi`, `pembahasan`, `dosbing`, `tanggal`, `tempat`) VALUES
-(3, 20, 'Perdebatan karena Skripsi masih belum memiliki jennis kelamin hingga saat ini', '19740102017021002', '01-05-2020', 'Kantin Asrama');
+(3, 20, 'test', '19740102017021002', '01-05-2020', 'Kantin Asrama'),
+(5, 20, NULL, '19740102017021002', '02052020', 'Labcc');
 
 -- --------------------------------------------------------
 
@@ -443,7 +444,6 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active
 (13, 12, 'My Profile', 'mahasiswa/profile', 'fas fa-fw fa-user', 1),
 (14, 12, 'Daftarkan Skripsi', 'mahasiswa/DaftarkanSkripsi', 'fas fa-fw fa-clipboard-list', 1),
 (15, 12, 'Status Skripsi', 'mahasiswa/StatusSkripsi', 'fas fa-fw fa-user-tie', 1),
-(16, 12, 'Bimbingan Skripsi', 'mahasiswa/Bimbingan', 'fas fa-fw fa-user', 1),
 (17, 1, 'Daftar Fakultas', 'administrator/Fakultas', 'fas fa-fw fa-user-tie', 1),
 (18, 1, 'Daftar Program Studi', 'administrator/ProgramStudi', 'fas fa-fw fa-user-tie', 1),
 (19, 1, 'Daftar Dosen', 'administrator/daftarDosen', 'fas fa-fw fa-user-tie', 1),
@@ -461,7 +461,8 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active
 (31, 12, 'Jadwal Sidang', 'mahasiswa/JadwalSidang', 'fa fa-user fa-fw', 1),
 (32, 11, 'Jadwal Sempro', 'dosen/JadwalSempro', 'fa fa-user fa-fw', 1),
 (33, 11, 'Jadwal Sidang', 'dosen/JadwalSidang', 'fa fa-user fa-fw', 1),
-(34, 12, 'Catatan Bimbingan', 'mahasiswa/catBim', 'fa fa-user fa-fw', 1);
+(34, 12, 'Catatan Bimbingan', 'mahasiswa/catBim', 'fa fa-user fa-fw', 1),
+(35, 11, 'Bimbingan', 'dosen/Bimbingan', 'fa fa-user fa-fw', 1);
 
 --
 -- Indexes for dumped tables
@@ -600,7 +601,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `bimbingan`
 --
 ALTER TABLE `bimbingan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `jadwal_sempro`
@@ -660,7 +661,7 @@ ALTER TABLE `user_menu`
 -- AUTO_INCREMENT for table `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- Constraints for dumped tables
