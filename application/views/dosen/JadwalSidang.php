@@ -22,13 +22,14 @@
 		<div class="col-md">
 			<!-- <a href="" class="btn btn-sm btn-primary mb-3" data-toggle="modal" data-target="#JadwalSidangBaru"><i class="fas fa-fw fa-plus-square"></i> Tambah Jadwal Sidang</a> -->
 			<nav class="navbar navbar-light bg-light">
-				<?php
+				<!-- <?php
 				if ($keyword == null) {
 					echo '<a class="navbar-brand">Total : ' . $total_rows . '</a>';
 				} else {
 					echo '<a class="navbar-brand">Hasil Pencarian : ' . $total_rows . '</a>';
 				}
-				?>
+				?> -->
+				<a class="navbar-brand"></a>
 
 				<form class="form-inline" action="<?= base_url('dosen/JadwalSidang'); ?>" method="post">
 					<input class="form-control mr-sm-2" type="search" placeholder="Search Name" name="keyword" autocomplete="off" autofocus>

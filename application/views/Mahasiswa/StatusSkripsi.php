@@ -1,4 +1,5 @@
 <!-- Begin Page Content -->
+
 <div class="container-fluid">
     <div class="flash-data" data-flashdata="<?= $this->session->flashdata('pesan'); ?>"></div>
     <!-- Page Heading -->
@@ -49,17 +50,22 @@
                                 <td>
                                     <a data-toggle="modal" data-target="#detail<?= $u['id'] ?>" class="btn btn-warning btn-sm detail"><i class="fa fa-fw fa-eye"></i>Lihat Detail</a>
                                 </td>
-                                <?php if ($u['status'] == '1') { ?>
-                                    <td>
-                                        <a href="<?= base_url() . 'mahasiswa/DaftarSempro/' . $u['id'] ?>" class=" btn btn-success btn-sm sempro"><i class="fa fa-fw fa-check"></i> Daftar Sempro</a>
-                                    </td>
-                                <?php }
-                                else if ($u['status'] == '3' && !$bimbingan){?>
-                                    <td>
+                                <td>
+                                    <?php $last=count($bimbingan);
+                                     if ($u['status'] == '1') { ?>
+                                            <a href="<?= base_url() . 'mahasiswa/DaftarSempro/' . $u['id'] ?>" class=" btn btn-success btn-sm sempro"><i class="fa fa-fw fa-check"></i> Daftar Sempro</a>
+                                    <?php }
+                                    else if ($u['status'] == '3' && $last==6){?>
+                                        <a href="<?= base_url() . 'mahasiswa/DaftarSidang/' . $u['id'] ?>" class=" btn btn-success btn-sm sidang"><i class="fa fa-fw fa-check"></i> Daftar Sidang</a>
+                                    <?php }
+                                    else if ($u['status'] == '3' && $bimbingan[$last-1]['pembahasan']!=NULL){?>
                                         <a href="" data-toggle="modal" data-target="#mhsBimbingan<?= $u['id']; ?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i> Ajukan Bimbingan</a>
-                                    </td>
-                                <?php } else{echo "<td>N/A</td>";}?>
-                                
+                                    <?php }
+                                    else if ($u['status'] == '3' && $bimbingan[$last-1]['pembahasan']==NULL){?>
+                                        menunggu...
+                                    <?php } else{echo "N/A"; }
+                                    ?>
+                                </td>
                             </tr>
                     <?php $count += 1;
                         }
@@ -77,6 +83,7 @@
 
 
             </table>
+            
             <!-- <div class="col-xs-4 paging">
 				<span>Halaman <?php echo $page; ?> dari <?php echo $jumlah_page; ?></span>
 			</div> -->
@@ -168,7 +175,7 @@ endforeach; ?>
                         </div>
                         <div class="form-group">
                             <label for="tanggal">Tanggal</label>
-                            <input type="text" class="form-control" id="tanggal" name="tanggal">
+                            <input type="date" class="form-control" id="tanggal" name="tanggal" value="<?= date("Y-m-d"); ?>">
                             <?= form_error('tanggal', '<div class="alert-danger" role="alert">', '</div>'); ?>
                         </div>
                         <div class="form-group">

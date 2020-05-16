@@ -420,7 +420,29 @@ class Mahasiswa extends CI_Controller
         $this->session->set_flashdata('pesan', 'Mendaftarkan Skripsi untuk Sempro berhasil');
         redirect('mahasiswa/StatusSkripsi');
     }
-
+    public function DaftarSidang($id)
+    {
+        // $data = [
+        //     'id_skripsi' => $id,
+        //     'tanggal' => 'pending',
+        //     'waktu' => 'pending',
+        //     'periode' => 'pending',
+        //     'penguji_1' => NULL,
+        //     'penguji_2' => NULL,
+        //     'penguji_3' => NULL,
+        //     'ruangan' => 'pending',
+        // ];
+        // $id_skripsi = $this->db->get_where('skripsi', ['id' => $id])->row_array()['id'];
+        // $this->db->insert('jadwal_sempro', $data);
+        // echo $id_skripsi;
+        // $data = [
+        //     'status' => '2'
+        // ];
+        // $this->db->where('id', $id_skripsi);
+        // $this->db->update('skripsi', $data);
+        $this->session->set_flashdata('pesan', 'Mendaftarkan Skripsi untuk Sidang berhasil');
+        redirect('mahasiswa/StatusSkripsi');
+    }
     //method untuk catatan bimbingan
     public function MhsBimbingan($id)
     {

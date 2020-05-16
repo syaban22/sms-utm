@@ -560,6 +560,7 @@ class admin extends CI_Controller
 
 	public function EditJadwalSempro($id)
 	{
+		
 		$data = array(
 			'id_skripsi' => $this->input->post('judul'),
 			'tanggal' => $this->input->post('tanggal'),
