@@ -278,7 +278,7 @@ class dosen extends CI_Controller
             $data['start'] = 0;
         }
 
-        $data['JSid'] = $this->jadwalM->getJadwalSidang($config['per_page'], $data['start'], $data['keyword'], $data['user']['level_id'], null, null);
+        $data['JSid'] = $this->jadwalM->getJadwalSidang($config['per_page'], $data['start'], $data['keyword'], $data['user']['level_id'], null, $this->session->userdata('username'));
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar', $data);

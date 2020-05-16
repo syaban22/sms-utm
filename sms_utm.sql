@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 03, 2020 at 02:59 PM
+-- Generation Time: May 16, 2020 at 01:14 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -64,7 +64,13 @@ CREATE TABLE `bimbingan` (
 
 INSERT INTO `bimbingan` (`id`, `id_skripsi`, `pembahasan`, `dosbing`, `tanggal`, `tempat`) VALUES
 (3, 20, 'test', '19740102017021002', '01-05-2020', 'Kantin Asrama'),
-(5, 20, NULL, '19740102017021002', '02052020', 'Labcc');
+(6, 33, 'perbaikan cara ngedab', '197101092006021012', '30042020', 'Labcc'),
+(7, 33, 'cari referensi cara ngedab yang etis', '196911182001121004', '2020-05-12', 'Labcc'),
+(8, 33, 'tambahkan trick ngedab', '196911182001121004', '2020-05-12', 'Labcc'),
+(9, 33, 'memperkuat pemahaman aturan ngedab', '196911182001121004', '2020-05-13', 'Labcc'),
+(10, 33, 'menentukan output yang benar', '197101092006021012', '2020-05-15', 'Labcc'),
+(11, 33, 'meninjau ulang style ngedab terkini', '197101092006021012', '2020-05-16', 'Labcc'),
+(12, 20, NULL, '196911182001121004', '2020-05-17', 'Labcc');
 
 -- --------------------------------------------------------
 
@@ -142,7 +148,8 @@ CREATE TABLE `jadwal_sempro` (
 --
 
 INSERT INTO `jadwal_sempro` (`id`, `id_skripsi`, `tanggal`, `waktu`, `periode`, `penguji_1`, `penguji_2`, `penguji_3`, `ruangan`) VALUES
-(7, 33, '30042020', '08:30-09:00', '2019/2020', '197901092006021011', '19740102017021002', '197902222005012003', 'Lab CC');
+(14, 34, 'pending', 'pending', 'pending', '197902222005012003', '197101092006021012', '19740102017021002', 'pending'),
+(15, 22, 'pending2', 'pending', 'pending', NULL, NULL, NULL, 'pending');
 
 -- --------------------------------------------------------
 
@@ -167,8 +174,7 @@ CREATE TABLE `jadwal_sidang` (
 --
 
 INSERT INTO `jadwal_sidang` (`id`, `id_skripsi`, `tanggal`, `waktu`, `periode`, `penguji_1`, `penguji_2`, `penguji_3`, `ruangan`) VALUES
-(2, 20, '24042020', '08:53', '2019/2020', '197101092006021012', '197402212008011006', '197101092006021012', 'RKBF 202'),
-(3, 26, '27042020', '12:00-15.30', '2019/2020', '19740102017021002', '197803092003122009', '197902222005012003', 'Lab TIA');
+(4, 33, 'pending', 'pending', 'pending', '197803092003122009', '197101092006021012', '19740102017021002', 'pending');
 
 -- --------------------------------------------------------
 
@@ -271,9 +277,9 @@ CREATE TABLE `skripsi` (
 INSERT INTO `skripsi` (`id`, `judul`, `abstract`, `nim`, `dosbing_1`, `dosbing_2`, `prodi`, `nilai`, `status`, `berkas`) VALUES
 (20, 'tes1', 'tes1', '170411100007', '19740102017021002', '196911182001121004', '4111', 0, 3, ''),
 (21, 'tes2', 'tes2', '170411100015', '197101092006021012', '197901092006021011', '4111', 0, 0, NULL),
-(22, 'tes3', 'tes3', '170411100015', '197101092006021012', '197901092006021011', '4111', 0, 1, ''),
-(26, 'Deteksi buah dengan metode Haar Cascade', 'Pada mulanya, skripsi ini dibuat hanya untuk bercandaan saja. Namun semua berubah setelah negara api menyerang hingga meresap ke tulang', '170411100119', '197101092006021012', '197402212008011006', '4111', 0, 2, ''),
-(33, 'ngedab sampai jidat pecah-pecar dan otak sariawan', 'none', '170411100099', '196911182001121004', '197101092006021012', '4111', 0, 2, '524861885b502e3956186af886c1c83c.pdf'),
+(22, 'tes3', 'tes3', '170411100015', '197101092006021012', '197901092006021011', '4111', 0, 2, ''),
+(26, 'Deteksi buah dengan metode Haar Cascade', 'Pada mulanya, skripsi ini dibuat hanya untuk bercandaan saja. Namun semua berubah setelah negara api menyerang hingga meresap ke tulang', '170411100119', '197101092006021012', '197402212008011006', '4111', 0, 1, ''),
+(33, 'ngedab sampai jidat pecah-pecar dan otak sariawan', 'none', '170411100099', '196911182001121004', '197101092006021012', '4111', 0, 4, '524861885b502e3956186af886c1c83c.pdf'),
 (34, 'Sampai Sempro', 'none', '170411100042', '197902222005012003', '197803092003122009', '4111', 0, 2, '544b28f0a232282e5e62c49cfd75a76b.pdf');
 
 -- --------------------------------------------------------
@@ -513,7 +519,10 @@ ALTER TABLE `jadwal_sempro`
 --
 ALTER TABLE `jadwal_sidang`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_skripsi` (`id_skripsi`);
+  ADD KEY `id_skripsi` (`id_skripsi`),
+  ADD KEY `penguji1` (`penguji_1`),
+  ADD KEY `penguji2` (`penguji_2`),
+  ADD KEY `penguji3` (`penguji_3`);
 
 --
 -- Indexes for table `jenkel`
@@ -601,19 +610,19 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `bimbingan`
 --
 ALTER TABLE `bimbingan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `jadwal_sempro`
 --
 ALTER TABLE `jadwal_sempro`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `jadwal_sidang`
 --
 ALTER TABLE `jadwal_sidang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `jenkel`
@@ -701,7 +710,10 @@ ALTER TABLE `jadwal_sempro`
 -- Constraints for table `jadwal_sidang`
 --
 ALTER TABLE `jadwal_sidang`
-  ADD CONSTRAINT `jadwal_sidang_ibfk_1` FOREIGN KEY (`id_skripsi`) REFERENCES `skripsi` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `jadwal_sidang_ibfk_1` FOREIGN KEY (`id_skripsi`) REFERENCES `skripsi` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `penguji1` FOREIGN KEY (`penguji_1`) REFERENCES `dosen` (`nip`),
+  ADD CONSTRAINT `penguji2` FOREIGN KEY (`penguji_2`) REFERENCES `dosen` (`nip`),
+  ADD CONSTRAINT `penguji3` FOREIGN KEY (`penguji_3`) REFERENCES `dosen` (`nip`);
 
 --
 -- Constraints for table `mahasiswa`

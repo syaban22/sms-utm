@@ -560,16 +560,19 @@ class admin extends CI_Controller
 
 	public function EditJadwalSempro($id)
 	{
-		
+		$post = $this->input->post();
+		if ($post['penguji1']==''){$post['penguji1']=NULL;}
+		if ($post['penguji2']==''){$post['penguji2']=NULL;}
+		if ($post['penguji3']==''){$post['penguji3']=NULL;}
 		$data = array(
-			'id_skripsi' => $this->input->post('judul'),
-			'tanggal' => $this->input->post('tanggal'),
-			'waktu' => $this->input->post('waktu'),
-			'periode' => $this->input->post('periode'),
-			'penguji_1' => $this->input->post('penguji1'),
-			'penguji_2' => $this->input->post('penguji2'),
-			'penguji_3' => $this->input->post('penguji3'),
-			'ruangan' => $this->input->post('ruangan'),
+			'id_skripsi' => $post['judul'],
+			'tanggal' => $post['tanggal'],
+			'waktu' => $post['waktu'],
+			'periode' => $post['periode'],
+			'penguji_1' => $post['penguji1'],
+			'penguji_2' => $post['penguji2'],
+			'penguji_3' => $post['penguji3'],
+			'ruangan' => $post['ruangan']
 		);
 
 		$this->db->where('id', $id);
@@ -580,12 +583,12 @@ class admin extends CI_Controller
 
 	public function deleteJadwalSempro($id)
 	{
+		$id_skripsi=$this->db->get_where('jadwal_sempro',['id'=>$id])->row_array()['id_skripsi'];
 		$this->db->delete('jadwal_sempro', array('id' => $id));
+		$this->db->where('id', $id_skripsi);
+		$this->db->update('skripsi', ['status'=>1]);
 		$this->session->set_flashdata('pesan', '1 Jadwal Sempro berhasil dihapus');
 		redirect('admin/JadwalSempro');
-
-		//sintak : bgst
-		//$this->session->set_flashdata('pesan', 'Hapus Jadwal Sempro gagal');
 	}
 
 	public function JadwalSidang()

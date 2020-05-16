@@ -1,8 +1,9 @@
-function penguji(){
+function penguji(id1, id2, id3){
+    // diganti dengan class nantinya
     var dos = document.getElementById("tdosen");
-    var dos1 = document.getElementById("tpenguji1");
-    var dos2 = document.getElementById("tpenguji2");
-    var dos3 = document.getElementById("tpenguji3");
+    var dos1 = document.getElementById(id1);
+    var dos2 = document.getElementById(id2);
+    var dos3 = document.getElementById(id3);
     var sel1=dos1.value;
     var sel2=dos2.value;
     var sel3=dos3.value;
