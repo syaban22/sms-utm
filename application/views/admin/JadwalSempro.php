@@ -132,7 +132,7 @@
 						</div>
 						<div class="form-group">
 							<label for="Tgl">Tanggal Sidang</label>
-							<input type="text" class="form-control" id="tanggal" name="tanggal" value="<?= $u['tanggal']; ?>">
+							<input type="date" class="form-control" id="tanggal" name="tanggal" value="<?= $u['tanggal']; ?>">
 							<?= form_error('tanggal', '<div class="alert-danger" role="alert">', '</div>'); ?>
 						</div>
 						<div class="form-group">
@@ -223,7 +223,7 @@
 						</select>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" name="tanggal" id="tanggal" placeholder="Tanggal Sidang Sempro" required>
+						<input type="date" class="form-control" name="tanggal" id="tanggal" placeholder="Tanggal Sidang Sempro" required>
 						<div class="invalid-feedback">
 							Masukan Tanggal Sempro
 						</div>

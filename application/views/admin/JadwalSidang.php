@@ -130,7 +130,7 @@
 						</div>
 						<div class="form-group">
 							<label for="Tgl">Tanggal Sidang</label>
-							<input type="text" class="form-control" id="tanggal" name="tanggal" value="<?= $u['tanggal']; ?>">
+							<input type="date" class="form-control" id="tanggal" name="tanggal" value="<?= $u['tanggal']; ?>">
 							<?= form_error('tanggal', '<div class="alert-danger" role="alert">', '</div>'); ?>
 						</div>
 						<div class="form-group">
@@ -224,13 +224,13 @@
 						<select class="form-control value" name="judul" id="judul" onchange="" required>
 							<option value="">- Pilih Judul -</option>
 							<?php foreach ($skripsi as $s) :
-								if ($s['status']=='4'){?>
+								if ($s['status']=='3'){?>
 								<option value="<?= $s['id']; ?>"><?= $s['judul']; ?></option>
 								<?php } endforeach; ?>
 						</select>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" name="tanggal" id="tanggal" placeholder="Tanggal Sidang Skripsi" required>
+						<input type="date" class="form-control" name="tanggal" id="tanggal" placeholder="Tanggal Sidang Skripsi" required>
 						<div class="invalid-feedback">
 							Masukan Tanggal Sidang
 						</div>
