@@ -259,7 +259,6 @@ class Mahasiswa extends CI_Controller
         $this->load->view("mahasiswa/modal", $data);
     }
 
-
     public function changePassword()
     {
         $data['judul'] = 'My Profile';
@@ -342,9 +341,9 @@ class Mahasiswa extends CI_Controller
         $data['JSemp'] = $this->jadwalM->getJadwalSempro($config['per_page'], $data['start'], $data['keyword'], $data['user']['level_id'], $data['user']['username'], null);
 
         $this->load->view('template/header', $data);
-        $this->load->view('template/sidebar', $data);
-        $this->load->view('template/topbar', $data);
-        $this->load->view('mahasiswa/JadwalSempro', $data);
+        $this->load->view('template/sidebar');
+        $this->load->view('template/topbar');
+        $this->load->view('mahasiswa/JadwalSempro');
         $this->load->view('template/footer');
     }
 
@@ -446,7 +445,6 @@ class Mahasiswa extends CI_Controller
     //method untuk catatan bimbingan
     public function MhsBimbingan($id)
     {
-        
         $post=$this->input->post();
         $data = [
             'id_skripsi' => $id,

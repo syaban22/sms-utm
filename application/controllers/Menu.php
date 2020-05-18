@@ -36,13 +36,6 @@ class Menu extends CI_Controller
 
 	public function delete($id)
 	{
-		// if ($this->db->error()) {
-		// 	$this->session->set_flashdata('pesan', 'Menu gagal dihapus');
-		// 	// redirect('menu');
-		// } else {
-		// 	$this->db->delete('user_menu', array('id' => $id));
-		// 	$this->session->set_flashdata('pesan', 'Menu berhasil dihapus');
-		// }
 
 		if ($this->db->delete('user_menu', array('id' => $id))) {
 			$this->db->delete('user_menu', array('id' => $id));

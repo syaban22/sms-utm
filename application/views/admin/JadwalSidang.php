@@ -4,7 +4,6 @@
 	<!-- Page Heading -->
 	<div>
 		<div class="row">
-
 			<div class="col-md">
 				<h1 class="h3 mb-4 text-gray-800"><?= $judul; ?></h1>
 			</div>
@@ -108,8 +107,8 @@
 </div>
 <!-- End of Main Content -->
 
-<?php foreach ($JSid as $u) : $id=$u['id'];?>
 	<!-- Modal Edit -->
+<?php foreach ($JSid as $u) : $id=$u['id'];?>
 	<div class="modal fade" id="JadwalSidangEdit<?= $u['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="JadwalSidangEditLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -143,15 +142,6 @@
 							<input type="text" class="form-control" id="periode" name="periode" value="<?= $u['periode']; ?>">
 							<?= form_error('periode', '<div class="alert-danger" role="alert">', '</div>'); ?>
 						</div>
-						<span style="display : none">
-							<div class="form-group">
-								<select type="hidden" name="dosen" id="tdosen" class="form-control">
-									<?php foreach ($dosen as $f) : ?>
-										<option value="<?= $f['nip']; ?>"><?= $f['nama']; ?></option>
-									<?php endforeach; ?>
-								</select>
-							</div>
-						</span>
 						
 						<div class="form-group">
 							<select name="penguji1" id="tpenguji1<?= $id; ?>" class="form-control" onchange="penguji('tpenguji1<?= $id; ?>','tpenguji2<?= $id; ?>','tpenguji3<?= $id; ?>')">
@@ -230,32 +220,22 @@
 						</select>
 					</div>
 					<div class="form-group">
-						<input type="date" class="form-control" name="tanggal" id="tanggal" placeholder="Tanggal Sidang Skripsi" required>
+						<input type="date" class="form-control" name="tanggal" id="tanggal" placeholder="Tanggal Sidang Skripsi" value="<?= date("Y-m-d"); ?>" required>
 						<div class="invalid-feedback">
 							Masukan Tanggal Sidang
 						</div>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" name="waktu" id="waktu" placeholder="Waktu Sidang Skripsi" required>
+						<input type="text" class="form-control" name="waktu" id="waktu" placeholder="Waktu Sidang Skripsi" value="pending" required>
 						<div class="invalid-feedback">
 							Masukan Waktu Sidang
 						</div>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" name="periode" id="periode" placeholder="Periode" required>
+						<input type="text" class="form-control" name="periode" id="periode" placeholder="Periode" value="pending" required>
 						<div class="invalid-feedback">
 							Masukan Periode Sidang
 						</div>
-					</div>
-					<span style="display : none">
-						<div class="form-group">
-							<select type="hidden" name="dosen" id="tdosen" class="form-control">
-								<?php foreach ($dosen as $f) : ?>
-									<option value="<?= $f['nip']; ?>"><?= $f['nama']; ?></option>
-								<?php endforeach; ?>
-							</select>
-						</div>
-					</span>
 					<div class="form-group">
 						<select name="penguji1" id="tpenguji1" class="form-control" onchange="penguji('tpenguji1','tpenguji2','tpenguji3')" required>
 							<option value="">- Pilih Dosen Penguji 1 -</option>
@@ -281,7 +261,7 @@
 						</select>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" name="ruangan" id="ruangan" placeholder="Ruangan Sidang Skripsi" required>
+						<input type="text" class="form-control" name="ruangan" id="ruangan" placeholder="Ruangan Sidang Skripsi" value="pending" required>
 						<div class="invalid-feedback">
 							Masukan Ruangan Sidang
 						</div>

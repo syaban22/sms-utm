@@ -593,6 +593,7 @@ class admin extends CI_Controller
 
 	public function JadwalSidang()
 	{
+		$this->load->model('bimbingan_model', 'bimbinganM');
 		$this->session->unset_userdata('keyword');
 		$data['judul'] = 'Jadwal Sidang';
 		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
@@ -644,12 +645,14 @@ class admin extends CI_Controller
 
 		if ($this->form_validation->run() == false) {
 			$this->load->view('template/header', $data);
-			$this->load->view('template/sidebar', $data);
-			$this->load->view('template/topbar', $data);
-			$this->load->view('admin/JadwalSidang', $data);
+			$this->load->view('template/sidebar');
+			$this->load->view('template/topbar');
+			$this->load->view('admin/JadwalSidang');
 			$this->load->view('template/footer');
 		} else {
-			if ($this->db->get_where('jadwal_sidang', ['id_skripsi' => $this->input->post('judul')])->row_array() == null) {
+			$skripsi = $this->db->get_where('skripsi',['id'=>$this->input->post('judul')])->row_array();
+			$jumlahB = count($this->bimbinganM->getCatatan($skripsi['nim'], '4'));
+			if ($jumlahB == 6) {
 				$data = [
 					'id_skripsi' => $this->input->post('judul'),
 					'tanggal' => $this->input->post('tanggal'),
@@ -660,8 +663,9 @@ class admin extends CI_Controller
 					'penguji_3' => $this->input->post('penguji3'),
 					'ruangan' => $this->input->post('ruangan'),
 				];
-
 				$this->db->insert('jadwal_sidang', $data);
+				$this->db->where('id', $this->input->post('judul'));
+				$this->db->update('skripsi', ['status'=>4]);
 				$this->session->set_flashdata('pesan', 'Jadwal Sidang baru berhasil ditambahkan');
 			} else {
 				// gagal
@@ -673,8 +677,7 @@ class admin extends CI_Controller
 
 	public function EditJadwalSidang($id)
 	{
-		$data = array(
-			'id_skripsi' => $this->input->post('judul'),
+		$data = array(			
 			'tanggal' => $this->input->post('tanggal'),
 			'waktu' => $this->input->post('waktu'),
 			'periode' => $this->input->post('periode'),
@@ -692,11 +695,11 @@ class admin extends CI_Controller
 
 	public function deleteJadwalSidang($id)
 	{
+		$id_skripsi=$this->db->get_where('jadwal_sidang',['id'=>$id])->row_array()['id_skripsi'];
 		$this->db->delete('jadwal_sidang', array('id' => $id));
+		$this->db->where('id', $id_skripsi);
+		$this->db->update('skripsi', ['status'=>3]);
 		$this->session->set_flashdata('pesan', '1 Jadwal Sidang berhasil dihapus');
 		redirect('admin/JadwalSidang');
-
-		//sintak : bgst
-		//$this->session->set_flashdata('pesan', 'Hapus Jadwal Sempro gagal');
 	}
 }
