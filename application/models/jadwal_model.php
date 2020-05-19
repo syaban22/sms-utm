@@ -55,7 +55,7 @@ class jadwal_model extends CI_Model
                 (SELECT d.nama FROM dosen d WHERE d.nip = js.penguji_1) AS penguji1,
                 (SELECT d.nama FROM dosen d WHERE d.nip = js.penguji_2) AS penguji2,
                 (SELECT d.nama FROM dosen d WHERE d.nip = js.penguji_3) AS penguji3,
-                js.ruangan
+                js.ruangan,s.nilai
                 FROM jadwal_sidang js, skripsi s, dosen d
                 WHERE js.id_skripsi = s.id
                 GROUP BY js.id limit $start, $limit
@@ -67,7 +67,7 @@ class jadwal_model extends CI_Model
                 (SELECT d.nama FROM dosen d WHERE d.nip = js.penguji_1) AS penguji1,
                 (SELECT d.nama FROM dosen d WHERE d.nip = js.penguji_2) AS penguji2,
                 (SELECT d.nama FROM dosen d WHERE d.nip = js.penguji_3) AS penguji3,
-                js.ruangan
+                js.ruangan,s.nilai
                 FROM jadwal_sidang js, skripsi s, dosen d
                 WHERE js.id_skripsi = s.id AND s.judul LIKE '%$keyword%'
                  GROUP BY js.id limit $start, $limit
@@ -83,7 +83,7 @@ class jadwal_model extends CI_Model
                 (SELECT d.nama FROM dosen d WHERE d.nip = js.penguji_1) AS penguji1,
                 (SELECT d.nama FROM dosen d WHERE d.nip = js.penguji_2) AS penguji2,
                 (SELECT d.nama FROM dosen d WHERE d.nip = js.penguji_3) AS penguji3,
-                js.ruangan
+                js.ruangan,s.nilai
                 FROM jadwal_sidang js, skripsi s, dosen d
                 WHERE js.id_skripsi = s.id AND (js.penguji_1=$nip OR js.penguji_2=$nip OR js.penguji_3=$nip)
                 GROUP BY js.id limit $start, $limit
@@ -95,7 +95,7 @@ class jadwal_model extends CI_Model
                 (SELECT d.nama FROM dosen d WHERE d.nip = js.penguji_1) AS penguji1,
                 (SELECT d.nama FROM dosen d WHERE d.nip = js.penguji_2) AS penguji2,
                 (SELECT d.nama FROM dosen d WHERE d.nip = js.penguji_3) AS penguji3,
-                js.ruangan
+                js.ruangan,s.nilai
                 FROM jadwal_sidang js, skripsi s, dosen d
                 WHERE js.id_skripsi = s.id AND (js.penguji_1=$nip OR js.penguji_2=$nip OR js.penguji_3=$nip) AND s.judul LIKE '%$keyword%'
                 GROUP BY js.id limit $start, $limit
@@ -109,7 +109,7 @@ class jadwal_model extends CI_Model
             (SELECT d.nama FROM dosen d WHERE d.nip = js.penguji_1) AS penguji1,
             (SELECT d.nama FROM dosen d WHERE d.nip = js.penguji_2) AS penguji2,
             (SELECT d.nama FROM dosen d WHERE d.nip = js.penguji_3) AS penguji3,
-            js.ruangan
+            js.ruangan,s.nilai
             FROM jadwal_sidang js, skripsi s, dosen d, mahasiswa m
             WHERE s.nim=m.nim AND s.nim=$nim AND s.id = js.id_skripsi
             GROUP BY js.id

@@ -139,11 +139,11 @@ class dosen extends CI_Controller
         $nip = $this->session->userdata('username');
         $data['skripsi'] = $this->skripsiM->getBimbingan($data['user']['level_id'], $nip, null);
         $data['penguji'] = $this->skripsiM->getPenguji();
-
+        
         $this->load->view('template/header', $data);
-        $this->load->view('template/sidebar', $data);
-        $this->load->view('template/topbar', $data);
-        $this->load->view('dosen/mahasiswa', $data);
+        $this->load->view('template/sidebar');
+        $this->load->view('template/topbar');
+        $this->load->view('dosen/mahasiswa');
         $this->load->view('template/footer');
     }
 
@@ -279,14 +279,32 @@ class dosen extends CI_Controller
         }
 
         $data['JSid'] = $this->jadwalM->getJadwalSidang($config['per_page'], $data['start'], $data['keyword'], $data['user']['level_id'], null, $this->session->userdata('username'));
-
-        $this->load->view('template/header', $data);
-        $this->load->view('template/sidebar', $data);
-        $this->load->view('template/topbar', $data);
-        $this->load->view('dosen/JadwalSidang', $data);
-        $this->load->view('template/footer');
+        $this->form_validation->set_rules('nilai', 'nilai', 'required');
+		if ($this->form_validation->run() == false) {
+            $this->load->view('template/header', $data);
+            $this->load->view('template/sidebar');
+            $this->load->view('template/topbar');
+            $this->load->view('dosen/JadwalSidang');
+            $this->load->view('template/footer');
+        }
+        else {
+            $sidang = $this->db->get_where('jadwal_sidang',['id'=>$this->input->post('id')])->row_array();
+			$skripsi = $this->db->get_where('skripsi',['id'=>$sidang['id_skripsi']])->row_array();
+			if ($this->input->post('nilai') != 0) {
+				$this->db->where('id', $sidang['id_skripsi']);
+                $this->db->update('skripsi', ['status'=>6,'nilai'=>$this->input->post('nilai')]);
+                // nilai berhasil di tambahkan
+				// $this->session->set_flashdata('pesan', 'Jadwal Sidang baru berhasil ditambahkan');
+			} else {
+                // gagal
+                $this->db->where('id', $sidang['id_skripsi']);
+                $this->db->update('skripsi', ['status'=>0,'nilai'=>0]);
+                // skripsi dinyatakan gagal
+				// $this->session->set_flashdata('pesan', 'Gagal menambahkah Jadwal Sidang');
+			}
+            redirect('dosen/JadwalSidang');
+        }
     }
-
     //method bimbingan skripsi
     public function Bimbingan()
     {
