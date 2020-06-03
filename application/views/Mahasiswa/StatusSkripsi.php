@@ -58,6 +58,9 @@
                                     else if ($u['status'] == '3' && $last==6){?>
                                         <a href="<?= base_url() . 'mahasiswa/DaftarSidang/' . $u['id'] ?>" class=" btn btn-success btn-sm sidang"><i class="fa fa-fw fa-check"></i> Daftar Sidang</a>
                                     <?php }
+                                    else if ($u['status'] == '3' && $last==0){?>
+                                        <a href="" data-toggle="modal" data-target="#mhsBimbingan<?= $u['id']; ?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i> Ajukan Bimbingan</a>
+                                    <?php }
                                     else if ($u['status'] == '3' && $bimbingan[$last-1]['pembahasan']!=NULL){?>
                                         <a href="" data-toggle="modal" data-target="#mhsBimbingan<?= $u['id']; ?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i> Ajukan Bimbingan</a>
                                     <?php }
