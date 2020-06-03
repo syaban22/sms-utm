@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 16, 2020 at 01:14 PM
+-- Generation Time: Jun 03, 2020 at 04:58 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -148,7 +148,7 @@ CREATE TABLE `jadwal_sempro` (
 --
 
 INSERT INTO `jadwal_sempro` (`id`, `id_skripsi`, `tanggal`, `waktu`, `periode`, `penguji_1`, `penguji_2`, `penguji_3`, `ruangan`) VALUES
-(14, 34, 'pending', 'pending', 'pending', '197902222005012003', '197101092006021012', '19740102017021002', 'pending'),
+(14, 34, '2020-05-18', 'pending', 'pending', '197902222005012003', '197101092006021012', '19740102017021002', 'pending'),
 (15, 22, 'pending2', 'pending', 'pending', NULL, NULL, NULL, 'pending');
 
 -- --------------------------------------------------------
@@ -174,7 +174,7 @@ CREATE TABLE `jadwal_sidang` (
 --
 
 INSERT INTO `jadwal_sidang` (`id`, `id_skripsi`, `tanggal`, `waktu`, `periode`, `penguji_1`, `penguji_2`, `penguji_3`, `ruangan`) VALUES
-(4, 33, 'pending', 'pending', 'pending', '197803092003122009', '197101092006021012', '19740102017021002', 'pending');
+(5, 33, '2020-05-18', 'pending', 'pending', '196911182001121004', '197101092006021012', '19740102017021002', 'pending');
 
 -- --------------------------------------------------------
 
@@ -265,7 +265,7 @@ CREATE TABLE `skripsi` (
   `dosbing_1` varchar(18) DEFAULT NULL,
   `dosbing_2` varchar(18) DEFAULT NULL,
   `prodi` varchar(4) NOT NULL,
-  `nilai` float DEFAULT 0,
+  `nilai` float DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
   `berkas` varchar(120) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -275,12 +275,12 @@ CREATE TABLE `skripsi` (
 --
 
 INSERT INTO `skripsi` (`id`, `judul`, `abstract`, `nim`, `dosbing_1`, `dosbing_2`, `prodi`, `nilai`, `status`, `berkas`) VALUES
-(20, 'tes1', 'tes1', '170411100007', '19740102017021002', '196911182001121004', '4111', 0, 3, ''),
+(20, 'tes1', 'tes1', '170411100007', '19740102017021002', '196911182001121004', '4111', NULL, 3, ''),
 (21, 'tes2', 'tes2', '170411100015', '197101092006021012', '197901092006021011', '4111', 0, 0, NULL),
-(22, 'tes3', 'tes3', '170411100015', '197101092006021012', '197901092006021011', '4111', 0, 2, ''),
-(26, 'Deteksi buah dengan metode Haar Cascade', 'Pada mulanya, skripsi ini dibuat hanya untuk bercandaan saja. Namun semua berubah setelah negara api menyerang hingga meresap ke tulang', '170411100119', '197101092006021012', '197402212008011006', '4111', 0, 1, ''),
-(33, 'ngedab sampai jidat pecah-pecar dan otak sariawan', 'none', '170411100099', '196911182001121004', '197101092006021012', '4111', 0, 4, '524861885b502e3956186af886c1c83c.pdf'),
-(34, 'Sampai Sempro', 'none', '170411100042', '197902222005012003', '197803092003122009', '4111', 0, 2, '544b28f0a232282e5e62c49cfd75a76b.pdf');
+(22, 'tes3', 'tes3', '170411100015', '197101092006021012', '197901092006021011', '4111', NULL, 2, ''),
+(26, 'Deteksi buah dengan metode Haar Cascade', 'Pada mulanya, skripsi ini dibuat hanya untuk bercandaan saja. Namun semua berubah setelah negara api menyerang hingga meresap ke tulang', '170411100119', '197101092006021012', '197402212008011006', '4111', NULL, 1, ''),
+(33, 'ngedab sampai jidat pecah-pecar dan otak sariawan', 'none', '170411100099', '196911182001121004', '197101092006021012', '4111', NULL, 6, '524861885b502e3956186af886c1c83c.pdf'),
+(34, 'Sampai Sempro', 'none', '170411100042', '197902222005012003', '197803092003122009', '4111', NULL, 2, '544b28f0a232282e5e62c49cfd75a76b.pdf');
 
 -- --------------------------------------------------------
 
@@ -622,7 +622,7 @@ ALTER TABLE `jadwal_sempro`
 -- AUTO_INCREMENT for table `jadwal_sidang`
 --
 ALTER TABLE `jadwal_sidang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `jenkel`
