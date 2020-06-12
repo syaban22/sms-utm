@@ -107,11 +107,12 @@ class Mahasiswa extends CI_Controller
 
         $this->upload->initialize($config);
 
-
-        if ($this->db->get_where('skripsi', ['nim' => $nim])->row_array() == true) {
-            //nanti diubah ketika masih ada skripsi yang belum lulus baru dialihkan #pake looping
-            $this->session->set_flashdata('pesan', 'Anda telah mendaftarkan 1 Skripsi');
-            redirect('Mahasiswa/StatusSkripsi');
+        $skripsi_user=$this->db->get_where('skripsi', ['nim' => $nim])->result_array();
+        foreach ($skripsi_user as $su){
+            if ($su['status']!=0) {
+                $this->session->set_flashdata('pesan', 'Anda telah mendaftarkan 1 Skripsi');
+                redirect('Mahasiswa/StatusSkripsi');
+            }
         }
         if ($this->form_validation->run() == false) {
             if (!$this->upload->do_upload('file')) {
@@ -421,24 +422,24 @@ class Mahasiswa extends CI_Controller
     }
     public function DaftarSidang($id)
     {
-        // $data = [
-        //     'id_skripsi' => $id,
-        //     'tanggal' => 'pending',
-        //     'waktu' => 'pending',
-        //     'periode' => 'pending',
-        //     'penguji_1' => NULL,
-        //     'penguji_2' => NULL,
-        //     'penguji_3' => NULL,
-        //     'ruangan' => 'pending',
-        // ];
-        // $id_skripsi = $this->db->get_where('skripsi', ['id' => $id])->row_array()['id'];
-        // $this->db->insert('jadwal_sempro', $data);
-        // echo $id_skripsi;
-        // $data = [
-        //     'status' => '2'
-        // ];
-        // $this->db->where('id', $id_skripsi);
-        // $this->db->update('skripsi', $data);
+        $data = [
+            'id_skripsi' => $id,
+            'tanggal' => 'pending',
+            'waktu' => 'pending',
+            'periode' => 'pending',
+            'penguji_1' => NULL,
+            'penguji_2' => NULL,
+            'penguji_3' => NULL,
+            'ruangan' => 'pending',
+        ];
+        $id_skripsi = $this->db->get_where('skripsi', ['id' => $id])->row_array()['id'];
+        $this->db->insert('jadwal_sidang', $data);
+        echo $id_skripsi;
+        $data = [
+            'status' => '4'
+        ];
+        $this->db->where('id', $id_skripsi);
+        $this->db->update('skripsi', $data);
         $this->session->set_flashdata('pesan', 'Mendaftarkan Skripsi untuk Sidang berhasil');
         redirect('mahasiswa/StatusSkripsi');
     }
