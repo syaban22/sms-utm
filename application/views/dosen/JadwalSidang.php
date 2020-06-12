@@ -66,16 +66,11 @@
 					</tr>
 				</thead>
 				<tbody>
-					<?php if (empty($JSid)) : ?>
-						<tr>
-							<td colspan="12">
-								<div class="alert alert-danger" role="alert">
-									Data not found!
-								</div>
-							</td>
-						</tr>
-					<?php endif; ?>
-					<?php foreach ($JSid as $u) : ?>
+					<?php $count=0;
+					foreach ($JSid as $u) : 
+						if($u['status']=='5'){ 
+							$count+=1;
+							?>
 						<tr>
 							<th scope="row"><?= ++$start; ?></th>
 							<td><?= $u['judul']; ?></td>
@@ -92,7 +87,16 @@
 								<td><?= $u['nilai']; ?></td>
 							<?php } ?>
 						</tr>
-					<?php endforeach; ?>
+					<?php } endforeach;
+					if ($count==0) : ?>
+						<tr>
+							<td colspan="12">
+								<div class="alert alert-danger" role="alert">
+									Data not found!
+								</div>
+							</td>
+						</tr>
+					<?php endif; ?>
 				</tbody>
 			</table>
 			<!-- <div class="col-xs-4 paging">

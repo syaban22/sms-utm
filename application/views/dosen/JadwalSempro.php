@@ -66,16 +66,11 @@
 					</tr>
 				</thead>
 				<tbody>
-					<?php if (empty($JSemp)) { ?>
-						<tr>
-							<td colspan="12">
-								<div class="alert alert-danger" role="alert">
-									Data not found!
-								</div>
-							</td>
-						</tr>
-					<?php } else { ?>
-						<?php foreach ($JSemp as $u) : ?>
+						<?php $count = 0;
+						foreach ($JSemp as $u) : 
+							if ($u['status']=='2'){ 
+								$count+=1;
+								?>
 							<tr>
 								<th scope="row"><?= ++$start; ?></th>
 								<td><?= $u['judul']; ?></td>
@@ -92,8 +87,16 @@
 									<a href="<?= base_url() . 'dosen/GagalSempro/' . $u['id'] ?>" class="btn btn-danger btn-sm gagalsempro"><i class="fa fa-fw fa-trash	"></i>Gagal</a>
 								</td>
 							</tr>
-					<?php endforeach;
-					} ?>
+					<?php } endforeach;
+					if ($count==0) : ?>
+						<tr>
+							<td colspan="12">
+								<div class="alert alert-danger" role="alert">
+									Data not found!
+								</div>
+							</td>
+						</tr>
+					<?php endif; ?>
 				</tbody>
 
 

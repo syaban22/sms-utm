@@ -206,7 +206,7 @@ class dosen extends CI_Controller
         $this->load->view('dosen/JadwalSempro');
         $this->load->view('template/footer');
     }
-    // kalau bisa pop up untuk 3 tombol dibawah ini dibuatkan isinya : verivikasi sempro berhasil
+
     public function LolosSempro($id)
     {
         $sempro = $this->db->get_where('jadwal_sempro', ['id' => $id])->row_array();
@@ -214,7 +214,6 @@ class dosen extends CI_Controller
         $data = ['status' => '3'];
         $this->db->where('id', $id_skripsi);
         $this->db->update('skripsi', $data);
-        $this->db->delete('jadwal_sempro', array('id' => $id));
         $this->session->set_flashdata('pesan', 'perubahan status lolos');
         redirect('dosen/JadwalSempro');
     }
@@ -225,7 +224,6 @@ class dosen extends CI_Controller
         $data = ['status' => '21'];
         $this->db->where('id', $id_skripsi);
         $this->db->update('skripsi', $data);
-        $this->db->delete('jadwal_sempro', array('id' => $id));
         $this->session->set_flashdata('pesan', 'perubahan status ulang');
         redirect('dosen/JadwalSempro');
     }
@@ -236,7 +234,6 @@ class dosen extends CI_Controller
         $data = ['status' => '0'];
         $this->db->where('id', $id_skripsi);
         $this->db->update('skripsi', $data);
-        $this->db->delete('jadwal_sempro', array('id' => $id));
         $this->session->set_flashdata('pesan', 'perubahan status gagal');
         redirect('dosen/JadwalSempro');
     }

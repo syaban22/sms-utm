@@ -530,7 +530,7 @@ class admin extends CI_Controller
 			$this->load->view('admin/JadwalSempro');
 			$this->load->view('template/footer');
 		} else {
-			if ($this->db->get_where('jadwal_sempro', ['id_skripsi' => $this->input->post('judul')])->row_array() == null) {
+			// if ($this->db->get_where('jadwal_sempro', ['id_skripsi' => $this->input->post('judul')])->row_array() == null) {
 				$data = [
 					'id_skripsi' => $this->input->post('judul'),
 					'tanggal' => $this->input->post('tanggal'),
@@ -550,10 +550,10 @@ class admin extends CI_Controller
 				$this->db->where('id', $id_skripsi);
 				$this->db->update('skripsi', $data);
 				$this->session->set_flashdata('pesan', 'Jadwal Sempro baru berhasil ditambahkan');
-			} else {
-				// gagal
-				$this->session->set_flashdata('pesan', 'Gagal menambahkah Jadwal Sempro');
-			}
+			// } else {
+			// 	// gagal
+			// 	$this->session->set_flashdata('pesan', 'Gagal menambahkah Jadwal Sempro');
+			// }
 			redirect('admin/JadwalSempro');
 		}
 	}
@@ -585,8 +585,10 @@ class admin extends CI_Controller
 	{
 		$id_skripsi=$this->db->get_where('jadwal_sempro',['id'=>$id])->row_array()['id_skripsi'];
 		$this->db->delete('jadwal_sempro', array('id' => $id));
+		//
 		$this->db->where('id', $id_skripsi);
 		$this->db->update('skripsi', ['status'=>1]);
+		//
 		$this->session->set_flashdata('pesan', '1 Jadwal Sempro berhasil dihapus');
 		redirect('admin/JadwalSempro');
 	}
@@ -665,7 +667,7 @@ class admin extends CI_Controller
 				];
 				$this->db->insert('jadwal_sidang', $data);
 				$this->db->where('id', $this->input->post('judul'));
-				$this->db->update('skripsi', ['status'=>4]);
+				$this->db->update('skripsi', ['status'=>5]);
 				$this->session->set_flashdata('pesan', 'Jadwal Sidang baru berhasil ditambahkan');
 			} else {
 				// gagal
@@ -697,8 +699,10 @@ class admin extends CI_Controller
 	{
 		$id_skripsi=$this->db->get_where('jadwal_sidang',['id'=>$id])->row_array()['id_skripsi'];
 		$this->db->delete('jadwal_sidang', array('id' => $id));
+		//
 		$this->db->where('id', $id_skripsi);
 		$this->db->update('skripsi', ['status'=>3]);
+		//
 		$this->session->set_flashdata('pesan', '1 Jadwal Sidang berhasil dihapus');
 		redirect('admin/JadwalSidang');
 	}
