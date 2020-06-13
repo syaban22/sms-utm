@@ -691,6 +691,12 @@ class admin extends CI_Controller
 
 		$this->db->where('id', $id);
 		$this->db->update('jadwal_sidang', $data);
+		
+		//perubahan status
+        $sidang = $this->db->get_where('jadwal_sidang',['id'=>$id])->row_array();
+		$this->db->where('id', $sidang['id_skripsi']);
+		$this->db->update('skripsi', ['status'=>5]);
+		
 		$this->session->set_flashdata('pesan', 'Edit Jadwal Sidang berhasil');
 		redirect('admin/JadwalSidang');
 	}

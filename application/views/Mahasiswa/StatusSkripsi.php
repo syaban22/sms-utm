@@ -52,10 +52,10 @@
                                 </td>
                                 <td>
                                     <?php $last=count($bimbingan);
-                                     if ($u['status'] == '1') { ?>
+                                     if ($u['status'] == '1' || $u['status'] == '21') { ?>
                                             <a href="<?= base_url() . 'mahasiswa/DaftarSempro/' . $u['id'] ?>" class=" btn btn-success btn-sm sempro"><i class="fa fa-fw fa-check"></i> Daftar Sempro</a>
                                     <?php }
-                                    else if ($u['status'] == '3' && $last==6){?>
+                                    else if (($u['status'] == '3' || $u['status'] == '51') && $last>=6){?>
                                         <a href="<?= base_url() . 'mahasiswa/DaftarSidang/' . $u['id'] ?>" class=" btn btn-success btn-sm sidang"><i class="fa fa-fw fa-check"></i> Daftar Sidang</a>
                                     <?php }
                                     else if ($u['status'] == '3' && $last==0){?>

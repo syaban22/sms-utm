@@ -82,7 +82,9 @@
 							<td><?= $u['penguji3']; ?></td>
 							<td><?= $u['ruangan']; ?></td>
 							<?php if ($u['nilai']==NULL){ ?>
-							<td><a href="" data-toggle="modal" data-target="#nilai<?= $u['id'] ?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i>Berikan nilai</a></td>
+							<td><a href="" data-toggle="modal" data-target="#nilai<?= $u['id'] ?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i>Berikan nilai</a>
+							<a href="<?= base_url() . 'dosen/UlangSidang/' . $u['id'] ?>" class="btn btn-warning btn-sm ulangsempro"><i class="fa fa-fw fa-exclamation-triangle"></i>Ulang</a></td>
+
 							<?php } else { ?>
 								<td><?= $u['nilai']; ?></td>
 							<?php } ?>
