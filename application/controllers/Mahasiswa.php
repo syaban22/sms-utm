@@ -109,6 +109,7 @@ class Mahasiswa extends CI_Controller
 
         $skripsi_user=$this->db->get_where('skripsi', ['nim' => $nim])->result_array();
         foreach ($skripsi_user as $su){
+            //hanya berjalan ketika ada skripsi yang diajukan oleh nim tersebut
             if ($su['status']!=0) {
                 $this->session->set_flashdata('pesan', 'Anda telah mendaftarkan 1 Skripsi');
                 redirect('Mahasiswa/StatusSkripsi');

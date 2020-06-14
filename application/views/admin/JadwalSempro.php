@@ -147,7 +147,7 @@
 						</div>
 						
 						<div class="form-group">
-							<select name="penguji1" id="tpenguji1<?= $id; ?>" class="form-control" onchange="penguji('tpenguji1<?= $id; ?>','tpenguji2<?= $id; ?>','tpenguji3<?= $id; ?>')">
+							<select name="penguji1" id="tpenguji1<?= $id; ?>" class="form-control" onchange="penguji('tpenguji1<?= $id; ?>','tpenguji2<?= $id; ?>','tpenguji3<?= $id; ?>','tdosen<?= $u['id_skripsi']; ?>')">
 								<option value="">- Pilih Dosen Penguji -</option>
 								<?php foreach ($dosen as $f) : 
 									if ($f['nip']==$u['nip1']){?>
@@ -158,7 +158,7 @@
 							</select>
 						</div>
 						<div class="form-group">
-							<select name="penguji2" id="tpenguji2<?= $id; ?>" class="form-control" onchange="penguji('tpenguji1<?= $id; ?>','tpenguji2<?= $id; ?>','tpenguji3<?= $id; ?>')">
+							<select name="penguji2" id="tpenguji2<?= $id; ?>" class="form-control" onchange="penguji('tpenguji1<?= $id; ?>','tpenguji2<?= $id; ?>','tpenguji3<?= $id; ?>','tdosen<?= $u['id_skripsi']; ?>')">
 								<option value="">- Pilih Dosen Penguji -</option>
 								<?php foreach ($dosen as $f) : 
 									if ($f['nip']==$u['nip2']){?>
@@ -169,7 +169,7 @@
 							</select>
 						</div>
 						<div class="form-group">
-							<select name="penguji3" id="tpenguji3<?= $id; ?>" class="form-control" onchange="penguji('tpenguji1<?= $id; ?>','tpenguji2<?= $id; ?>','tpenguji3<?= $id; ?>')">
+							<select name="penguji3" id="tpenguji3<?= $id; ?>" class="form-control" onchange="penguji('tpenguji1<?= $id; ?>','tpenguji2<?= $id; ?>','tpenguji3<?= $id; ?>','tdosen<?= $u['id_skripsi']; ?>')">
 								<option value="">- Pilih Dosen Penguji -</option>
 								<?php foreach ($dosen as $f) : 
 									if ($f['nip']==$u['nip3']){?>
@@ -214,7 +214,7 @@
 				<div class="modal-body">
 					<div class="form-group">
 						<div class="name mb-3">Judul Skripsi</div>
-						<select class="form-control value" name="judul" id="judul" onchange="" required>
+						<select class="form-control value" name="judul" id="juduls" onchange="tambah('tpenguji1','tpenguji2','tpenguji3','tdosen')" required>
 							<option value="">- Pilih Judul -</option>
 							<?php foreach ($skripsi as $s) :
 								if ($s['status']=='1'){?>
@@ -241,7 +241,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<select name="penguji1" id="tpenguji1" class="form-control" onchange="penguji('tpenguji1','tpenguji2','tpenguji3')" required>
+						<select name="penguji1" id="tpenguji1" class="form-control" onchange="tambah('tpenguji1','tpenguji2','tpenguji3','tdosen')" required>
 							<option value="">- Pilih Dosen Penguji -</option>
 							<?php foreach ($dosen as $f) : ?>
 								<option value="<?= $f['nip']; ?>"><?= $f['nama']; ?></option>
@@ -249,7 +249,7 @@
 						</select>
 					</div>
 					<div class="form-group">
-						<select name="penguji2" id="tpenguji2" class="form-control" onchange="penguji('tpenguji1','tpenguji2','tpenguji3')" required>
+						<select name="penguji2" id="tpenguji2" class="form-control" onchange="tambah('tpenguji1','tpenguji2','tpenguji3','tdosen')" required>
 							<option value="">- Pilih Dosen Penguji -</option>
 							<?php foreach ($dosen as $f) : ?>
 								<option value="<?= $f['nip']; ?>"><?= $f['nama']; ?></option>
@@ -257,7 +257,7 @@
 						</select>
 					</div>
 					<div class="form-group">
-						<select name="penguji3" id="tpenguji3" class="form-control" onchange="penguji('tpenguji1','tpenguji2','tpenguji3')" required>
+						<select name="penguji3" id="tpenguji3" class="form-control" onchange="tambah('tpenguji1','tpenguji2','tpenguji3','tdosen')" required>
 							<option value="">- Pilih Dosen Penguji -</option>
 							<?php foreach ($dosen as $f) : ?>
 								<option value="<?= $f['nip']; ?>"><?= $f['nama']; ?></option>
@@ -289,3 +289,16 @@
 		</select>
 	</div>
 </span>
+<?php foreach ($skripsi as $sk){ ?>
+	<span style="display : none">
+		<div class="form-group">
+			<select type="hidden" name="dosen" id="tdosen<?= $sk['id']; ?>" class="form-control">
+				<option value="">- Pilih Dosen Penguji -</option>
+				<?php foreach ($dosen as $f) : 
+					if ($sk['dosbing_1']==$f['nip'] || $sk['dosbing_2']==$f['nip']){} else{ ?>
+					<option value="<?= $f['nip']; ?>"><?= $f['nama']; ?></option>
+				<?php } endforeach; ?>
+			</select>
+		</div>
+	</span>
+<?php } ?>

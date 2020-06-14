@@ -1,6 +1,11 @@
-function penguji(id1, id2, id3){
+function tambah(id1, id2, id3,dosen){
+    var judul = document.getElementById('juduls').value;
+    var dos = dosen.toString() + judul.toString();
+    penguji(id1,id2,id3,dos);
+}
+function penguji(id1, id2, id3,dosen){
     // diganti dengan class nantinya
-    var dos = document.getElementById("tdosen");
+    var dos = document.getElementById(dosen);
     var dos1 = document.getElementById(id1);
     var dos2 = document.getElementById(id2);
     var dos3 = document.getElementById(id3);
