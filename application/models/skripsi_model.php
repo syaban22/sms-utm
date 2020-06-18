@@ -74,7 +74,8 @@ class skripsi_model extends CI_Model
         }
         return $this->db->query($query, $limit, $start, $keyword)->result_array();
     }
-    public function getBimbingan($user,$nip,$keyword){
+    public function getBimbingan($user, $nip, $keyword)
+    {
         if (($user == 3)) {
             if ($keyword !== null) {
                 $query =
@@ -143,5 +144,19 @@ WHERE s.nim = m.nim AND s.nim = $nim_mhs AND s.dosbing_1 = d.nip AND p.kode_prod
     public function getStatus()
     {
         return $this->db->get('status')->result_array();
+    }
+
+    public function Skripsi($id)
+    {
+        $query =
+            "
+            SELECT s.id, s.judul, m.nama, s.nim, s.status, s.abstract,s.dosbing_1, s.dosbing_2, d.nama as dosbing1,
+            (SELECT d.nama FROM dosen d, skripsi sk WHERE d.nip = sk.dosbing_2 AND sk.id=s.id GROUP BY d.nip) as dosbing2,
+            p.prodi, s.nilai
+            FROM mahasiswa m, dosen d, skripsi s, prodi p
+            WHERE s.nim = m.nim AND s.dosbing_1 = d.nip AND p.kode_prodi = s.prodi AND s.nim = $id
+		";
+
+        return $this->db->query($query)->result_array();
     }
 }

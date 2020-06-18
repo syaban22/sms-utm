@@ -40,8 +40,8 @@
                             <tr>
                                 <th scope="row"><?= ++$start; ?></th>
                                 <td><?= $u['judul']; ?></td>
-                                <td><?= $u['dosbing_1']; ?></td>
-                                <td><?= $u['dosbing_2']; ?></td>
+                                <td><?= $u['dosbing1']; ?></td>
+                                <td><?= $u['dosbing2']; ?></td>
                                 <!-- <?php if ($u['nilai'] != 0) : ?>
                                 <td><?= $u['nilai']; ?></td>
                             <?php else : ?>
@@ -51,22 +51,20 @@
                                     <a data-toggle="modal" data-target="#detail<?= $u['id'] ?>" class="btn btn-warning btn-sm detail"><i class="fa fa-fw fa-eye"></i>Lihat Detail</a>
                                 </td>
                                 <td>
-                                    <?php $last=count($bimbingan);
-                                     if ($u['status'] == '1' || $u['status'] == '21') { ?>
-                                            <a href="<?= base_url() . 'mahasiswa/DaftarSempro/' . $u['id'] ?>" class=" btn btn-success btn-sm sempro"><i class="fa fa-fw fa-check"></i> Daftar Sempro</a>
-                                    <?php }
-                                    else if (($u['status'] == '3' || $u['status'] == '51') && $last>=6){?>
+                                    <?php $last = count($bimbingan);
+                                    if ($u['status'] == '1' || $u['status'] == '21') { ?>
+                                        <a href="<?= base_url() . 'mahasiswa/DaftarSempro/' . $u['id'] ?>" class=" btn btn-success btn-sm sempro"><i class="fa fa-fw fa-check"></i> Daftar Sempro</a>
+                                    <?php } else if (($u['status'] == '3' || $u['status'] == '51') && $last >= 6) { ?>
                                         <a href="<?= base_url() . 'mahasiswa/DaftarSidang/' . $u['id'] ?>" class=" btn btn-success btn-sm sidang"><i class="fa fa-fw fa-check"></i> Daftar Sidang</a>
-                                    <?php }
-                                    else if ($u['status'] == '3' && $last==0){?>
+                                    <?php } else if ($u['status'] == '3' && $last == 0) { ?>
                                         <a href="" data-toggle="modal" data-target="#mhsBimbingan<?= $u['id']; ?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i> Ajukan Bimbingan</a>
-                                    <?php }
-                                    else if ($u['status'] == '3' && $bimbingan[$last-1]['pembahasan']!=NULL){?>
+                                    <?php } else if ($u['status'] == '3' && $bimbingan[$last - 1]['pembahasan'] != NULL) { ?>
                                         <a href="" data-toggle="modal" data-target="#mhsBimbingan<?= $u['id']; ?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i> Ajukan Bimbingan</a>
-                                    <?php }
-                                    else if ($u['status'] == '3' && $bimbingan[$last-1]['pembahasan']==NULL){?>
+                                    <?php } else if ($u['status'] == '3' && $bimbingan[$last - 1]['pembahasan'] == NULL) { ?>
                                         menunggu...
-                                    <?php } else{echo "N/A"; }
+                                    <?php } else {
+                                        echo "N/A";
+                                    }
                                     ?>
                                 </td>
                             </tr>
@@ -86,7 +84,7 @@
 
 
             </table>
-            
+
             <!-- <div class="col-xs-4 paging">
 				<span>Halaman <?php echo $page; ?> dari <?php echo $jumlah_page; ?></span>
 			</div> -->
@@ -126,11 +124,11 @@
                                 </tr>
                                 <tr>
                                     <td>Dosen Pembimbing 1</td>
-                                    <td><?php echo $u['dosbing_1']; ?></td>
+                                    <td><?php echo $u['dosbing1']; ?></td>
                                 </tr>
                                 <tr>
                                     <td>Dosen Pembimbing2</td>
-                                    <td><?php echo $u['dosbing_2']; ?></td>
+                                    <td><?php echo $u['dosbing2']; ?></td>
                                 </tr>
                                 <tr>
                                     <td>Prodi</td>
@@ -189,13 +187,14 @@ endforeach; ?>
                         <div class="form-group">
                             <label for="dosbing">Pembimbing</label>
                             <select name="dosbing" id="dosbing" class="form-control mt-2">
-                                <?php $first='selected';
-                                foreach ($dosen as $b) : 
-                                    if ($b['nip']==$u['dosbing_1'] || $b['nip']==$u['dosbing_2']){ 
-                                        ?>
+                                <?php $first = 'selected';
+                                foreach ($dosen as $b) :
+                                    if ($b['nip'] == $u['dosbing_1'] || $b['nip'] == $u['dosbing_2']) {
+                                ?>
                                         <option value="<?= $b['nip']; ?>" <?= $first; ?>><?= $b['nama']; ?> </option>
-                                    <?php $first='';
-                                } endforeach; ?>
+                                <?php $first = '';
+                                    }
+                                endforeach; ?>
                             </select>
                         </div>
                     </div>
