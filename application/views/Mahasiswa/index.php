@@ -3,6 +3,75 @@
     <div class="flash-data" data-flashdata="<?= $this->session->flashdata('pesan'); ?>"></div>
     <?= $this->session->flashdata('mt'); ?>
     <!-- Page Heading -->
+
+    <ul class="timeline" id="timeline">
+        <?php if ($statusSkripsi['status'] >= 1) : ?>
+            <li class="li complete">
+            <?php else : ?>
+            <li class="li">
+            <?php endif; ?>
+            <div class="timestamp">
+                <!-- <span class="author">Abhi Sharma</span> -->
+                <span class="date">11/15/2014<span>
+            </div>
+            <div class="status">
+                <h4> Mendaftarkan Skripsi </h4>
+            </div>
+            </li>
+            <?php if ($statusSkripsi['status'] >= 2) : ?>
+                <li class="li complete">
+                <?php else : ?>
+                <li class="li">
+                <?php endif; ?>
+                <div class="timestamp">
+                    <!-- <span class="author">PAM Admin</span> -->
+                    <span class="date">11/15/2014<span>
+                </div>
+                <div class="status">
+                    <h4> Seminar Proposal </h4>
+                </div>
+                </li>
+                <?php if ($statusSkripsi['status'] >= 3) : ?>
+                    <li class="li complete">
+                    <?php else : ?>
+                    <li class="li">
+                    <?php endif; ?>
+                    <div class="timestamp">
+                        <!-- <span class="author">Aaron Rodgers</span> -->
+                        <span class="date">11/15/2014<span>
+                    </div>
+                    <div class="status">
+                        <h4> Bimbingan Skripsi </h4>
+                    </div>
+                    </li>
+                    <?php if ($statusSkripsi['status'] >= 5) : ?>
+                        <li class="li complete">
+                        <?php else : ?>
+                        <li class="li">
+                        <?php endif; ?>
+                        <div class="timestamp">
+                            <!-- <span class="author">PAM Admin</span> -->
+                            <span class="date">TBD<span>
+                        </div>
+                        <div class="status">
+                            <h4> Sidang Skripsi </h4>
+                        </div>
+                        </li>
+                        <?php if ($statusSkripsi['status'] >= 6) : ?>
+                            <li class="li complete">
+                            <?php else : ?>
+                            <li class="li">
+                            <?php endif; ?>
+                            <div class="timestamp">
+                                <!-- <span class="author">PAM Admin</span> -->
+                                <span class="date">TBD<span>
+                            </div>
+                            <div class="status">
+                                <h4> Skripsi Lulus </h4>
+                            </div>
+                            </li>
+    </ul>
+
     <h1 class="h3 mb-4 text-gray-800"><?= $judul; ?></h1>
 
     <div class="card mb-3" style="max-width: 540px;">

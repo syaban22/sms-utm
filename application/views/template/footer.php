@@ -30,12 +30,14 @@
 <script src="<?= base_url('assets/'); ?>js/sweet/sweetalert2.all.min.js"></script>
 <script src="<?= base_url('assets/'); ?>js/jsscript.js"></script>
 
-<script type="text/javascript" src="<?= base_url('assets/'); ?>js/public_js/aos.js"></script>
-<script type="text/javascript" src="<?= base_url('assets/'); ?>js/public_js/main.js"></script>
+<!-- <script type="text/javascript" src="<?= base_url('assets/'); ?>js/public_js/aos.js"></script>
+<script type="text/javascript" src="<?= base_url('assets/'); ?>js/public_js/main.js"></script> -->
 
-<script type="text/javascript" src="<?= base_url('assets/'); ?>js/global.js"></script>
+<!-- <script type="text/javascript" src="<?= base_url('assets/'); ?>js/global.js"></script> -->
 <script type="text/javascript" src="<?= base_url('assets/'); ?>js/bootstrap-validate.js"></script>
 
+<script type="text/javascript" src="<?= base_url('assets/'); ?>timeline/index.js"></script>
+<script src="http://s.codepen.io/assets/libs/modernizr.js" type="text/javascript"></script>
 <!-- Custom scripts for all pages-->
 <script src="<?= base_url('assets/'); ?>js/sb-admin-2.min.js"></script>
 <script src="<?= base_url('assets/'); ?>js/admin.js"></script>

@@ -20,8 +20,10 @@
   <link href="<?= base_url('assets/'); ?>css/sb-admin-2.min.css" rel="stylesheet">
   <link href="<?= base_url('assets/'); ?>css/css.css" rel="stylesheet">
   <link href="<?= base_url('assets/'); ?>css/bootstrap.min.css" rel="stylesheet">
-  <link href="<?= base_url('assets/'); ?>css/search.css" rel="stylesheet">
-  <link href="<?= base_url('assets/'); ?>plugin/toast/jquery.toast.min.css" rel="stylesheet">
+  <link href="<?= base_url('assets/'); ?>timeline/style.css" rel="stylesheet">
+
+  <!-- <link href="<?= base_url('assets/'); ?>css/search.css" rel="stylesheet">
+  <link href="<?= base_url('assets/'); ?>plugin/toast/jquery.toast.min.css" rel="stylesheet"> -->
 
 
 </head>

@@ -23,7 +23,8 @@ class Mahasiswa extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $userid = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $data['profil'] = $this->db->get_where('mahasiswa', ['username' => $userid['id']])->row_array();
-        // var_dump($data['profil']);
+        $data['statusSkripsi'] = $this->db->get_where('skripsi', ['nim' => $userid['username']])->row_array();
+        // var_dump($statusSkripsi['status']);
         // die;
         // $em = $this->session->userdata('email');
         // $em = $this->session->userdata('email');
@@ -107,10 +108,10 @@ class Mahasiswa extends CI_Controller
 
         $this->upload->initialize($config);
 
-        $skripsi_user=$this->db->get_where('skripsi', ['nim' => $nim])->result_array();
-        foreach ($skripsi_user as $su){
+        $skripsi_user = $this->db->get_where('skripsi', ['nim' => $nim])->result_array();
+        foreach ($skripsi_user as $su) {
             //hanya berjalan ketika ada skripsi yang diajukan oleh nim tersebut
-            if ($su['status']!=0) {
+            if ($su['status'] != 0) {
                 $this->session->set_flashdata('pesan', 'Anda telah mendaftarkan 1 Skripsi');
                 redirect('Mahasiswa/StatusSkripsi');
             }
@@ -244,7 +245,7 @@ class Mahasiswa extends CI_Controller
         // $data['skripsi'] = $this->db->get('skripsi')->result_array();
         $data['skripsi'] = $this->db->get_where('skripsi', ['nim' => $this->session->userdata('username')])->result_array();
         $data['penguji'] = $this->skripsiM->getPenguji();
-        $data['dosen']= $this->db->get('dosen')->result_array();
+        $data['dosen'] = $this->db->get('dosen')->result_array();
         $data['bimbingan'] = $this->bimbinganM->cekCatatan($this->session->userdata('username'));
 
         $this->load->view('template/header', $data);
@@ -447,14 +448,14 @@ class Mahasiswa extends CI_Controller
     //method untuk catatan bimbingan
     public function MhsBimbingan($id)
     {
-        $post=$this->input->post();
+        $post = $this->input->post();
         $data = [
             'id_skripsi' => $id,
             'tanggal' => $post['tanggal'],
             'tempat' => $post['tempat'],
             'dosbing' => $post['dosbing']
         ];
-        
+
         $this->db->insert('bimbingan', $data);
         $this->session->set_flashdata('pesan', 'Mengajukan Bimbingan Skripsi Berhasil');
         redirect('mahasiswa/catBim');
