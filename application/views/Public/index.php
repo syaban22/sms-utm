@@ -1,11 +1,11 @@
 <!-- Begin Page Content -->
 
-<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light site-navbar-target" id="ftco-navbar">
+<!-- <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light site-navbar-target" id="ftco-navbar">
     <div class="container">
         <a class="navbar-brand" href=""><?= 'Portal SMS UTM' ?></a>
     </div>
-</nav>
-<section class="hero-wrap js-fullheight" style="background-image: url(<?= base_url('assets/img/public_pic/bg_1.jpg'); ?>); background-position: cover;" data-section="home">
+</nav> -->
+<section class="hero-wrap js-fullheight" style="background-image: url(<?= base_url('assets/img/public_pic/bg_3.jpg'); ?>); background-position: cover;" data-section="home">
 
 
 
@@ -16,7 +16,7 @@
                 <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Selamat Datang</h1>
                 <p class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Portal Sistem Manajemen Skripsi (SMS) Universitas Trunojoyo Madura sebagai sarana untuk memantau jalannya Skripsi Mahasiswa.</p>
 
-                <p><a href="<?= base_url('auth'); ?>" class="btn btn-primary py-3 px-5">Login</a></p>
+                <p style="text-align: center;"><a href="<?= base_url('auth'); ?>" class="btn btn-primary py-3 px-5">Login</a></p>
             </div>
         </div>
     </div>
