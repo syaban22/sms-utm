@@ -139,7 +139,7 @@ class dosen extends CI_Controller
         $nip = $this->session->userdata('username');
         $data['skripsi'] = $this->skripsiM->getBimbingan($data['user']['level_id'], $nip, null);
         $data['penguji'] = $this->skripsiM->getPenguji();
-        
+
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar');
         $this->load->view('template/topbar');
@@ -282,18 +282,19 @@ class dosen extends CI_Controller
         $this->load->view('dosen/JadwalSidang');
         $this->load->view('template/footer');
     }
-    public function PenilaianSidang(){
+    public function PenilaianSidang()
+    {
         $this->form_validation->set_rules('nilai', 'nilai', 'required');
-        $sidang = $this->db->get_where('jadwal_sidang',['id'=>$this->input->post('id')])->row_array();
+        $sidang = $this->db->get_where('jadwal_sidang', ['id' => $this->input->post('id')])->row_array();
         if ($this->input->post('nilai') != 0) {
             $this->db->where('id', $sidang['id_skripsi']);
-            $this->db->update('skripsi', ['status'=>6,'nilai'=>$this->input->post('nilai')]);
+            $this->db->update('skripsi', ['status' => 6, 'nilai' => $this->input->post('nilai')]);
             // nilai berhasil di tambahkan
             // $this->session->set_flashdata('pesan', 'Jadwal Sidang baru berhasil ditambahkan');
         } else {
             // gagal
             $this->db->where('id', $sidang['id_skripsi']);
-            $this->db->update('skripsi', ['status'=>0,'nilai'=>0]);
+            $this->db->update('skripsi', ['status' => 0, 'nilai' => 0]);
             // skripsi dinyatakan gagal
             // $this->session->set_flashdata('pesan', 'Gagal menambahkah Jadwal Sidang');
         }
@@ -314,7 +315,7 @@ class dosen extends CI_Controller
     public function Bimbingan()
     {
         $this->session->unset_userdata('keyword');
-        $data['judul'] = 'Permintaan Bimbingan';
+        $data['judul'] = 'Bimbingan';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $userid = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $data['profil'] = $this->db->get_where('dosen', ['username' => $userid['id']])->row_array();
@@ -340,9 +341,10 @@ class dosen extends CI_Controller
         $this->session->set_flashdata('pesan', 'Edit Catatan Berhasil');
         redirect('dosen/Bimbingan');
     }
-    public function deletecatatan($id){
+    public function deletecatatan($id)
+    {
         $this->db->delete('bimbingan', array('id' => $id));
-		$this->session->set_flashdata('pesan', '1 catatan bimbingan berhasil dihapus');
-		redirect('dosen/Bimbingan');
+        $this->session->set_flashdata('pesan', '1 catatan bimbingan berhasil dihapus');
+        redirect('dosen/Bimbingan');
     }
 }

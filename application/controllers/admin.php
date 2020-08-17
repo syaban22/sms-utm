@@ -13,7 +13,7 @@ class admin extends CI_Controller
 	public function index()
 	{
 		$this->session->unset_userdata('keyword');
-		$data['judul'] = 'User Lists';
+		$data['judul'] = 'Dashboard';
 		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 		$data['level'] = $this->db->get('user_level')->result_array();
 		$data['profil'] = $this->db->get_where('admin', ['username' => $data['user']['id']])->row_array();
@@ -322,6 +322,27 @@ class admin extends CI_Controller
 		$this->load->view('template/footer');
 	}
 
+	public function updateSkripsi($id)
+	{
+		$this->form_validation->set_rules('judul', 'judul', 'required');
+
+		$data = array(
+			'judul' => $this->input->post('judul'),
+		);
+
+		$this->db->where('nim', $id);
+		$this->db->update('skripsi', $data);
+		$this->session->set_flashdata('pesan', 'Edit data Skripsi berhasil');
+		redirect('admin/daftarSkripsi');
+	}
+
+	public function deleteSkripsi($id)
+	{
+		$this->db->delete('skripsi', array('id' => $id));
+		$this->session->set_flashdata('pesan', 'Skripsi berhasil dihapus');
+		redirect('admin/daftarSkripsi');
+	}
+
 	public function updatePenguji($id)
 	{
 		if ($this->input->post('penguji3') != "") {
@@ -531,25 +552,25 @@ class admin extends CI_Controller
 			$this->load->view('template/footer');
 		} else {
 			// if ($this->db->get_where('jadwal_sempro', ['id_skripsi' => $this->input->post('judul')])->row_array() == null) {
-				$data = [
-					'id_skripsi' => $this->input->post('judul'),
-					'tanggal' => $this->input->post('tanggal'),
-					'waktu' => $this->input->post('waktu'),
-					'periode' => $this->input->post('periode'),
-					'penguji_1' => $this->input->post('penguji1'),
-					'penguji_2' => $this->input->post('penguji2'),
-					'penguji_3' => $this->input->post('penguji3'),
-					'ruangan' => $this->input->post('ruangan'),
-				];
-				$id_skripsi = $this->db->get_where('skripsi', ['id' => $this->input->post('judul')])->row_array()['id'];
-				$this->db->insert('jadwal_sempro', $data);
-				echo $id_skripsi;
-				$data = [
-					'status' => '2'
-				];
-				$this->db->where('id', $id_skripsi);
-				$this->db->update('skripsi', $data);
-				$this->session->set_flashdata('pesan', 'Jadwal Sempro baru berhasil ditambahkan');
+			$data = [
+				'id_skripsi' => $this->input->post('judul'),
+				'tanggal' => $this->input->post('tanggal'),
+				'waktu' => $this->input->post('waktu'),
+				'periode' => $this->input->post('periode'),
+				'penguji_1' => $this->input->post('penguji1'),
+				'penguji_2' => $this->input->post('penguji2'),
+				'penguji_3' => $this->input->post('penguji3'),
+				'ruangan' => $this->input->post('ruangan'),
+			];
+			$id_skripsi = $this->db->get_where('skripsi', ['id' => $this->input->post('judul')])->row_array()['id'];
+			$this->db->insert('jadwal_sempro', $data);
+			echo $id_skripsi;
+			$data = [
+				'status' => '2'
+			];
+			$this->db->where('id', $id_skripsi);
+			$this->db->update('skripsi', $data);
+			$this->session->set_flashdata('pesan', 'Jadwal Sempro baru berhasil ditambahkan');
 			// } else {
 			// 	// gagal
 			// 	$this->session->set_flashdata('pesan', 'Gagal menambahkah Jadwal Sempro');
@@ -561,9 +582,15 @@ class admin extends CI_Controller
 	public function EditJadwalSempro($id)
 	{
 		$post = $this->input->post();
-		if ($post['penguji1']==''){$post['penguji1']=NULL;}
-		if ($post['penguji2']==''){$post['penguji2']=NULL;}
-		if ($post['penguji3']==''){$post['penguji3']=NULL;}
+		if ($post['penguji1'] == '') {
+			$post['penguji1'] = NULL;
+		}
+		if ($post['penguji2'] == '') {
+			$post['penguji2'] = NULL;
+		}
+		if ($post['penguji3'] == '') {
+			$post['penguji3'] = NULL;
+		}
 		$data = array(
 			'id_skripsi' => $post['judul'],
 			'tanggal' => $post['tanggal'],
@@ -583,11 +610,11 @@ class admin extends CI_Controller
 
 	public function deleteJadwalSempro($id)
 	{
-		$id_skripsi=$this->db->get_where('jadwal_sempro',['id'=>$id])->row_array()['id_skripsi'];
+		$id_skripsi = $this->db->get_where('jadwal_sempro', ['id' => $id])->row_array()['id_skripsi'];
 		$this->db->delete('jadwal_sempro', array('id' => $id));
 		//
 		$this->db->where('id', $id_skripsi);
-		$this->db->update('skripsi', ['status'=>1]);
+		$this->db->update('skripsi', ['status' => 1]);
 		//
 		$this->session->set_flashdata('pesan', '1 Jadwal Sempro berhasil dihapus');
 		redirect('admin/JadwalSempro');
@@ -652,7 +679,7 @@ class admin extends CI_Controller
 			$this->load->view('admin/JadwalSidang');
 			$this->load->view('template/footer');
 		} else {
-			$skripsi = $this->db->get_where('skripsi',['id'=>$this->input->post('judul')])->row_array();
+			$skripsi = $this->db->get_where('skripsi', ['id' => $this->input->post('judul')])->row_array();
 			$jumlahB = count($this->bimbinganM->getCatatan($skripsi['nim'], '4'));
 			if ($jumlahB == 6) {
 				$data = [
@@ -667,7 +694,7 @@ class admin extends CI_Controller
 				];
 				$this->db->insert('jadwal_sidang', $data);
 				$this->db->where('id', $this->input->post('judul'));
-				$this->db->update('skripsi', ['status'=>5]);
+				$this->db->update('skripsi', ['status' => 5]);
 				$this->session->set_flashdata('pesan', 'Jadwal Sidang baru berhasil ditambahkan');
 			} else {
 				// gagal
@@ -679,7 +706,7 @@ class admin extends CI_Controller
 
 	public function EditJadwalSidang($id)
 	{
-		$data = array(			
+		$data = array(
 			'tanggal' => $this->input->post('tanggal'),
 			'waktu' => $this->input->post('waktu'),
 			'periode' => $this->input->post('periode'),
@@ -691,23 +718,23 @@ class admin extends CI_Controller
 
 		$this->db->where('id', $id);
 		$this->db->update('jadwal_sidang', $data);
-		
+
 		//perubahan status
-        $sidang = $this->db->get_where('jadwal_sidang',['id'=>$id])->row_array();
+		$sidang = $this->db->get_where('jadwal_sidang', ['id' => $id])->row_array();
 		$this->db->where('id', $sidang['id_skripsi']);
-		$this->db->update('skripsi', ['status'=>5]);
-		
+		$this->db->update('skripsi', ['status' => 5]);
+
 		$this->session->set_flashdata('pesan', 'Edit Jadwal Sidang berhasil');
 		redirect('admin/JadwalSidang');
 	}
 
 	public function deleteJadwalSidang($id)
 	{
-		$id_skripsi=$this->db->get_where('jadwal_sidang',['id'=>$id])->row_array()['id_skripsi'];
+		$id_skripsi = $this->db->get_where('jadwal_sidang', ['id' => $id])->row_array()['id_skripsi'];
 		$this->db->delete('jadwal_sidang', array('id' => $id));
 		//
 		$this->db->where('id', $id_skripsi);
-		$this->db->update('skripsi', ['status'=>3]);
+		$this->db->update('skripsi', ['status' => 3]);
 		//
 		$this->session->set_flashdata('pesan', '1 Jadwal Sidang berhasil dihapus');
 		redirect('admin/JadwalSidang');

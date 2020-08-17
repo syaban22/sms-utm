@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 15, 2020 at 06:53 AM
--- Server version: 10.4.6-MariaDB
--- PHP Version: 7.3.9
+-- Generation Time: Jun 03, 2020 at 04:58 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -64,13 +64,13 @@ CREATE TABLE `bimbingan` (
 
 INSERT INTO `bimbingan` (`id`, `id_skripsi`, `pembahasan`, `dosbing`, `tanggal`, `tempat`) VALUES
 (3, 20, 'test', '19740102017021002', '01-05-2020', 'Kantin Asrama'),
-(12, 20, NULL, '196911182001121004', '2020-05-17', 'Labcc'),
-(14, 26, 'Sistematika laporan lebih diperhatikan lagi', '197101092006021012', '2020-06-21', 'CC'),
-(15, 26, 'Pengolahan data lebih diefisienkan', '197101092006021012', '2020-06-20', 'CC'),
-(16, 26, 'Perbaiki susunan tabel', '197101092006021012', '2020-06-20', 'CC'),
-(17, 26, 'Ukuran gambar penyerta lebih dirapikan lagi', '197101092006021012', '2020-06-20', 'CC'),
-(18, 26, 'Lanjutkan progres terakhir', '197101092006021012', '2020-06-20', 'CC'),
-(19, 26, 'Bimbingan terakhir selesai', '197101092006021012', '2020-06-20', 'CC');
+(6, 33, 'perbaikan cara ngedab', '197101092006021012', '30042020', 'Labcc'),
+(7, 33, 'cari referensi cara ngedab yang etis', '196911182001121004', '2020-05-12', 'Labcc'),
+(8, 33, 'tambahkan trick ngedab', '196911182001121004', '2020-05-12', 'Labcc'),
+(9, 33, 'memperkuat pemahaman aturan ngedab', '196911182001121004', '2020-05-13', 'Labcc'),
+(10, 33, 'menentukan output yang benar', '197101092006021012', '2020-05-15', 'Labcc'),
+(11, 33, 'meninjau ulang style ngedab terkini', '197101092006021012', '2020-05-16', 'Labcc'),
+(12, 20, NULL, '196911182001121004', '2020-05-17', 'Labcc');
 
 -- --------------------------------------------------------
 
@@ -149,8 +149,7 @@ CREATE TABLE `jadwal_sempro` (
 
 INSERT INTO `jadwal_sempro` (`id`, `id_skripsi`, `tanggal`, `waktu`, `periode`, `penguji_1`, `penguji_2`, `penguji_3`, `ruangan`) VALUES
 (14, 34, '2020-05-18', 'pending', 'pending', '197902222005012003', '197101092006021012', '19740102017021002', 'pending'),
-(15, 22, 'pending2', 'pending', 'pending', NULL, NULL, NULL, 'pending'),
-(18, 26, '2020-08-22', '09:00-09:30', '2019-2020', '196911182001121004', '197101092006021012', '19740102017021002', 'Audit');
+(15, 22, 'pending2', 'pending', 'pending', NULL, NULL, NULL, 'pending');
 
 -- --------------------------------------------------------
 
@@ -175,7 +174,7 @@ CREATE TABLE `jadwal_sidang` (
 --
 
 INSERT INTO `jadwal_sidang` (`id`, `id_skripsi`, `tanggal`, `waktu`, `periode`, `penguji_1`, `penguji_2`, `penguji_3`, `ruangan`) VALUES
-(6, 26, '2021-04-03', '10:00-10-30', '2020/2021', '198101092006041003', '196911182001121004', '197803092003122009', 'Audit');
+(5, 33, '2020-05-18', 'pending', 'pending', '196911182001121004', '197101092006021012', '19740102017021002', 'pending');
 
 -- --------------------------------------------------------
 
@@ -279,9 +278,9 @@ INSERT INTO `skripsi` (`id`, `judul`, `abstract`, `nim`, `dosbing_1`, `dosbing_2
 (20, 'tes1', 'tes1', '170411100007', '19740102017021002', '196911182001121004', '4111', NULL, 3, ''),
 (21, 'tes2', 'tes2', '170411100015', '197101092006021012', '197901092006021011', '4111', 0, 0, NULL),
 (22, 'tes3', 'tes3', '170411100015', '197101092006021012', '197901092006021011', '4111', NULL, 2, ''),
-(26, 'Skripsi sudah diubah', 'Pada mulanya, skripsi ini dibuat hanya untuk bercandaan saja. Namun semua berubah setelah negara api menyerang hingga meresap ke tulang', '170411100119', '197101092006021012', '197402212008011006', '4111', 2, 5, ''),
-(34, 'Sampai Sempro', 'none', '170411100042', NULL, NULL, '4111', NULL, NULL, NULL),
-(37, 'Skripsi percobaan', 'Ini skripsi percobaan yaa jangan dianggap serius', '170411100099', '197101092006021012', '197402212008011006', '4111', NULL, 1, '02e66f0a3262c27d7d888bf03cb68b33.doc');
+(26, 'Deteksi buah dengan metode Haar Cascade', 'Pada mulanya, skripsi ini dibuat hanya untuk bercandaan saja. Namun semua berubah setelah negara api menyerang hingga meresap ke tulang', '170411100119', '197101092006021012', '197402212008011006', '4111', NULL, 1, ''),
+(33, 'ngedab sampai jidat pecah-pecar dan otak sariawan', 'none', '170411100099', '196911182001121004', '197101092006021012', '4111', NULL, 6, '524861885b502e3956186af886c1c83c.pdf'),
+(34, 'Sampai Sempro', 'none', '170411100042', '197902222005012003', '197803092003122009', '4111', NULL, 2, '544b28f0a232282e5e62c49cfd75a76b.pdf');
 
 -- --------------------------------------------------------
 
@@ -460,6 +459,7 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active
 (23, 10, 'Daftar Mahasiswa', 'admin/daftarMahasiswa', 'fa fa-user fa-fw', 1),
 (24, 1, 'Daftar Mahasiswa', 'administrator/daftarMahasiswa', 'fa fa-user fa-fw', 1),
 (25, 10, 'Daftar Skripsi', 'admin/daftarSkripsi', 'fa fa-fw fa-home', 1),
+(26, 1, 'Daftar Jenis Kelamin', 'administrator/getJenKel', 'fas fa-fw fa-user', 1),
 (27, 1, 'Daftar Status', 'administrator/getStatus', 'fas fa-fw fa-clipboard-list', 1),
 (28, 10, 'Jadwal Sempro', 'admin/JadwalSempro', 'fa fa-fw fa-home', 1),
 (29, 10, 'Jadwal Sidang', 'admin/JadwalSidang', 'fa fa-user fa-fw', 1),
@@ -610,19 +610,19 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `bimbingan`
 --
 ALTER TABLE `bimbingan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `jadwal_sempro`
 --
 ALTER TABLE `jadwal_sempro`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `jadwal_sidang`
 --
 ALTER TABLE `jadwal_sidang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `jenkel`
@@ -634,7 +634,7 @@ ALTER TABLE `jenkel`
 -- AUTO_INCREMENT for table `skripsi`
 --
 ALTER TABLE `skripsi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `status`
@@ -736,7 +736,7 @@ ALTER TABLE `skripsi`
   ADD CONSTRAINT `skripsi_ibfk_2` FOREIGN KEY (`dosbing_2`) REFERENCES `dosen` (`nip`) ON UPDATE CASCADE,
   ADD CONSTRAINT `skripsi_ibfk_6` FOREIGN KEY (`prodi`) REFERENCES `prodi` (`kode_prodi`) ON UPDATE CASCADE,
   ADD CONSTRAINT `skripsi_ibfk_7` FOREIGN KEY (`nim`) REFERENCES `mahasiswa` (`nim`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `skripsi_ibfk_8` FOREIGN KEY (`status`) REFERENCES `status` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `skripsi_ibfk_8` FOREIGN KEY (`status`) REFERENCES `status` (`id`);
 
 --
 -- Constraints for table `user`

@@ -89,7 +89,7 @@
 							<?php endif; ?>
 							<td>
 								<a href="" data-toggle="modal" data-target="#pelamarEdit<?= $u['id'] ?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i>Edit</a>
-								<a href="<?= base_url() . 'administrator/deleteDosen/' . $u['id'] ?>" data-nama="<?= $u['nama']; ?>" class="btn btn-danger btn-sm deleteP"><i class="fa fa-fw fa-trash"></i>Delete</a>
+								<a href="<?= base_url() . 'admin/deleteSkripsi/' . $u['id'] ?>" data-nama="<?= $u['nama']; ?>" class="btn btn-danger btn-sm deleteSkrp"><i class="fa fa-fw fa-trash"></i>Delete</a>
 							</td>
 						</tr>
 					<?php endforeach; ?>
@@ -116,26 +116,29 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="pelamarEditLabel">Edit Data Pelamar</h5>
+					<h5 class="modal-title" id="pelamarEditLabel">Edit Data Skripsi</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form action="<?= base_url('admin/daftarSkripsi/' . $u['nim']); ?>" method="POST">
+				<form action="<?= base_url('admin/updateSkripsi/' . $u['nim']); ?>" method="POST" class="needs-validation" novalidate>
 					<div class="modal-body">
 						<div class="form-group">
 							<label for="nip">Judul Skripsi</label>
-							<input type="text" class="form-control" id="judul" name="judul" value="<?= $u['judul']; ?>">
-							<?= form_error('nip', '<div class="alert-danger" role="alert">', '</div>'); ?>
+							<input type="text" class="form-control" id="judul" name="judul" value="<?= $u['judul']; ?>" required>
+							<?= form_error('judul', '<div class="alert-danger" role="alert">', '</div>'); ?>
+							<div class="invalid-feedback">
+								Masukan Nama Skripsi
+							</div>
 						</div>
 						<div class="form-group">
 							<label for="nip">NIM</label>
-							<input type="text" class="form-control" id="nim" name="nim" value="<?= $u['nim']; ?>">
+							<input type="text" class="form-control" id="nim" name="nim" value="<?= $u['nim']; ?>" disabled>
 							<?= form_error('nip', '<div class="alert-danger" role="alert">', '</div>'); ?>
 						</div>
 						<div class="form-group">
 							<label for="nama">Nama</label>
-							<input type="text" class="form-control" id="nama" name="nama" value="<?= $u['nama']; ?>">
+							<input type="text" class="form-control" id="nama" name="nama" value="<?= $u['nama']; ?>" disabled>
 							<?= form_error('nama', '<div class="alert-danger" role="alert">', '</div>'); ?>
 						</div>
 					</div>

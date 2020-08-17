@@ -3,7 +3,7 @@
     <div class="flash-data" data-flashdata="<?= $this->session->flashdata('pesan'); ?>"></div>
     <?= $this->session->flashdata('mt'); ?>
     <!-- Page Heading -->
-
+    <h1 style="text-align: center;" class="h3 mb-4 text-gray-800"><?= "Timeline Skripi" ?></h1>
     <ul class="timeline" id="timeline">
         <?php if ($statusSkripsi['status'] >= 1) : ?>
             <li class="li complete">
@@ -12,7 +12,13 @@
             <?php endif; ?>
             <div class="timestamp">
                 <!-- <span class="author">Abhi Sharma</span> -->
-                <span class="date">11/15/2014<span>
+                <?php if ($statusSkripsi['status'] == 1) : ?>
+                    <span class="date">Proses<span>
+                        <?php elseif ($statusSkripsi['status'] > 1) : ?>
+                            <span class="date">Selesai<span>
+                                <?php else : ?>
+                                    <span class="date">Belum<span>
+                                        <?php endif; ?>
             </div>
             <div class="status">
                 <h4> Mendaftarkan Skripsi </h4>
@@ -25,7 +31,13 @@
                 <?php endif; ?>
                 <div class="timestamp">
                     <!-- <span class="author">PAM Admin</span> -->
-                    <span class="date">11/15/2014<span>
+                    <?php if ($statusSkripsi['status'] == 2) : ?>
+                        <span class="date">Proses<span>
+                            <?php elseif ($statusSkripsi['status'] > 2) : ?>
+                                <span class="date">Selesai<span>
+                                    <?php else : ?>
+                                        <span class="date">Belum<span>
+                                            <?php endif; ?>
                 </div>
                 <div class="status">
                     <h4> Seminar Proposal </h4>
@@ -38,7 +50,13 @@
                     <?php endif; ?>
                     <div class="timestamp">
                         <!-- <span class="author">Aaron Rodgers</span> -->
-                        <span class="date">11/15/2014<span>
+                        <?php if ($statusSkripsi['status'] == 3) : ?>
+                            <span class="date">Proses<span>
+                                <?php elseif ($statusSkripsi['status'] > 3) : ?>
+                                    <span class="date">Selesai<span>
+                                        <?php else : ?>
+                                            <span class="date">Belum<span>
+                                                <?php endif; ?>
                     </div>
                     <div class="status">
                         <h4> Bimbingan Skripsi </h4>
@@ -51,20 +69,31 @@
                         <?php endif; ?>
                         <div class="timestamp">
                             <!-- <span class="author">PAM Admin</span> -->
-                            <span class="date">TBD<span>
+                            <?php if ($statusSkripsi['status'] == 5) : ?>
+                                <span class="date">Proses<span>
+                                    <?php elseif ($statusSkripsi['status'] >= 5) : ?>
+                                        <span class="date">Selesai<span>
+                                            <?php else : ?>
+                                                <span class="date">Belum<span>
+                                                    <?php endif; ?>
                         </div>
                         <div class="status">
                             <h4> Sidang Skripsi </h4>
                         </div>
                         </li>
-                        <?php if ($statusSkripsi['status'] >= 6) : ?>
+                        <?php if ($statusSkripsi['status'] == 6) : ?>
                             <li class="li complete">
                             <?php else : ?>
                             <li class="li">
                             <?php endif; ?>
                             <div class="timestamp">
                                 <!-- <span class="author">PAM Admin</span> -->
-                                <span class="date">TBD<span>
+                                <?php if ($statusSkripsi['status'] == 6) : ?>
+                                    <span class="date">Selesai<span>
+
+                                        <?php else : ?>
+                                            <span class="date">Belum<span>
+                                                <?php endif; ?>
                             </div>
                             <div class="status">
                                 <h4> Skripsi Lulus </h4>

@@ -46,7 +46,7 @@
                                 <hr>
                                 <div class="text-center">
                                     <!-- <a href="<?= base_url('Publik/index'); ?>" class="small">Masuk Sebagai Tamu</a><br> -->
-                                    <a class="small" href="<?= base_url('auth/registration'); ?>">Buat Akun Baru</a>
+                                    <!-- <a class="small" href="<?= base_url('auth/registration'); ?>">Buat Akun Baru</a> -->
                                 </div>
                             </div>
                         </div>

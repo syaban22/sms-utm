@@ -1319,3 +1319,47 @@ if (flashdata == 'Edit Catatan Berhasil') {
 		timer: 2000
 	})
 }
+
+//berhasil mengubah data skripsi (admin prodi)
+if (flashdata == 'Edit data Skripsi berhasil') {
+	Swal.fire({
+		position: 'center',
+		icon: 'success',
+		title: flashdata,
+		showConfirmButton: false,
+		timer: 2000
+	})
+}
+
+//berhasil menghapus skripsi (admin prodi)
+if (flashdata == 'Skripsi berhasil dihapus') {
+	Swal.fire({
+		position: 'center',
+		icon: 'success',
+		title: flashdata,
+		showConfirmButton: false,
+		timer: 2000
+	})
+}
+
+//konfirmasi menghapus skripsi
+$('.deleteSkrp').on('click', function (e) {
+	e.preventDefault();
+	const nama = $(this).data('nama');
+	const href = $(this).attr('href');
+	Swal.fire({
+		title: 'Hapus Skripsi',
+		html: "Apakah anda yakin untuk menghapus Skripsi  " + '<b>' + nama + '</b>' + " ?",
+		icon: 'warning',
+		showCancelButton: true,
+		focusConfirm: false,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Ya',
+		cancelmButtonText: 'Tidak'
+	}).then((result) => {
+		if (result.value) {
+			document.location.href = href;
+		}
+	})
+});

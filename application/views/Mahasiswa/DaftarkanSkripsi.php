@@ -67,7 +67,7 @@
 					</span>
 					<!-- end of patokan -->
 					<div class="form-row">
-						<div class="name">Upload Berkas Seminar Proposal</div>
+						<div class="name">Upload Berkas Persyaratan Skripsi</div>
 						<div class="value">
 							<div class="input-group js-input-file">
 								<input class="input-file" type="file" name="file" id="file">

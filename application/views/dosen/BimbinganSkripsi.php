@@ -78,11 +78,11 @@
                             <td><?= $u['tempat']; ?></td>
                             <td><?= $u['pembahasan']; ?></td>
                             <?php if ($u['pembahasan'] == null) : ?>
-                                <td><a href="" data-toggle="modal" data-target="#EditCatatan<?=$u['id'];?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i> Tambahkan Catatan</a>
-                            <?php elseif ($u['pembahasan'] != null) : ?>
-                                <td><a href="" data-toggle="modal" data-target="#EditCatatan<?=$u['id'];?>" class="btn btn-info btn-sm"><i class="fa fa-fw fa-edit"></i> Ubah Catatan</a>
-                            <?php endif; ?>
-                            <a href="<?= base_url() . 'dosen/deletecatatan/' . $u['id'] ?>" data-nama="<?= $u['judul']; ?>" class="btn btn-danger btn-sm deletebimbingan"><i class="fa fa-fw fa-trash"></i>Hapus</a></td>
+                                <td><a href="" data-toggle="modal" data-target="#EditCatatan<?= $u['id']; ?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-edit"></i> Tambahkan Catatan</a>
+                                <?php elseif ($u['pembahasan'] != null) : ?>
+                                <td><a href="" data-toggle="modal" data-target="#EditCatatan<?= $u['id']; ?>" class="btn btn-info btn-sm"><i class="fa fa-fw fa-edit"></i> Ubah Catatan</a>
+                                <?php endif; ?>
+                                <a href="<?= base_url() . 'dosen/deletecatatan/' . $u['id'] ?>" data-nama="<?= $u['judul']; ?>" class="btn btn-danger btn-sm deletebimbingan"><i class="fa fa-fw fa-trash"></i>Hapus</a></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -100,7 +100,7 @@
 <?php foreach ($bimbingan as $u) : ?>
 
     <!-- Modal Edit -->
-    <div class="modal fade" id="EditCatatan<?=$u['id'];?>" tabindex="-1" role="dialog" aria-labelledby="EditCatatanLabel" aria-hidden="true">
+    <div class="modal fade" id="EditCatatan<?= $u['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="EditCatatanLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -115,6 +115,9 @@
                             <label for="catatan">Catatan Bimbingan Skripsi</label>
                             <input type="text" class="form-control" id="catatan" name="catatan" value="<?= $u['pembahasan']; ?>" required>
                             <?= form_error('catatan', '<div class="alert-danger" role="alert">', '</div>'); ?>
+                            <div class="invalid-feedback">
+                                Catatan tidak boleh kosong
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
