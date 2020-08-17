@@ -3,9 +3,15 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
+<<<<<<< HEAD
 -- Generation Time: Jul 15, 2020 at 06:53 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
+=======
+-- Generation Time: Aug 17, 2020 at 08:30 AM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.2
+>>>>>>> eff4328082eb8a7acf4779435eb8d2d106f9fe83
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -64,6 +70,7 @@ CREATE TABLE `bimbingan` (
 
 INSERT INTO `bimbingan` (`id`, `id_skripsi`, `pembahasan`, `dosbing`, `tanggal`, `tempat`) VALUES
 (3, 20, 'test', '19740102017021002', '01-05-2020', 'Kantin Asrama'),
+<<<<<<< HEAD
 (12, 20, NULL, '196911182001121004', '2020-05-17', 'Labcc'),
 (14, 26, 'Sistematika laporan lebih diperhatikan lagi', '197101092006021012', '2020-06-21', 'CC'),
 (15, 26, 'Pengolahan data lebih diefisienkan', '197101092006021012', '2020-06-20', 'CC'),
@@ -71,6 +78,22 @@ INSERT INTO `bimbingan` (`id`, `id_skripsi`, `pembahasan`, `dosbing`, `tanggal`,
 (17, 26, 'Ukuran gambar penyerta lebih dirapikan lagi', '197101092006021012', '2020-06-20', 'CC'),
 (18, 26, 'Lanjutkan progres terakhir', '197101092006021012', '2020-06-20', 'CC'),
 (19, 26, 'Bimbingan terakhir selesai', '197101092006021012', '2020-06-20', 'CC');
+=======
+(6, 33, 'perbaikan cara ngedab', '197101092006021012', '30042020', 'Labcc'),
+(7, 33, 'cari referensi cara ngedab yang etis', '196911182001121004', '2020-05-12', 'Labcc'),
+(8, 33, 'tambahkan trick ngedab', '196911182001121004', '2020-05-12', 'Labcc'),
+(9, 33, 'memperkuat pemahaman aturan ngedab', '196911182001121004', '2020-05-13', 'Labcc'),
+(10, 33, 'menentukan output yang benar', '197101092006021012', '2020-05-15', 'Labcc'),
+(11, 33, 'meninjau ulang style ngedab terkini', '197101092006021012', '2020-05-16', 'Labcc'),
+(12, 20, NULL, '196911182001121004', '2020-05-17', 'Labcc'),
+(13, 35, 'test1', '197101092006021012', '12/06/2020', 'LAB CC'),
+(14, 35, 'test2', '197101092006021012', '12/06/2020', 'LAB CC'),
+(15, 35, 'test3', '197101092006021012', '12/06/2020', 'LAB CC'),
+(16, 35, 'test4', '197101092006021012', '12/06/2020', 'LAB CC'),
+(17, 35, 'test5', '197101092006021012', '12/06/2020', 'LAB CC'),
+(18, 35, 'test6', '197101092006021012', '12/06/2020', 'LAB CC'),
+(19, 36, 'Pembahasan Judul Skripsi', '197101092006021012', '2020-06-17', 'Labcc');
+>>>>>>> eff4328082eb8a7acf4779435eb8d2d106f9fe83
 
 -- --------------------------------------------------------
 
@@ -81,6 +104,9 @@ INSERT INTO `bimbingan` (`id`, `id_skripsi`, `pembahasan`, `dosbing`, `tanggal`,
 CREATE TABLE `dosen` (
   `nip` varchar(18) NOT NULL,
   `nama` varchar(50) NOT NULL,
+  `Jenis_Kelamin` int(1) DEFAULT NULL,
+  `Alamat` varchar(256) DEFAULT NULL,
+  `No_HP` varchar(12) DEFAULT NULL,
   `gambar` varchar(256) NOT NULL,
   `username` int(11) DEFAULT NULL,
   `prodi` varchar(4) NOT NULL,
@@ -92,15 +118,15 @@ CREATE TABLE `dosen` (
 -- Dumping data for table `dosen`
 --
 
-INSERT INTO `dosen` (`nip`, `nama`, `gambar`, `username`, `prodi`, `email`, `tgl_buat`) VALUES
-('196911182001121004', 'Dr. Arif Muntasa, S.SI., M.T.', 'default.jpg', 45, '4111', '', ''),
-('197101092006021012', 'Muhammad Kautsar Sophan, S.T., M.T.', 'default.jpg', 10, '4111', '', ''),
-('19740102017021002', 'Ir. Soekarno, Alm.', 'default.jpg', 22, '1112', '', ''),
-('197402212008011006', 'Dwi Kuswanto, S.Pd., M.T.', 'default.jpg', 38, '4111', '', '1587307634'),
-('197803092003122009', 'Arik Kurniawati, S.Kom., M.T.', 'default.jpg', 36, '4111', '', '1587294193'),
-('197901092006021011', 'Sigit Susanto Putro, S.Kom., M.Kom', 'default.jpg', 23, '4111', 'Sigit.Susanto.P@trunojoyo.ac.id', ''),
-('197902222005012003', 'Ari Kusumaningsih, S.T., M.T.', 'default.jpg', 35, '4111', '', ''),
-('198101092006041003', 'Achmad Jauhari, S.T., M.Kom.', 'default.jpg', 14, '4111', '', '');
+INSERT INTO `dosen` (`nip`, `nama`, `Jenis_Kelamin`, `Alamat`, `No_HP`, `gambar`, `username`, `prodi`, `email`, `tgl_buat`) VALUES
+('196911182001121004', 'Dr. Arif Muntasa, S.SI., M.T.', NULL, NULL, NULL, 'default.jpg', 45, '4111', '', ''),
+('197101092006021012', 'Muhammad Kautsar Sophan, S.T., M.T.', NULL, NULL, NULL, 'default.jpg', 10, '4111', '', ''),
+('19740102017021002', 'Ir. Soekarno, Alm.', NULL, NULL, NULL, 'default.jpg', 22, '1112', '', ''),
+('197402212008011006', 'Dwi Kuswanto, S.Pd., M.T.', NULL, NULL, NULL, 'default.jpg', 38, '4111', '', '1587307634'),
+('197803092003122009', 'Arik Kurniawati, S.Kom., M.T.', NULL, NULL, NULL, 'default.jpg', 36, '4111', '', '1587294193'),
+('197901092006021011', 'Sigit Susanto Putro, S.Kom., M.Kom', NULL, NULL, NULL, 'default.jpg', 23, '4111', 'Sigit.Susanto.P@trunojoyo.ac.id', ''),
+('197902222005012003', 'Ari Kusumaningsih, S.T., M.T.', NULL, NULL, NULL, 'default.jpg', 35, '4111', '', ''),
+('198101092006041003', 'Achmad Jauhari, S.T., M.Kom.', NULL, NULL, NULL, 'default.jpg', 14, '4111', '', '');
 
 -- --------------------------------------------------------
 
@@ -150,7 +176,12 @@ CREATE TABLE `jadwal_sempro` (
 INSERT INTO `jadwal_sempro` (`id`, `id_skripsi`, `tanggal`, `waktu`, `periode`, `penguji_1`, `penguji_2`, `penguji_3`, `ruangan`) VALUES
 (14, 34, '2020-05-18', 'pending', 'pending', '197902222005012003', '197101092006021012', '19740102017021002', 'pending'),
 (15, 22, 'pending2', 'pending', 'pending', NULL, NULL, NULL, 'pending'),
+<<<<<<< HEAD
 (18, 26, '2020-08-22', '09:00-09:30', '2019-2020', '196911182001121004', '197101092006021012', '19740102017021002', 'Audit');
+=======
+(16, 35, '2020-06-13', '08:30-09:00', '2019/2020', '196911182001121004', '197101092006021012', '198101092006041003', 'Lab CC'),
+(17, 36, '2020-06-18', '08:30-09:00', '2019/2020', '196911182001121004', '197402212008011006', '197803092003122009', 'Lab CC');
+>>>>>>> eff4328082eb8a7acf4779435eb8d2d106f9fe83
 
 -- --------------------------------------------------------
 
@@ -175,7 +206,12 @@ CREATE TABLE `jadwal_sidang` (
 --
 
 INSERT INTO `jadwal_sidang` (`id`, `id_skripsi`, `tanggal`, `waktu`, `periode`, `penguji_1`, `penguji_2`, `penguji_3`, `ruangan`) VALUES
+<<<<<<< HEAD
 (6, 26, '2021-04-03', '10:00-10-30', '2020/2021', '198101092006041003', '196911182001121004', '197803092003122009', 'Audit');
+=======
+(6, 35, '2020-06-13', '08:30-09:00', '2019/2020', '196911182001121004', '197101092006021012', '19740102017021002', 'Lab CC'),
+(8, 33, '2020-06-13', '08:30-09:00', '2019/2020', '196911182001121004', '197101092006021012', '19740102017021002', 'Lab CC');
+>>>>>>> eff4328082eb8a7acf4779435eb8d2d106f9fe83
 
 -- --------------------------------------------------------
 
@@ -209,21 +245,27 @@ CREATE TABLE `mahasiswa` (
   `prodi` varchar(4) NOT NULL,
   `email` varchar(256) NOT NULL,
   `tgl_buat` varchar(256) NOT NULL,
-  `username` int(11) NOT NULL
+  `username` int(11) NOT NULL,
+  `Jenis_Kelamin` int(1) DEFAULT NULL,
+  `Alamat` varchar(256) DEFAULT NULL,
+  `No_HP` varchar(12) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `mahasiswa`
 --
 
-INSERT INTO `mahasiswa` (`nim`, `nama`, `gambar`, `prodi`, `email`, `tgl_buat`, `username`) VALUES
-('1701111', 'anak ilmu perikanan', 'default.jpg', '1111', '', '1587363651', 46),
-('170411100007', 'Anas Tri Krisna', 'default.jpg', '4111', '', '', 31),
-('170411100015', 'Abd. Ghofar Suwarno', 'default.jpg', '4111', '', '', 33),
-('170411100024', 'Moh. Irsad', 'default.jpg', '4111', '', '', 32),
-('170411100042', 'Ria Rostiani', 'default.jpg', '4111', '', '', 34),
-('170411100099', 'Ahmad Khairi Ramadan', 'default.jpg', '4111', '', '', 30),
-('170411100119', 'Sya\'ban', 'sbn_sma.jpg', '4111', '', '0000-00-00', 8);
+INSERT INTO `mahasiswa` (`nim`, `nama`, `gambar`, `prodi`, `email`, `tgl_buat`, `username`, `Jenis_Kelamin`, `Alamat`, `No_HP`) VALUES
+('1701111', 'anak ilmu perikanan', 'default.jpg', '1111', '', '1587363651', 46, NULL, NULL, NULL),
+('170411100001', 'Ach. Misbahuddin', 'default.jpg', '4111', 'misbah12345a@gmail.com', '1591944770', 47, NULL, NULL, NULL),
+('170411100002', 'mahasiswa baru', 'sbn_sma.jpg', '4111', 'none', '1592363372', 48, NULL, NULL, NULL),
+('170411100003', 'test mockup', 'default.jpg', '4111', '', '1592894799', 49, NULL, NULL, NULL),
+('170411100007', 'Anas Tri Krisna', 'default.jpg', '4111', '', '', 31, NULL, NULL, NULL),
+('170411100015', 'Abd. Ghofar Suwarno', 'default.jpg', '4111', '', '', 33, NULL, NULL, NULL),
+('170411100024', 'Moh. Irsad', 'default.jpg', '4111', '', '', 32, NULL, NULL, NULL),
+('170411100042', 'Ria Rostiani', 'default.jpg', '4111', '', '', 34, NULL, NULL, NULL),
+('170411100099', 'Ahmad Khairi Ramadan', 'default.jpg', '4111', '', '', 30, NULL, NULL, NULL),
+('170411100119', 'Sya\'ban', 'sbn_sma.jpg', '4111', '', '0000-00-00', 8, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -279,9 +321,17 @@ INSERT INTO `skripsi` (`id`, `judul`, `abstract`, `nim`, `dosbing_1`, `dosbing_2
 (20, 'tes1', 'tes1', '170411100007', '19740102017021002', '196911182001121004', '4111', NULL, 3, ''),
 (21, 'tes2', 'tes2', '170411100015', '197101092006021012', '197901092006021011', '4111', 0, 0, NULL),
 (22, 'tes3', 'tes3', '170411100015', '197101092006021012', '197901092006021011', '4111', NULL, 2, ''),
+<<<<<<< HEAD
 (26, 'Skripsi sudah diubah', 'Pada mulanya, skripsi ini dibuat hanya untuk bercandaan saja. Namun semua berubah setelah negara api menyerang hingga meresap ke tulang', '170411100119', '197101092006021012', '197402212008011006', '4111', 2, 5, ''),
 (34, 'Sampai Sempro', 'none', '170411100042', NULL, NULL, '4111', NULL, NULL, NULL),
 (37, 'Skripsi percobaan', 'Ini skripsi percobaan yaa jangan dianggap serius', '170411100099', '197101092006021012', '197402212008011006', '4111', NULL, 1, '02e66f0a3262c27d7d888bf03cb68b33.doc');
+=======
+(26, 'Deteksi buah dengan metode Haar Cascade', 'Pada mulanya, skripsi ini dibuat hanya untuk bercandaan saja. Namun semua berubah setelah negara api menyerang hingga meresap ke tulang', '170411100119', '197101092006021012', '197402212008011006', '4111', NULL, 1, ''),
+(33, 'ngedab sampai jidat pecah-pecar dan otak sariawan', 'none', '170411100099', '196911182001121004', '197101092006021012', '4111', NULL, 5, '524861885b502e3956186af886c1c83c.pdf'),
+(34, 'Sampai Sempro', 'none', '170411100042', '197902222005012003', '197803092003122009', '4111', NULL, 2, '544b28f0a232282e5e62c49cfd75a76b.pdf'),
+(35, 'skripsi testing hingga akhir', 'none', '170411100001', '19740102017021002', '197101092006021012', '4111', 99, 6, 'a5bf8cb5d95196d77cfae5e866c8bda5.pdf'),
+(36, 'Judul Skripsi Saya', 'Abstract Skripsi', '170411100002', '197101092006021012', '19740102017021002', '4111', NULL, 3, '871181c2fe5b52df0b5a67213818a9d0.pdf');
+>>>>>>> eff4328082eb8a7acf4779435eb8d2d106f9fe83
 
 -- --------------------------------------------------------
 
@@ -351,7 +401,10 @@ INSERT INTO `user` (`id`, `username`, `password`, `level_id`) VALUES
 (42, '11', '$2y$10$S7bMkHyUqWH/DY0H1yuAEeR5yvtOcnJXBQ21QOOCLTXnJjFSwCs5u', 4),
 (44, '130111100', '$2y$10$nuBalhaCx3fSfqw0M5Iosewk3iXeS2ToZ.VHKpmvRhfsK1EW7mQCW', 4),
 (45, '196911182001121004', '$2y$10$BK7taTawIVwfBsYlHo9Vj.sGjMNumWlT/Xv4bk1RCHY6EF6awxAVe', 3),
-(46, '1701111', '$2y$10$wITa5vyDX8VApEdorS7YpecNW/R4MqaSk7FT2CNDzB8OHaDF.pV8u', 4);
+(46, '1701111', '$2y$10$wITa5vyDX8VApEdorS7YpecNW/R4MqaSk7FT2CNDzB8OHaDF.pV8u', 4),
+(47, '170411100001', '$2y$10$uidoq637L1GmCEvbOzSKwuw3bMfuJshQHU.fXApWezFrQLBJZmgkS', 4),
+(48, '170411100002', '$2y$10$TTmsUDlVLqR8NvqnAWCC4.FHU89h4AFW57gG00HtrE4iaAfj.Hp8K', 4),
+(49, '170411100003', '$2y$10$ZxGxYaRiCxQJGSyWbK5kQOmbIl8PvbNDV2TNQ/2aQpLtoA9IZYIdO', 4);
 
 -- --------------------------------------------------------
 
@@ -496,7 +549,8 @@ ALTER TABLE `bimbingan`
 ALTER TABLE `dosen`
   ADD PRIMARY KEY (`nip`),
   ADD KEY `prodi` (`prodi`),
-  ADD KEY `username` (`username`);
+  ADD KEY `username` (`username`),
+  ADD KEY `jk` (`Jenis_Kelamin`);
 
 --
 -- Indexes for table `fakultas`
@@ -616,13 +670,21 @@ ALTER TABLE `bimbingan`
 -- AUTO_INCREMENT for table `jadwal_sempro`
 --
 ALTER TABLE `jadwal_sempro`
+<<<<<<< HEAD
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+=======
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+>>>>>>> eff4328082eb8a7acf4779435eb8d2d106f9fe83
 
 --
 -- AUTO_INCREMENT for table `jadwal_sidang`
 --
 ALTER TABLE `jadwal_sidang`
+<<<<<<< HEAD
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+=======
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+>>>>>>> eff4328082eb8a7acf4779435eb8d2d106f9fe83
 
 --
 -- AUTO_INCREMENT for table `jenkel`
@@ -646,7 +708,7 @@ ALTER TABLE `status`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `user_access_menu`
@@ -695,7 +757,8 @@ ALTER TABLE `bimbingan`
 --
 ALTER TABLE `dosen`
   ADD CONSTRAINT `dosen_ibfk_1` FOREIGN KEY (`prodi`) REFERENCES `prodi` (`kode_prodi`),
-  ADD CONSTRAINT `dosen_ibfk_2` FOREIGN KEY (`username`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `dosen_ibfk_2` FOREIGN KEY (`username`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `jk` FOREIGN KEY (`Jenis_Kelamin`) REFERENCES `jenkel` (`id`);
 
 --
 -- Constraints for table `jadwal_sempro`
