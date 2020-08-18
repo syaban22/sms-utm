@@ -3,8 +3,8 @@
     <div class="flash-data" data-flashdata="<?= $this->session->flashdata('pesan'); ?>"></div>
     <?= $this->session->flashdata('mt'); ?>
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800"><?= $judul; ?></h1>
-
+    <h1 style="text-align: center;" class="h3 mb-4 text-gray-800"><?= $judul; ?></h1>
+    <hr>
     <!-- <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
             <div class="col-md-4">
@@ -34,60 +34,74 @@
                                 <h2>Profil</h2>
                                 <div class="row">
                                     <div class="col-lg-1">
-                                        <ul><li></li></ul>
+                                        <ul>
+                                            <li></li>
+                                        </ul>
                                     </div>
                                     <div class="col-lg-4">
                                         <span>Tanggal Lahir</span>
                                     </div>
                                     <div class="col-lg-7">
                                         <span><?= $profil['tanggal_lahir']; ?></span>
-                                    </div>	
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-1">
-                                        <ul><li></li></ul>
+                                        <ul>
+                                            <li></li>
+                                        </ul>
                                     </div>
                                     <div class="col-lg-4">
                                         <span>Jenis Kelamin</span>
                                     </div>
                                     <div class="col-lg-7">
                                         <span><?= $profil['Jenis_Kelamin']; ?></span>
-                                    </div>	
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-1">
-                                        <ul><li></li></ul>
+                                        <ul>
+                                            <li></li>
+                                        </ul>
                                     </div>
                                     <div class="col-lg-4">
                                         <span>Alamat</span>
                                     </div>
                                     <div class="col-lg-7">
                                         <span><?= $profil['Alamat']; ?></span>
-                                    </div>	
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-1">
-                                        <ul><li></li></ul>
+                                        <ul>
+                                            <li></li>
+                                        </ul>
                                     </div>
                                     <div class="col-lg-4">
                                         <span>Email</span>
                                     </div>
                                     <div class="col-lg-7">
                                         <span><?= $profil['email']; ?></span>
-                                    </div>	
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-1">
-                                        <ul><li></li></ul>
+                                        <ul>
+                                            <li></li>
+                                        </ul>
                                     </div>
                                     <div class="col-lg-4">
                                         <span>No.Hp</span>
                                     </div>
                                     <div class="col-lg-7">
                                         <span><?= $profil['No_HP']; ?></span>
-                                    </div>	
+                                    </div>
                                 </div>
-                                <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#FotoBaru"><i class="fa fa-fw fa-user"></i> Ubah Profil</a>
+                                <div class="row">
+                                    <div class="col-lg">
+                                        <span><a href="" data-target="#FotoBaru"> >Klik untuk ubah profil</a></span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-lg-6 text-md-center">
@@ -95,6 +109,7 @@
                                 <img src="<?= base_url('assets/img/profile/') . $profil['gambar']; ?>" alt="5">
                             </figure>
                             <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#FotoBaru"><i class="fa fa-fw fa-user"></i> Ubah Foto</a>
+                            <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#PassBaru"><i class="fa fa-fw fa-key"></i> Ubah Password</a>
                         </div>
                     </div>
                 </div>
