@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 17, 2020 at 08:43 AM
+-- Generation Time: Aug 18, 2020 at 03:30 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -88,8 +88,9 @@ INSERT INTO `bimbingan` (`id`, `id_skripsi`, `pembahasan`, `dosbing`, `tanggal`,
 CREATE TABLE `dosen` (
   `nip` varchar(18) NOT NULL,
   `nama` varchar(50) NOT NULL,
-  `Jenis_Kelamin` int(1) DEFAULT NULL,
+  `Jenis_Kelamin` int(11) DEFAULT NULL,
   `Alamat` varchar(256) DEFAULT NULL,
+  `tanggal_lahir` date DEFAULT NULL,
   `No_HP` varchar(12) DEFAULT NULL,
   `gambar` varchar(256) NOT NULL,
   `username` int(11) DEFAULT NULL,
@@ -102,15 +103,15 @@ CREATE TABLE `dosen` (
 -- Dumping data for table `dosen`
 --
 
-INSERT INTO `dosen` (`nip`, `nama`, `Jenis_Kelamin`, `Alamat`, `No_HP`, `gambar`, `username`, `prodi`, `email`, `tgl_buat`) VALUES
-('196911182001121004', 'Dr. Arif Muntasa, S.SI., M.T.', NULL, NULL, NULL, 'default.jpg', 45, '4111', '', ''),
-('197101092006021012', 'Muhammad Kautsar Sophan, S.T., M.T.', NULL, NULL, NULL, 'default.jpg', 10, '4111', '', ''),
-('19740102017021002', 'Ir. Soekarno, Alm.', NULL, NULL, NULL, 'default.jpg', 22, '1112', '', ''),
-('197402212008011006', 'Dwi Kuswanto, S.Pd., M.T.', NULL, NULL, NULL, 'default.jpg', 38, '4111', '', '1587307634'),
-('197803092003122009', 'Arik Kurniawati, S.Kom., M.T.', NULL, NULL, NULL, 'default.jpg', 36, '4111', '', '1587294193'),
-('197901092006021011', 'Sigit Susanto Putro, S.Kom., M.Kom', NULL, NULL, NULL, 'default.jpg', 23, '4111', 'Sigit.Susanto.P@trunojoyo.ac.id', ''),
-('197902222005012003', 'Ari Kusumaningsih, S.T., M.T.', NULL, NULL, NULL, 'default.jpg', 35, '4111', '', ''),
-('198101092006041003', 'Achmad Jauhari, S.T., M.Kom.', NULL, NULL, NULL, 'default.jpg', 14, '4111', '', '');
+INSERT INTO `dosen` (`nip`, `nama`, `Jenis_Kelamin`, `Alamat`, `tanggal_lahir`, `No_HP`, `gambar`, `username`, `prodi`, `email`, `tgl_buat`) VALUES
+('196911182001121004', 'Dr. Arif Muntasa, S.SI., M.T.', NULL, NULL, '0000-00-00', NULL, 'default.jpg', 45, '4111', '', ''),
+('197101092006021012', 'Muhammad Kautsar Sophan, S.T., M.T.', NULL, NULL, '0000-00-00', NULL, 'default.jpg', 10, '4111', '', ''),
+('19740102017021002', 'Ir. Soekarno, Alm.', NULL, NULL, '0000-00-00', NULL, 'default.jpg', 22, '1112', '', ''),
+('197402212008011006', 'Dwi Kuswanto, S.Pd., M.T.', NULL, NULL, '0000-00-00', NULL, 'default.jpg', 38, '4111', '', '1587307634'),
+('197803092003122009', 'Arik Kurniawati, S.Kom., M.T.', NULL, NULL, '0000-00-00', NULL, 'default.jpg', 36, '4111', '', '1587294193'),
+('197901092006021011', 'Sigit Susanto Putro, S.Kom., M.Kom', NULL, NULL, '0000-00-00', NULL, 'default.jpg', 23, '4111', 'Sigit.Susanto.P@trunojoyo.ac.id', ''),
+('197902222005012003', 'Ari Kusumaningsih, S.T., M.T.', NULL, NULL, '0000-00-00', NULL, 'default.jpg', 35, '4111', '', ''),
+('198101092006041003', 'Achmad Jauhari, S.T., M.Kom.', NULL, NULL, '0000-00-00', NULL, 'default.jpg', 14, '4111', '', '');
 
 -- --------------------------------------------------------
 
@@ -222,26 +223,27 @@ CREATE TABLE `mahasiswa` (
   `email` varchar(256) NOT NULL,
   `tgl_buat` varchar(256) NOT NULL,
   `username` int(11) NOT NULL,
-  `Jenis_Kelamin` int(1) DEFAULT NULL,
+  `Jenis_Kelamin` int(11) DEFAULT NULL,
   `Alamat` varchar(256) DEFAULT NULL,
-  `No_HP` varchar(12) DEFAULT NULL
+  `No_HP` varchar(12) DEFAULT NULL,
+  `tanggal_lahir` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `mahasiswa`
 --
 
-INSERT INTO `mahasiswa` (`nim`, `nama`, `gambar`, `prodi`, `email`, `tgl_buat`, `username`, `Jenis_Kelamin`, `Alamat`, `No_HP`) VALUES
-('1701111', 'anak ilmu perikanan', 'default.jpg', '1111', '', '1587363651', 46, NULL, NULL, NULL),
-('170411100001', 'Ach. Misbahuddin', 'default.jpg', '4111', 'misbah12345a@gmail.com', '1591944770', 47, NULL, NULL, NULL),
-('170411100002', 'mahasiswa baru', 'sbn_sma.jpg', '4111', 'none', '1592363372', 48, NULL, NULL, NULL),
-('170411100003', 'test mockup', 'default.jpg', '4111', '', '1592894799', 49, NULL, NULL, NULL),
-('170411100007', 'Anas Tri Krisna', 'default.jpg', '4111', '', '', 31, NULL, NULL, NULL),
-('170411100015', 'Abd. Ghofar Suwarno', 'default.jpg', '4111', '', '', 33, NULL, NULL, NULL),
-('170411100024', 'Moh. Irsad', 'default.jpg', '4111', '', '', 32, NULL, NULL, NULL),
-('170411100042', 'Ria Rostiani', 'default.jpg', '4111', '', '', 34, NULL, NULL, NULL),
-('170411100099', 'Ahmad Khairi Ramadan', 'default.jpg', '4111', '', '', 30, NULL, NULL, NULL),
-('170411100119', 'Sya\'ban', 'sbn_sma.jpg', '4111', '', '0000-00-00', 8, NULL, NULL, NULL);
+INSERT INTO `mahasiswa` (`nim`, `nama`, `gambar`, `prodi`, `email`, `tgl_buat`, `username`, `Jenis_Kelamin`, `Alamat`, `No_HP`, `tanggal_lahir`) VALUES
+('1701111', 'anak ilmu perikanan', 'default.jpg', '1111', '', '1587363651', 46, NULL, NULL, NULL, NULL),
+('170411100001', 'Ach. Misbahuddin', 'default.jpg', '4111', 'misbah12345a@gmail.com', '1591944770', 47, NULL, NULL, NULL, NULL),
+('170411100002', 'mahasiswa baru', 'sbn_sma.jpg', '4111', 'mahasiswabaru@gmail.com', '1592363372', 48, 1, 'Jl. Baru no. terbaru', '080000000000', '2020-08-05'),
+('170411100003', 'test mockup', 'default.jpg', '4111', '', '1592894799', 49, NULL, NULL, NULL, NULL),
+('170411100007', 'Anas Tri Krisna', 'default.jpg', '4111', '', '', 31, NULL, NULL, NULL, NULL),
+('170411100015', 'Abd. Ghofar Suwarno', 'default.jpg', '4111', '', '', 33, NULL, NULL, NULL, NULL),
+('170411100024', 'Moh. Irsad', 'default.jpg', '4111', '', '', 32, NULL, NULL, NULL, NULL),
+('170411100042', 'Ria Rostiani', 'default.jpg', '4111', '', '', 34, NULL, NULL, NULL, NULL),
+('170411100099', 'Ahmad Khairi Ramadan', 'default.jpg', '4111', '', '', 30, NULL, NULL, NULL, NULL),
+('170411100119', 'Sya\'ban', 'sbn_sma.jpg', '4111', '', '0000-00-00', 8, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -561,7 +563,8 @@ ALTER TABLE `jenkel`
 ALTER TABLE `mahasiswa`
   ADD PRIMARY KEY (`nim`),
   ADD KEY `prodi` (`prodi`),
-  ADD KEY `username` (`username`);
+  ADD KEY `username` (`username`),
+  ADD KEY `jk2` (`Jenis_Kelamin`);
 
 --
 -- Indexes for table `prodi`
@@ -745,6 +748,7 @@ ALTER TABLE `jadwal_sidang`
 -- Constraints for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
+  ADD CONSTRAINT `jk2` FOREIGN KEY (`Jenis_Kelamin`) REFERENCES `jenkel` (`id`),
   ADD CONSTRAINT `mahasiswa_ibfk_1` FOREIGN KEY (`prodi`) REFERENCES `prodi` (`kode_prodi`) ON UPDATE CASCADE,
   ADD CONSTRAINT `mahasiswa_ibfk_2` FOREIGN KEY (`username`) REFERENCES `user` (`id`) ON UPDATE CASCADE;
 

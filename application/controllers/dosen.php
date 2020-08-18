@@ -15,6 +15,10 @@ class dosen extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $userid = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $data['profil'] = $this->db->get_where('dosen', ['username' => $userid['id']])->row_array();
+        $jk=$this->db->get_where('jenkel',['id'=>$data['profil']['Jenis_Kelamin']])->row_array();
+        if($jk!=null){
+            $data['profil']['Jenis_Kelamin']=$jk['jenis'];
+        }
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar', $data);
