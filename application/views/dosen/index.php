@@ -99,7 +99,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-lg">
-                                        <span><a href="" data-target="#FotoBaru"> >Klik untuk ubah profil</a></span>
+                                        <span><a href="<?= base_url('Dosen/updateProfile/') . $profil['username']; ?>"> >Klik untuk ubah profil</a></span>
                                     </div>
                                 </div>
                             </div>

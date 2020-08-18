@@ -24,8 +24,8 @@ class Mahasiswa extends CI_Controller
         $userid = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $data['profil'] = $this->db->get_where('mahasiswa', ['username' => $userid['id']])->row_array();
         $data['statusSkripsi'] = $this->db->get_where('skripsi', ['nim' => $userid['username']])->row_array();
-        $jk=$this->db->get_where('jenkel',['id'=>$data['profil']['Jenis_Kelamin']])->row_array();
-        $data['profil']['Jenis_Kelamin']=$jk['jenis'];
+        $jk = $this->db->get_where('jenkel', ['id' => $data['profil']['Jenis_Kelamin']])->row_array();
+        $data['profil']['Jenis_Kelamin'] = $jk['jenis'];
         // var_dump($statusSkripsi['status']);
         // die;
         // $em = $this->session->userdata('email');
@@ -410,5 +410,31 @@ class Mahasiswa extends CI_Controller
         $this->load->view('template/topbar');
         $this->load->view('mahasiswa/CatatanBimbingan');
         $this->load->view('template/footer');
+    }
+
+    public function updateProfile($id)
+    {
+        $data['judul'] = 'Edit Profil';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+
+        $userid = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['profil'] = $this->db->get_where('mahasiswa', ['username' => $userid['id']])->result_array();
+
+
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('template/header', $data);
+            $this->load->view('template/sidebar', $data);
+            $this->load->view('template/topbar', $data);
+            $this->load->view('mahasiswa/editProfilMahasiswa', $data);
+            $this->load->view('template/footer');
+        } else {
+            $data = array();
+
+            $this->db->where('username', $id);
+            $this->db->update('dosen', $data);
+            $this->session->set_flashdata('pesan', 'Edit Profil Dosen berhasil');
+            redirect('dosen');
+        }
     }
 }

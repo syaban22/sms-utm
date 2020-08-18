@@ -15,9 +15,9 @@ class dosen extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $userid = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $data['profil'] = $this->db->get_where('dosen', ['username' => $userid['id']])->row_array();
-        $jk=$this->db->get_where('jenkel',['id'=>$data['profil']['Jenis_Kelamin']])->row_array();
-        if($jk!=null){
-            $data['profil']['Jenis_Kelamin']=$jk['jenis'];
+        $jk = $this->db->get_where('jenkel', ['id' => $data['profil']['Jenis_Kelamin']])->row_array();
+        if ($jk != null) {
+            $data['profil']['Jenis_Kelamin'] = $jk['jenis'];
         }
 
         $this->load->view('template/header', $data);
@@ -350,5 +350,31 @@ class dosen extends CI_Controller
         $this->db->delete('bimbingan', array('id' => $id));
         $this->session->set_flashdata('pesan', '1 catatan bimbingan berhasil dihapus');
         redirect('dosen/Bimbingan');
+    }
+
+    public function updateProfile($id)
+    {
+        $data['judul'] = 'Edit Profil';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+
+        $userid = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['profil'] = $this->db->get_where('dosen', ['username' => $userid['id']])->result_array();
+
+
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('template/header', $data);
+            $this->load->view('template/sidebar', $data);
+            $this->load->view('template/topbar', $data);
+            $this->load->view('dosen/editProfilDosen', $data);
+            $this->load->view('template/footer');
+        } else {
+            $data = array();
+
+            $this->db->where('username', $id);
+            $this->db->update('dosen', $data);
+            $this->session->set_flashdata('pesan', 'Edit Profil Dosen berhasil');
+            redirect('dosen');
+        }
     }
 }
