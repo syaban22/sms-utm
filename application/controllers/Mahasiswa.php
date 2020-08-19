@@ -418,9 +418,14 @@ class Mahasiswa extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
         $userid = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['profil'] = $this->db->get_where('mahasiswa', ['username' => $userid['id']])->result_array();
+        $data['profil'] = $this->db->get_where('mahasiswa', ['username' => $userid['id']])->row_array();
 
-
+        $this->form_validation->set_rules('namam', 'namam', 'required');
+        $this->form_validation->set_rules('tglm', 'tglm', 'required');
+        $this->form_validation->set_rules('jenkelm', 'jenkelm', 'required');
+        $this->form_validation->set_rules('alamatm', 'alamatm', 'required');
+        $this->form_validation->set_rules('emailm', 'emailm');
+        $this->form_validation->set_rules('nohpm', 'nohpm', 'required');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('template/header', $data);
@@ -429,12 +434,19 @@ class Mahasiswa extends CI_Controller
             $this->load->view('mahasiswa/editProfilMahasiswa', $data);
             $this->load->view('template/footer');
         } else {
-            $data = array();
+            $data = array(
+                'nama' => htmlspecialchars($this->input->post('namam')),
+                'tanggal_lahir' => htmlspecialchars($this->input->post('tglm')),
+                'Jenis_Kelamin' => htmlspecialchars($this->input->post('jenkelm')),
+                'Alamat' => htmlspecialchars($this->input->post('alamatm')),
+                'email' => htmlspecialchars($this->input->post('emailm')),
+                'No_HP' => htmlspecialchars($this->input->post('nohpm')),
+            );
 
             $this->db->where('username', $id);
-            $this->db->update('dosen', $data);
-            $this->session->set_flashdata('pesan', 'Edit Profil Dosen berhasil');
-            redirect('dosen');
+            $this->db->update('mahasiswa', $data);
+            $this->session->set_flashdata('pesan', 'Edit Profil Mahasiswa berhasil');
+            redirect('Mahasiswa');
         }
     }
 }
