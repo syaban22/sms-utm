@@ -4,14 +4,15 @@
     <?= $this->session->flashdata('mt'); ?>
     <!-- Page Heading -->
     <h1 style="text-align: center;" class="h3 mb-4 text-gray-800"><?= "Timeline Skripsi" ?></h1>
+    
     <ul class="timeline" id="timeline">
-        <?php if ($statusSkripsi['status'] >= 1) : ?>
+        <?php if($statusSkripsi!=null){
+             if ($statusSkripsi['status'] >= 1) : ?>
             <li class="li complete">
             <?php else : ?>
             <li class="li">
             <?php endif; ?>
             <div class="timestamp">
-                <!-- <span class="author">Abhi Sharma</span> -->
                 <?php if ($statusSkripsi['status'] == 1) : ?>
                     <span class="date">Proses<span>
                         <?php elseif ($statusSkripsi['status'] > 1) : ?>
@@ -30,7 +31,6 @@
                 <li class="li">
                 <?php endif; ?>
                 <div class="timestamp">
-                    <!-- <span class="author">PAM Admin</span> -->
                     <?php if ($statusSkripsi['status'] == 2) : ?>
                         <span class="date">Proses<span>
                             <?php elseif ($statusSkripsi['status'] > 2) : ?>
@@ -99,6 +99,52 @@
                                 <h4> Skripsi Lulus </h4>
                             </div>
                             </li>
+
+
+
+            <?php } else{?>                    
+            <li class="li">
+                <div class="timestamp">
+                        <span class="date">Proses<span>
+                </div>
+                <div class="status">
+                    <h4> Mendaftarkan Skripsi </h4>
+                </div>
+            </li>
+            <li class="li">
+                <div class="timestamp">
+                    <span class="date">Belum<span>
+                </div>
+                <div class="status">
+                    <h4> Seminar Proposal </h4>
+                </div>
+            </li>
+            <li class="li">
+                <div class="timestamp">
+                    <span class="date">Belum<span>
+                </div>
+                <div class="status">
+                    <h4> Bimbingan Skripsi </h4>
+                </div>
+            </li>
+            <li class="li">
+                <div class="timestamp">
+                    <span class="date">Belum<span>
+                </div>
+                <div class="status">
+                    <h4> Sidang Skripsi </h4>
+                </div>
+            </li>
+            <li class="li">
+                <div class="timestamp">
+                    <span class="date">Belum<span>
+                </div>
+                <div class="status">
+                    <h4> Skripsi Lulus </h4>
+                </div>
+            </li>
+            <?php } ?>
+
     </ul>
     <hr>
     <h1 style="text-align: center;" class="h3 mb-4 text-gray-800"><?= $judul; ?></h1>
