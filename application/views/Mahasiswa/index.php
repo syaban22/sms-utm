@@ -207,7 +207,7 @@
                         </div>
                         <div class="col-lg-6 text-md-center">
                             <figure class="hero-image">
-                                <img src="<?= base_url('assets/img/profile/') . $profil['gambar']; ?>" alt="5">
+                                <img class="img-fluid w-50" src="<?= base_url('assets/img/profile/') . $profil['gambar']; ?>" alt="5">
                             </figure>
                             <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#FotoBaru"><i class="fa fa-fw fa-user"></i> Ubah Foto</a>
                             <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#PassBaru"><i class="fa fa-fw fa-key"></i> Ubah Password</a>
