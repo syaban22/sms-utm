@@ -25,7 +25,8 @@ class Mahasiswa extends CI_Controller
         $data['profil'] = $this->db->get_where('mahasiswa', ['username' => $userid['id']])->row_array();
         $data['statusSkripsi'] = $this->db->get_where('skripsi', ['nim' => $userid['username']])->row_array();
         $jk = $this->db->get_where('jenkel', ['id' => $data['profil']['Jenis_Kelamin']])->row_array();
-        $data['profil']['Jenis_Kelamin'] = $jk['jenis'];
+        if($jk!=null){$data['profil']['Jenis_Kelamin'] = $jk['jenis'];}
+        
         // var_dump($statusSkripsi['status']);
         // die;
         // $em = $this->session->userdata('email');
