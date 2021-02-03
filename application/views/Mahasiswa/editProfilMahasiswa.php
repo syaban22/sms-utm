@@ -5,14 +5,14 @@
           <div class="card-header border-bottom-warning">
           </div>
           <h1 class="h3 mb-4 text-gray-800"><?= $judul; ?></h1>
-          <p class="mb-4">Halaman untuk mengubah data warga</a>.</p>
+          <p class="mb-4">Halaman untuk mengubah profil mahasiswa</a>.</p>
           <?php if (validation_errors()) : ?>
             <div class="alert alert-danger" role="alert">
               <?= validation_errors(); ?>
             </div>
           <?php endif; ?>
           <?php $e = $profil ?>
-          <form action="<?= base_url('dosen/updateProfil/') . $e['username']; ?>" method="post">
+          <form action=" <?= base_url('Mahasiswa/updateProfile/') . $profil['username']; ?>" method="post">
             <h3>A. Data Pribadi</h3>
             <table class="table table-striped table-middle">
               <tr>
@@ -25,11 +25,20 @@
                 <td>:</td>
                 <td><input type="date" class="form-control" name="tglm" value="<?php echo $e['tanggal_lahir'] ?>"></td>
               </tr>
+
               <tr>
                 <th>Jenis Kelamin</th>
                 <td>:</td>
-                <td><input type="text" class="form-control" name="jenkelm" value="<?php echo $e['Jenis_Kelamin'] ?>"></td>
+                <td>
+                  <select class="form-control" name="jenkelm">
+                    <option value=""><?php if($e['jenis']!=null){echo $e['jenis'];}else{echo "-";} ?></option>
+                    <?php foreach ($JK as $j) : ?>
+                      <option value="<?= $j['id']; ?>"><?= $j['jenis']; ?></option>
+                    <?php endforeach; ?>
+                  </select>
+                </td>
               </tr>
+              
               <tr>
                 <th>Alamat</th>
                 <td>:</td>
@@ -43,7 +52,7 @@
               <tr>
                 <th>No HP</th>
                 <td>:</td>
-                <td><input type="text" class="form-control" name="nohpm" value="<?php echo $e['No_HP'] ?>"></td>
+                <td><input type="number" class="form-control" name="nohpm" value="<?php echo $e['No_HP'] ?>"></td>
               </tr>
             </table>
 

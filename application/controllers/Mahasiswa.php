@@ -420,6 +420,8 @@ class Mahasiswa extends CI_Controller
 
         $userid = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $data['profil'] = $this->db->get_where('mahasiswa', ['username' => $userid['id']])->row_array();
+        $data['profil']['jenis'] = $this->db->get_where('jenkel',['id'=>$data['profil']['Jenis_Kelamin']])->row_array();
+        $data['JK']= $this->db->get('jenkel')->result_array();
 
         $this->form_validation->set_rules('namam', 'namam', 'required');
         $this->form_validation->set_rules('tglm', 'tglm', 'required');
@@ -430,9 +432,9 @@ class Mahasiswa extends CI_Controller
 
         if ($this->form_validation->run() == false) {
             $this->load->view('template/header', $data);
-            $this->load->view('template/sidebar', $data);
-            $this->load->view('template/topbar', $data);
-            $this->load->view('mahasiswa/editProfilMahasiswa', $data);
+            $this->load->view('template/sidebar');
+            $this->load->view('template/topbar');
+            $this->load->view('mahasiswa/editProfilMahasiswa');
             $this->load->view('template/footer');
         } else {
             $data = array(
